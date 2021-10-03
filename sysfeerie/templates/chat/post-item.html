@@ -1,0 +1,20 @@
+{{#if img}}
+<div class="postItem postItem_withImage" data-transfer="{{transfer}}">
+	<img src="{{img}}" title="{{name}}" />
+	<div>
+		<h2>{{name}}</h2>
+		<div class="card-data">
+			<strong>{{localize "SYSFEERIE.Item.Value"}}:</strong> {{data.value}}
+		</div>
+		<p>{{data.categoryDescription}}</p>
+	</div>
+</div>
+{{else}}
+<div class="postItem" data-transfer="{{transfer}}">
+	<h2>{{name}}</h2>
+	<div class="card-data">
+		<strong>{{localize "SYSFEERIE.Item.Value"}}:</strong> {{data.value}}
+	</div>
+	<p>{{data.categoryDescription}}</p>
+</div>
+{{/if}}

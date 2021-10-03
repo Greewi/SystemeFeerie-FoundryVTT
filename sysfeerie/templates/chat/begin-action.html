@@ -1,0 +1,44 @@
+<div class="sysfeerie begin-action action">
+    <h2>
+        {{localize 'SYSFEERIE.Chat.NewAction'}}
+    </h2>
+    <h3 title="{{localize 'SYSFEERIE.Dialog.Difficulty'}}: {{Difficulty}}, {{localize 'SYSFEERIE.Dialog.Significance'}}: {{Significance}}">{{localize 'SYSFEERIE.Chat.Difficulty'}} {{Total}}</h3>
+    <div class="action-skill action-skill-1">
+        <div class="skill-container" style="display:{{Display1.Item}}">
+            <img src="{{Item1.img}}" title="{{Item1.name}}" width="32" height="32" />
+            <span class="skill-name">{{Item1.name}}</span>
+            <span class="skill-value">{{Item1.value}}</span>
+            <span class="skill-actor-name">({{Item1.actorName}})</span>
+            <a class="skill-remove" data-slot="1" title="{{localize 'SYSFEERIE.Item.Remove'}}">
+                {{#if Unresolved}}
+                <i class="fas fa-times"></i>
+                {{/if}}
+            </a>
+        </div>
+        <div class="skill-placeholder" style="display:{{Display1.Placeholder}}">
+            {{localize 'SYSFEERIE.Chat.SelectASkill'}}
+        </div>
+    </div>
+    <div class="action-skill action-skill-2">
+        <div class="skill-container" style="display:{{Display2.Item}}">
+            <img src="{{Item2.img}}" title="{{Item2.name}}" width="32" height="32" />
+            <span class="skill-name">{{Item2.name}}</span>
+            <span class="skill-value">{{Item2.value}}</span>
+            <span class="skill-actor-name">({{Item2.actorName}})</span>
+            <a class="skill-remove" data-slot="2" title="{{localize 'SYSFEERIE.Item.Remove'}}">
+                {{#if Unresolved}}
+                <i class="fas fa-times"></i>
+                {{/if}}
+            </a>
+        </div>
+        <div class="skill-placeholder" style="display:{{Display2.Placeholder}}">
+            {{localize 'SYSFEERIE.Chat.SelectASkill'}}
+        </div>
+    </div>
+    {{#if Unresolved}}
+    <div class="action-buttons">
+        <button name="startAction" class="startAction" data-actionScore="{{ActionScore}}"><i class="fas checkMark fa-question-circle"></i> {{localize 'SYSFEERIE.Chat.StartRoll'}}</button>
+        <button name="approveSkills" class="approveSkills">{{localize 'SYSFEERIE.Chat.GMOk'}}</button>
+    </div>
+    {{/if}}
+</div>

@@ -1,0 +1,403 @@
+/**
+ * Character sheet - Layout
+ */
+.sheet.actor .charMain {
+	display: grid;
+	grid-template-columns: 1fr 200px;
+	column-gap: 10px;
+}
+.sheet.actor .tab[data-tab].charMain {
+	display: none;
+}
+.sheet.actor .tab[data-tab].charMain.active {
+	display: grid;
+}
+.sheet.actor .charMain_left {
+	grid-column: 1/2;
+}
+.sheet.actor .charMain_right {
+	grid-column: 2/3;
+}
+.sheet.actor h1 input {
+	border: none;
+	background: none;
+	overflow: visible;
+	border-radius: 0;
+	padding: 0;
+}
+.sheet.actor h2 {
+	margin-top: 10px;
+}
+
+/**
+ * Character sheet - char points
+ */
+.sheet.actor .charMain_charPoints {
+	background-color: black;
+	padding: 5px;
+	color: #CCC;
+	text-align: center;
+}
+.sheet.actor .charMain_CharPoints_infos {
+	float: right;
+}
+.sheet.actor .charMain_charPoints_value,
+.sheet.actor .charMain_charPoints_maxValue {
+	cursor: pointer;
+}
+.sheet.actor .charMain_charPoints_value:hover,
+.sheet.actor .charMain_charPoints_maxValue:hover {
+	text-shadow: 0 0 8px red;
+}
+
+
+/**
+ * Character sheet - description
+ */
+.sheet.actor .charDesc_editButton, .sheet.actor .charDesc_extractButton {
+	display: none;
+}
+.sheet.actor .editable .charDesc_editButton, .sheet.actor .editable .charDesc_extractButton {
+	display: inline;
+	float: right;
+}
+.sheet.actor .charDesc {
+	display : block;
+	text-align: justify;
+}
+.sheet.actor .charDesc_edit {
+	display : none;
+}
+.sheet.actor .charDescEdit {
+	display : none;
+}
+.sheet.actor .charDescEdit_edit {
+	display : block;
+	resize: vertical;
+}
+.sheet.actor .sysfeerie_element {
+	font-weight: bold;
+	cursor: pointer;
+}
+.sheet.actor .sysfeerie_element:hover {
+	text-shadow: 0 0 8px red;
+}
+/**
+ * Character sheet - status
+ */
+.sheet.actor .charStatus_addButton {
+	display: none;
+}
+.sheet.actor .editable .charStatus_addButton {
+	display: inline;
+	float: right;
+}
+.sheet.actor .item.status {
+	display: grid;
+	grid-template-columns: 1fr max-content;
+	column-gap: 5px;
+	cursor: pointer;
+}
+.sheet.actor .item.status span:hover {
+	text-shadow: 0 0 8px red;
+}
+
+/**
+ * Character sheet - elements
+ */
+.sheet.actor .charElement_addButton {
+	display: none;
+}
+.sheet.actor .editable .charElement_addButton {
+	display: inline;
+	float: right;
+}
+.sheet.actor .item {
+	display: grid;
+	grid-template-columns: max-content 1fr max-content;
+	column-gap: 5px;
+	align-items: center;
+	cursor: pointer;
+}
+.sheet.actor .item span:hover {
+	text-shadow: 0 0 8px red;
+}
+
+/**
+ * Character sheet - plots
+ */
+.sheet.actor .charPlot_addButton {
+	display: none;
+}
+.sheet.actor .editable .charPlot_addButton {
+	display: inline;
+	float: right;
+}
+.sheet.actor .item.plot {
+	display: grid;
+	grid-template-columns: max-content 1fr min-content max-content;
+	column-gap: 5px;
+}
+
+/**
+ * Item sheet - elements
+ */
+.sheet.item h2 {
+	margin-top: 10px;
+}
+.sheet.item label {
+	display: block;
+	margin-top: 5px;
+}
+.sheet.item select {
+	width: 100%;
+	display: block;
+}
+.sheet.item .elementSheet_extractButton {
+	float:right;
+}
+/**
+ * Item sheet - plots
+ */
+.sheet.item .plotStep {
+	display: grid;
+	grid-template-columns: 1fr max-content;
+	column-gap: 5px;
+	margin-top: 5px;
+	margin-left: 15px;
+}
+.sheet.item .plotStep_Finish {
+	margin-top: 5px;
+}
+
+/**
+ * Dialogs
+ */
+.sysfeerie .dialog-buttons {
+	display:flex;
+	align-items: flex-start;
+}
+
+/**
+ * Dialog - Start action
+ */
+.actionDialog_difficulty, .actionDialog_significance {
+	display : grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	column-gap: 5px;
+	height: 80px;
+	margin-bottom: 10px;
+}
+button.actionDialog_button {
+	line-height: normal;
+}
+button.actionDialog_button_selected {
+	box-shadow: 0 0 8px red;
+	text-shadow: 0 0 8px red;
+}
+.actionDialog_summary {
+	margin-bottom: 10px;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	column-gap: 10px;
+}
+
+/**
+ * Dialog - Element extraction
+ */
+.elementSource_description {
+	padding: 5px;
+	margin-bottom: 10px;
+	background-color: rgba(0, 0, 0, 0.2);
+	line-height: 30px;
+	max-height: 400px;
+	overflow-y: auto;
+}
+.elementSource_fragment {
+	background:transparent;
+	border-radius: 5px;
+	padding: 4px 2px;
+	margin: 0px -2px;
+	cursor: pointer;
+}
+.elementSource_fragment_selected {
+	background:rgba(255, 255, 255, 0.4);
+	border-radius: 0;
+}
+.elementSource_fragment_first {
+	background:rgba(255, 255, 255, 0.7);
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+.elementSource_fragment_last {
+	background:rgba(255, 255, 255, 0.7);
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+.elementSource_sourceBox {
+	display: grid;
+	grid-template-columns: min-content 1fr;
+	column-gap: 10px;
+	margin-bottom: 10px;
+}
+.elementSource_sourceBox .elementSource_source {
+	height: 100%;
+}
+
+/**
+ * Chat - Post item
+ */
+.message-content .postItem_withImage {
+	display: grid;
+	grid-template-columns: 15% 1fr;
+	align-items: start;
+	column-gap: 10px;
+}
+
+/**
+ * Chat - Begin action
+ */
+.sysfeerie .skill-placeholder, .skill-container {
+	display: grid;
+	align-items: center;
+	height: 42px;
+	padding: 5px;
+	margin-bottom: 5px;
+	background-color: rgba(0, 0, 0, 0.2);
+}
+.sysfeerie .skill-container {
+	grid-template-columns: 32px max-content 1fr max-content max-content;
+	column-gap: 5px;
+}
+.sysfeerie .skill-placeholder {
+	grid-template-columns: 1fr;
+	font-size: 80%;
+	font-style: italic;
+	opacity: 0.9;
+	justify-items: center;
+}
+.sysfeerie .action-buttons {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	column-gap: 10px;
+}
+.sysfeerie .action-buttons button.startAction, .sysfeerie .action-buttons button.approveSkills {
+	margin : 0;
+}
+
+/**
+ * Chat - resolve action
+ */
+.resolve-action-roll-container {
+	display : grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	width: 220px;
+	align-items: center;
+	justify-items: center;
+	margin: 10px auto;
+}
+.resolve-action-roll {
+	width : 60px;
+	height: 60px;
+	border-radius: 10px;
+	display: grid;
+	align-items: center;
+	justify-items: center;
+	font-size: 32pt;
+	box-shadow: -2px -2px 4px inset rgb(0 0 0 / 50%);
+}
+.resolve-action-roll.resolve-action-roll-failed {
+	background-color: rgb(255, 209, 209);
+	color: rgb(0, 0, 0);
+	border: solid 1px rgb(0, 0, 0);
+}
+.resolve-action-roll.resolve-action-roll-success {
+	background-color: rgb(223, 255, 194);
+	color: rgb(0, 0, 0);
+	border: solid 1px rgb(0, 0, 0);
+}
+.resolve-action-score, .resolve-action-dice-success, .resolve-action-dice-success, .resolve-action-dice-success {
+	margin-left: 5px;
+}
+.resolve-action-result {
+	font-size : 12pt;
+	font-weight: bold;
+	margin: 10px auto;
+	text-align: center;
+}
+.resolve-action-success {
+	color: rgb(0, 50, 0);
+}
+.resolve-action-failed {
+	color: rgb(50, 0, 0);
+}
+
+/**
+ * Settings
+ */
+.sysfeerie .categorySetting_form {
+	display: grid;
+	grid-template-rows: 1fr max-content;
+	row-gap: 5px;
+	overflow-y: hidden;
+}
+.sysfeerie .categorySetting_content {
+	overflow-y: auto;
+}
+.sysfeerie .categorySetting_saveButton {
+	margin:0;
+}
+
+.sysfeerie .categorySetting_category {
+	display: grid;
+	grid-template-columns: 2fr 2fr 1fr;
+	grid-template-areas: "title title title" "id name short" "description description description" "levels levels levels";
+	column-gap: 5px;
+	row-gap: 5px;
+	margin-bottom: 10px;
+}
+.sysfeerie .categorySetting_category h2 {
+	grid-area: title;
+}
+.sysfeerie .categorySetting {
+
+}
+.sysfeerie .categorySetting_id {
+	grid-area: id;
+}
+.sysfeerie .categorySetting_name {
+	grid-area: name;
+}
+.sysfeerie .categorySetting_short {
+	grid-area: short;
+}
+.sysfeerie .categorySetting_description {
+	grid-area: description;
+}
+.sysfeerie .categorySetting_levels {
+	grid-area: levels;
+	display: grid;
+	grid-template-columns: max-content 1fr;
+	column-gap: 5px;
+	row-gap: 5px;
+}
+.sysfeerie .categorySetting_levelLabel {
+
+}
+.sysfeerie .categorySetting_levelDescription {
+}
+.sysfeerie .categorySetting_addButton {
+	float: right;
+}
+.sysfeerie .categorySetting_disableCategory {
+	float: right;
+}
+.sysfeerie .categorySetting_enableCategory {
+	float: right;
+}
+.sysfeerie .categorySetting_deleteCategory {
+	float: right;
+}
+.sysfeerie .categorySetting_category_disabled h2 span, .sysfeerie .categorySetting_category_disabled input{
+	opacity: 0.5;
+}

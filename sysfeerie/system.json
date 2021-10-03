@@ -1,0 +1,79 @@
+{
+    "name": "sysfeerie",
+    "title": "Système Féerie",
+    "description": "Le Système Féerie est un système de jeu qui privilégie le sens et les descriptions aux mécaniques de simulations habituelles.",
+    "version": "0.0.0",
+    "manifestPlusVersion": "0.0.0",
+    "templateVersion": 1,
+    "author": "Greewi",
+    "authors" : [
+        {
+            "name" : "Sylvain « Greewi » Dumazet",
+            "url" : "https://feerie.net"
+        }
+    ],
+    "media" : [
+        {
+            "type": "cover",
+            "url": "https://raw.githubusercontent.com/Greewi/SystemeFeerie-FoundryVTT/stable/media/cover.jpg"
+        },
+        {
+            "type": "icon",
+            "url": "https://raw.githubusercontent.com/Greewi/SystemeFeerie-FoundryVTT/stable/media/icon.png"
+        },
+        {
+            "type": "screenshot",
+            "url": "https://raw.githubusercontent.com/Greewi/SystemeFeerie-FoundryVTT/stable/media/screenshot01.jpg"
+        }
+    ],
+    "esmodules": [
+        "modules/systemeFeerie.js"
+    ],
+    "styles": [
+        "styles/systemeFeerie.css"
+    ],
+    "packs": [
+        {
+            "name": "macrosgm",
+            "label": "Macros",
+            "system": "sysfeerie",
+            "module": "sysfeerie",
+            "path": "packs/macrosgm.db",
+            "entity": "Macro",
+            "tag": "macrosgm"
+        },
+        {
+            "name": "rules_fr",
+            "label": "Règles (FR)",
+            "system": "sysfeerie",
+            "module": "sysfeerie",
+            "path": "packs/rules_fr.db",
+            "entity": "JournalEntry",
+            "tag": "rules"
+        }
+    ],
+    "languages": [
+        {
+            "lang": "fr",
+            "name": "Français",
+            "path": "lang/fr.json"
+        },
+        {
+            "lang": "en",
+            "name": "English",
+            "path": "lang/fr.json"
+        }
+    ],
+    "dependencies":{
+        "name": "compendium-folders"
+    },
+    "socket": true,
+    "gridDistance": 2,
+    "gridUnits": "m",
+    "primaryTokenAttribute": "charPoints",
+    "minimumCoreVersion": "0.8.0",
+    "compatibleCoreVersion": "0.8.8",
+    "url": "https://github.com/Greewi/SystemeFeerie-FoundryVTT",
+    "manifest": "https://raw.githubusercontent.com/Greewi/SystemeFeerie-FoundryVTT/stable/systemeFeerie/system.json",
+    "download": "https://github.com/Greewi/SystemeFeerie-FoundryVTT/releases/download/v0.1.0/systemeFeerie.zip"
+}

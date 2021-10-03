@@ -1,0 +1,70 @@
+<h2>{{localize 'SYSFEERIE.Dialog.SelectDifficulty'}}</h2>
+<div class="dialog-buttons actionDialog_difficulty">
+	<button class="actionDialog_button" data-button="SIMPLE">
+		<i class="fas fa-cookie-bite"></i>
+		{{localize 'SYSFEERIE.Difficulty.Simple'}}
+		<div class="bonus">+4</div>
+	</button>
+	<button class="actionDialog_button" data-button="TOUGH">
+		<i class="fas fa-grin-beam-sweat"></i>
+		{{localize 'SYSFEERIE.Difficulty.Tough'}}
+		<div class="bonus">+2</div>
+	</button>
+	<button class="actionDialog_button" data-button="INTRICATE">
+		<i class="fas fa-hard-hat"></i>
+		{{localize 'SYSFEERIE.Difficulty.Intricate'}}
+		<div class="bonus">+0</div>
+	</button>
+	<button class="actionDialog_button" data-button="INSANE">
+		<i class="fas fa-fire-alt"></i>
+		{{localize 'SYSFEERIE.Difficulty.Insane'}}
+		<div class="bonus">-2</div>
+	</button>
+	<button class="actionDialog_button" data-button="RIDICULOUS">
+		<i class="fas fa-pray"></i>
+		{{localize 'SYSFEERIE.Difficulty.Ridiculous'}}
+		<div class="bonus">-4</div>
+	</button>
+</div>
+<h2>{{localize 'SYSFEERIE.Dialog.SelectSignificance'}}</h2>
+<div class="dialog-buttons actionDialog_significance">
+	<button class="actionDialog_button" data-button="SHOULD_SUCCEED">
+		<i class="fas fa-check-double"></i>
+		{{localize 'SYSFEERIE.Significance.ShouldSucceed'}}
+		<div class="bonus">+4</div>
+	</button>
+	<button class="actionDialog_button" data-button="INTERESTING_SUCCESS">
+		<i class="fas fa-check"></i>
+		{{localize 'SYSFEERIE.Significance.InterestingSuccess'}}
+		<div class="bonus">+2</div>
+	</button>
+	<button class="actionDialog_button" data-button="NEUTRAL">
+		<i class="fas fa-grip-lines"></i>
+		{{localize 'SYSFEERIE.Significance.Neutral'}}
+		<div class="bonus">+0</div>
+	</button>
+	<button class="actionDialog_button" data-button="INTERESTING_FAIL">
+		<i class="fas fa-times"></i>
+		{{localize 'SYSFEERIE.Significance.InterestingFail'}}
+		<div class="bonus">-2</div>
+	</button>
+	<button class="actionDialog_button" data-button="SHOULD_FAIL">
+		<i class="fas fa-skull-crossbones"></i>
+		{{localize 'SYSFEERIE.Significance.ShouldFail'}}
+		<div class="bonus">-4</div>
+	</button>
+</div>
+<div class="actionDialog_summary">
+	<div class="actionDialog_summary_difficulty">
+		<div class="actionDialog_description actionDialog_description_difficulty">
+			{{localize 'SYSFEERIE.Dialog.Difficulty'}}
+		</div>
+		<input type="number" name="actionDialog_difficulty" value="0" class="actionDialog_value_difficulty" />
+	</div>
+	<div class="actionDialog_summary_dignifiance">
+		<div class="actionDialog_description actionDialog_description_dignifiance">
+			{{localize 'SYSFEERIE.Dialog.Significance'}}
+		</div>
+		<input type="number" name="actionDialog_significance" value="0" class="actionDialog_value_signifiance" />
+	</div>
+</div>

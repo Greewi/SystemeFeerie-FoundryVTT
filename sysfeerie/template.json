@@ -1,0 +1,61 @@
+{
+    "Actor": {
+        "types": [
+            "playerCharacter"
+        ],
+        "templates": {
+            "basic": {
+                "description" : ""
+            },
+            "playerCharacter": {
+                "roles" : [],
+                "concept" : "",
+                "charPoints": {
+                    "min": 0,
+                    "value": 3,
+                    "max": 3
+                }
+            }
+        },
+        "playerCharacter": {
+            "templates": [
+                "basic",
+                "playerCharacter"
+            ]
+        }
+    },
+    "Item": {
+        "types": [
+            "element",
+            "status",
+            "plot"
+        ],
+        "templates": {
+            "basic": {
+                "value": 0
+            }
+        },
+        "element": {
+            "templates": [
+                "basic"
+            ],
+            "category": "",
+            "source": ""
+        },
+        "status": {
+            "templates": [
+                "basic"
+            ]
+        },
+        "plot": {
+            "templates": [],
+            "rewardName": "",
+            "rewardCategory": "",
+            "rewardValue": 0,
+            "goal": "",
+            "stepNumber": 0,
+            "steps": [],
+            "currentStep": ""
+        }
+    }
+}

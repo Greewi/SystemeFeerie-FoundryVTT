@@ -1,0 +1,1 @@
+{"name":"Start Action","type":"script","author":"ozdW9wmXbsfdA8ay","img":"icons/sundries/gaming/dice-runed-brown.webp","scope":"global","command":"game.systemeFeerie.openActionDialog();","folder":null,"sort":0,"permission":{"default":0,"ozdW9wmXbsfdA8ay":3},"flags":{"core":{"sourceId":"Macro.PPRs5XOxcuN2BFTl"}},"_id":"mlk776d9y8chln6w"}

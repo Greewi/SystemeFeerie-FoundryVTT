@@ -1,0 +1,30 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <header class="sheet-header">
+        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+        <div class="header-fields">
+            <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name" /></h1>
+        </div>
+    </header>
+    {{!-- Sheet Body --}}
+    <section class="sheet-body">
+        <div class="tab active" data-group="primary" data-tab="description">
+            <div>
+                <label for="data.category">{{localize "SYSFEERIE.Item.Category"}}</label>
+                <select name="data.category">
+                    {{selectOptions categories selected=data.data.category}}
+                </select>
+            </div>
+            <div>
+                <label for="data.value">{{localize "SYSFEERIE.Item.Value"}}</label>
+                <select name="data.value">
+                    {{selectOptions levels selected=data.data.value}}
+                </select>
+            </div>
+            <div>
+                <a class="elementSheet_extractButton" title="{{SYSFEERIE.Char.ExtractElement}}"><i class="fas fa-puzzle-piece"></i></a>
+                <label for="data.source">{{localize "SYSFEERIE.Item.Source"}}</label>
+                <input name="data.source" type="text" value="{{data.data.source}}" placeholder="{{localize "SYSFEERIE.Item.Source"}}" />
+            </div>
+        </div>
+    </section>
+</form>
