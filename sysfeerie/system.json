@@ -74,6 +74,6 @@
     "minimumCoreVersion": "0.8.0",
     "compatibleCoreVersion": "0.8.8",
     "url": "https://github.com/Greewi/SystemeFeerie-FoundryVTT",
-    "manifest": "https://raw.githubusercontent.com/Greewi/SystemeFeerie-FoundryVTT/stable/systemeFeerie/system.json",
+    "manifest": "https://raw.githubusercontent.com/Greewi/SystemeFeerie-FoundryVTT/stable/sysfeerie/system.json",
     "download": "https://github.com/Greewi/SystemeFeerie-FoundryVTT/releases/download/v0.1.0/systemeFeerie.zip"
 }
