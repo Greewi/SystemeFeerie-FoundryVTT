@@ -98,7 +98,7 @@ export class SystemeFeerieAction {
 	 * Change the "GM ackowledge" checkmark of an action
 	 * @param {Boolean} ack 
 	 */
-	static updateGMAck(ack) {
+	static async updateGMAck(ack) {
 		if(ack)
 			document.querySelector('.checkMark').classList.replace("fa-question-circle", "fa-check-circle");
 		else
@@ -240,7 +240,7 @@ export class SystemeFeerieAction {
 	 * Create a RollMessage and resolve the action
 	 * @param {Number} actionScore 
 	 */
-	static resolveAction(actionScore){
+	static async resolveAction(actionScore){
 		let data = {
 			HasRoll: actionScore > 0 && actionScore < 6,
 			ActionScore: actionScore
@@ -249,7 +249,7 @@ export class SystemeFeerieAction {
 		let result = actionScore >= 6;
 		let roll = null;
 		if(data.HasRoll){
-			roll = new Roll(`3d6cs<=${actionScore}`).roll();
+			roll = await new Roll(`3d6cs<=${actionScore}`).roll();
 			data.SuccessCount = parseInt(roll.result,10);
 			data.Rolls = roll.dice[0].results.map(obj => {
 				return {value:obj.result,class:obj.success ? "resolve-action-roll-success":"resolve-action-roll-failed"};

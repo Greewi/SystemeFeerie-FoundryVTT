@@ -1,6 +1,6 @@
 # SystemeFeerie-FoundryVTT
 
-![Couverture](media/cover.jpg)
+![Couverture](media/cover.png)
 
 Ce système est conçu pour jour aux jeux utilisant le [*Système Féerie*](https://systeme.feerie.net) avec [*Foundry Virtual Tabletop*](https://foundryvtt.com/).
 Le *Système Féerie* est un système de simulation générique descriptif qui favorise la description aux mécaniques habituelles de la plupart des jeux de rôle, que ce soit au niveau de la création des personnages que du système de résolution des actions.
@@ -15,15 +15,53 @@ Ce système a été conçu pour être simple et rapide à prendre en main. Comme
 
 ## Informations techniques
 
-TODO
+Lien vers le manifeste du système :
+* https://github.com/Greewi/SystemeFeerie-FoundryVTT/releases/latest/download/system.json
+
+Prérequis :
+* [*FoundryVTT*](https://foundryvtt.com/) : le logiciel de table virtuelle pour lequel ce système a été conçu.
+* [Compendium Folder](https://foundryvtt.com/packages/compendium-folders) : ce module permet d'importer les compendium en conservant l'organisation par dossier.
+
+Modules conseillés :
+* [Dice so Nice](https://foundryvtt.com/packages/dice-so-nice/) : des dés en 3D, où comment retrouver la joie de voir les dés rouler en temps réel.
+* [Monk's Enhanced Journal](https://foundryvtt.com/packages/monks-enhanced-journal) : un navigateur de journaux et notes très très pratique.
+* [PopOut!](https://foundryvtt.com/packages/popout) : permet d'ouvrir les fenêtres des personnages et journaux dans de nouvelles fenêtres.
 
 ## Installation
 
-TODO
+Via l’instalateur de *Foundry* :
+1. Dans le menu `Game Systems` de *Foundry*, cliquez sur `Install System`
+2. Entrez `https://github.com/Greewi/SystemeFeerie-FoundryVTT/releases/latest/download/system.json` dans Manifest URL
+3. Cliquez sur `Install`
+
+Créer et initialiser un monde :
+1. Dans le menu `Game Worlds` de *Foundry*, cliquez sur `Create World`
+2. Dans `Game System` sélectionnez `Système Féerie`
+3. Remplissez les autres informations à votre convenance et cliquez sur `Create World`
+4. Connectez-vous en gamemaster et allez dans l’onglet `Game settings`
+5. Allez dans `Manage Modules`
+6. Activez le module `Compendium Folder` (ainsi que les autres modules que vous souhaitez utiliser)
+
+Installer les compendiums :
+1. Allez dans l’onglet `Compendium Packs`
+2. Pour chaque compendium : cliquez sur le compendium puis pour chaque répertoire du compendium, cliquez sur l’icône `Importer la structure des dossiers` (Attendez que l’opération soit finie avant de traiter le dossier suivant)
+3. Donnez les droits d’observateur aux joueurs des éléments qui vous intéressent (attention, donner les droits sur un dossier, ne donne pas les droits sur les éléments des sous-dossiers !)
+4. Pour le compendium `Actions MJ`, nous vous conseillons de glisser la macro `Débuter une action` dans votre barre de raccourcis
+
+Configurer les carégories des éléments :
+1. Allez dans l'onglet `Game Setting`
+2. Cliquez sur `Configure Settings`
+3. Allez dans `System Settings`
+4. Cliquez sur `Configurer les catégories`
+5. Renommez et modifiez les catégories à votre convenance
+6. Pour ajouter une nouvelle catégorie cliquez sur le `plus` tout en haut à droite.
+7. Pour désactiver (sans supprimer) une catégorie : cliquez sur la `croix` à droite du titre de la catégorie.
+8. Pour supprimer une catégorie cliquez sur l'icone `poubelle`. Notez que vous ne pouvez pas supprimer les catégories initiales (mais vous pouvez les désactiver ce qui revient au même)
+9. Une fois satisfait, cliquez sur `Save`.
 
 ## Screenshots
 
-TODO
+![Screenshot](media/screenshot01.png)
 
 ## Créer un personnage
 
@@ -84,6 +122,8 @@ Une fois que le meneur à validé les éléments, il peit cliquer sur le bouton 
 ## Remerciements et contributions
 
 Un grand merci à JDW pour le travail qu'il a réalisé sur le système pour Solaires dont certains éléments ont été repris ici (en particulier, la résolution des actions).
+
+Un grand merci à mes cobayes qui ont écopé les bugs (mais ils ont quand même sauvé le monde, alors ça va !).
 
 ## Licences
 
