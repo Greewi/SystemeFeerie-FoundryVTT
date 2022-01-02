@@ -71,7 +71,7 @@ Concrètement, après avoir créé un nouvel acteur, vous vous retrouverez avec 
 
 ![La fiche de personnage vide, avec seulement le nom du personnage rempli](media/fiche_vide.jpg)
 
-La première étape pour la remplir consiste à choisir les rôles du personnage (une sorte de contrat qui sert à les répartir entre les différents personnages du groupe, histoire). La liste des rôles dépend du jeu joué et des aspects qui seront mis en avant.
+La première étape pour la remplir consiste à choisir les rôles du personnage (une sorte de contrat qui sert à les répartir entre les différents personnages du groupe). La liste des rôles dépend du jeu joué et des aspects qui seront mis en avant.
 
 La seconde étape consiste à écrire un court concept qui répond à ces rôles pour servir de point de départ à la création du personnage. C'est une phrase courte par exemple : "Un magicien elfe, consultant pour les forces de l'ordre de la ville".
 
@@ -107,7 +107,7 @@ Pour commencer une action, le meneur peut utiliser la *Start Action* qui est à 
 
 ![La fenêtre début d'une action](media/action_debut.jpg)
 
-Sur cette fenêtre, le meneur peut choisir la difficulté intrinsèque (à quel point l'action est difficile dans l'univers du jeu) et l'intérêt scénaristiques (est-ce que la réussite ou l'échèque donnerait un résultat plus intéressant que l'autre ?). Une fois son choix validé, il peut cliquer sur *Commencer l'action*. Une boîte va alors apparaître dans le chat.
+Sur cette fenêtre, le meneur peut choisir la difficulté intrinsèque (à quel point l'action est difficile dans l'univers du jeu) et l'intérêt scénaristiques (est-ce que la réussite ou l'échec donnerait un résultat plus intéressant que l'autre ?). Une fois son choix validé, il peut cliquer sur *Commencer l'action*. Une boîte va alors apparaître dans le chat.
 
 ![La fenêtre d'action dans le chat](media/action_chat_vide.jpg)
 
