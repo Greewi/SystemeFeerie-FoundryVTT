@@ -65,5 +65,21 @@
   "protected": false,
   "gridDistance": 2,
   "gridUnits": "m",
-  "primaryTokenAttribute": "charPoints"
+  "primaryTokenAttribute": "charPoints",
+
+  "manifestPlusVersion": "1.2.0",
+  "media" : [
+    {
+        "type": "cover",
+        "url": "https://raw.githubusercontent.com/Greewi/SystemeFeerie-FoundryVTT/stable/media/cover.jpg"
+    },
+    {
+        "type": "icon",
+        "url": "https://raw.githubusercontent.com/Greewi/SystemeFeerie-FoundryVTT/stable/media/icon.png"
+    },
+    {
+        "type": "screenshot",
+        "url": "https://raw.githubusercontent.com/Greewi/SystemeFeerie-FoundryVTT/stable/media/screenshot01.jpg"
+    }
+  ]
 }
