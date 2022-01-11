@@ -47,6 +47,15 @@ Hooks.once("init", async function () {
 	});
 });
 
+Hooks.once("diceSoNiceReady", (dice3d) => {
+	dice3d.addSystem({id: "3e_terre_dice_set", name: "The Rollsmith - Bloodstone"}, "preferred");
+	dice3d.addDicePreset({
+		type: "d6",
+		modelFile: SFUtility.getSystemRessource("dices/3e_terre/d6.glb"),
+		system: "3e_terre_dice_set"
+	});
+});
+
 Hooks.once("ready", async function () {
 
 	game.systemeFeerie = new SystemeFeerie();
