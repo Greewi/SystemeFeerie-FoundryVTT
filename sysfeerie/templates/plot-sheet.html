@@ -11,18 +11,18 @@
 			<h2>{{localize "SYSFEERIE.Plot.Reward"}}</h2>
 			<div>
 				<label for="data.rewardName">{{localize "SYSFEERIE.Plot.RewardElement"}}</label>
-				<input type="text" data-dtype="String" name="data.rewardName" value="{{data.data.rewardName}}" />
+				<input type="text" data-dtype="String" name="data.rewardName" value="{{data.system.rewardName}}" />
 			</div>
 			<div>
 				<label for="data.rewardCategory">{{localize "SYSFEERIE.Item.Category"}}</label>
 				<select name="data.rewardCategory">
-					{{selectOptions categories selected=data.data.rewardCategory}}
+					{{selectOptions categories selected=data.system.rewardCategory}}
 				</select>
 			</div>
 			<div>
 				<label for="data.rewardValue">{{localize "SYSFEERIE.Item.Value"}}</label>
 				<select name="data.rewardValue">
-					{{selectOptions levels selected=data.data.rewardValue}}
+					{{selectOptions levels selected=data.system.rewardValue}}
 				</select>
 			</div>
 			<h2>{{localize "SYSFEERIE.Plot.Goal"}}</h2>
@@ -34,13 +34,13 @@
 			<h2>{{localize "SYSFEERIE.Plot.Steps"}}</h2>
 			<div>
 				<label for="data.stepNumber">{{localize "SYSFEERIE.Plot.StepsNumber"}}</label>
-				<input type="text" data-dtype="Number" name="data.stepNumber" value="{{data.data.stepNumber}}" />
+				<input type="text" data-dtype="Number" name="data.stepNumber" value="{{data.system.stepNumber}}" />
 			</div>
 			<div>
-				{{#if (ne data.data.steps.length 0)}}
+				{{#if (ne data.system.steps.length 0)}}
 					<label>{{localize "SYSFEERIE.Plot.FinishedSteps"}}</label>
 				{{/if}}
-				{{#each data.data.steps as |step id|}}
+				{{#each data.system.steps as |step id|}}
 				<li class="plotStep flexrow plot item-edit" data-item-id="{{plot.id}}">
 					<span>{{step}}</span>
 					<div class="item-controls">
@@ -52,7 +52,7 @@
 			{{#if incomplet}}
 			<div>
 				<label for="data.currentStep">{{localize "SYSFEERIE.Plot.CurrentStep"}}</label>
-				<input type="text" data-dtype="String" name="data.currentStep" value="{{data.data.currentStep}}" />
+				<input type="text" data-dtype="String" name="data.currentStep" value="{{data.system.currentStep}}" />
 			</div>
 			<button class="plotStep_Finish">{{localize "SYSFEERIE.Plot.FinishStep"}}</button>
 			{{/if}}

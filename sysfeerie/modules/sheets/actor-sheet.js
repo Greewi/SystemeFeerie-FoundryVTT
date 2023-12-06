@@ -24,7 +24,7 @@ export class SFActorSheet extends ActorSheet {
 	 * @override
 	 */
 	get template() {
-		if(this.actor.data.type == "playerCharacter")
+		if(this.actor.type == "playerCharacter")
 			return SFUtility.getSystemRessource("templates/character-sheet.html");
 		return SFUtility.getSystemRessource("templates/item-sheet.html");
 	}
@@ -36,17 +36,17 @@ export class SFActorSheet extends ActorSheet {
 		const actorData = super.getData();
 		if(actorData.data.type == "playerCharacter") {
 			// Sorting elements by categories
-			actorData.data.data.sortedElements = {};
-			for(let element of actorData.data.data.elements) {
-				let category = Category.getCategory(element.data.data.category);
+			actorData.data.system.sortedElements = {};
+			for(let element of actorData.data.system.elements) {
+				let category = Category.getCategory(element.system.category);
 				if(category) {
-					if(!actorData.data.data.sortedElements[category.id])
-						actorData.data.data.sortedElements[category.id] = [];
-					actorData.data.data.sortedElements[category.id].push(element);
+					if(!actorData.data.system.sortedElements[category.id])
+						actorData.data.system.sortedElements[category.id] = [];
+					actorData.data.system.sortedElements[category.id].push(element);
 				} else {
-					if(!actorData.data.data.sortedElements["UNSORTED"])
-						actorData.data.data.sortedElements["UNSORTED"] = [];
-					actorData.data.data.sortedElements["UNSORTED"].push(element);
+					if(!actorData.data.system.sortedElements["UNSORTED"])
+						actorData.data.system.sortedElements["UNSORTED"] = [];
+					actorData.data.system.sortedElements["UNSORTED"].push(element);
 				}
 			}
 		}
@@ -82,23 +82,23 @@ export class SFActorSheet extends ActorSheet {
 
 		// change charpoints amounts
 		html.find('.charMain_charPoints_value').mouseup(ev => {
-			let val = this.actor.data.data.charPoints.value;
-			let max = this.actor.data.data.charPoints.max;
+			let val = this.actor.system.charPoints.value;
+			let max = this.actor.system.charPoints.max;
 			if(ev.button == 0) val++;
 			if(ev.button == 2) val--;
 			if(val>max) val = max;
 			if(val<0) val = 0;
-			this.actor.update({"data.charPoints.value" : val});
+			this.actor.update({"system.charPoints.value" : val});
 		});
 		html.find('.charMain_charPoints_maxValue').mouseup(ev => {
-			let val = this.actor.data.data.charPoints.value;
-			let max = this.actor.data.data.charPoints.max;
+			let val = this.actor.system.charPoints.value;
+			let max = this.actor.system.charPoints.max;
 			if(ev.button == 0) max++;
 			if(ev.button == 2) max--;
 			if(max<0) max = 0;
 			if(val>max) val = max;
 			if(val<0) val = 0;
-			this.actor.update({"data.charPoints.value" : val, "data.charPoints.max" : max});
+			this.actor.update({"system.charPoints.value" : val, "system.charPoints.max" : max});
 		});
 
 		// Add status
@@ -166,7 +166,7 @@ export class SFActorSheet extends ActorSheet {
 
 		// Use an element for the action resolution system
 		const addItemToAction = (itemId)=>{
-			let item = this.actor.items.find(i => i.data._id == itemId);
+			let item = this.actor.items.find(i => i._id == itemId);
 			if (game.user.isGM && game.systemeFeerie.pendingAction)
 				game.systemeFeerie.pendingAction.setItem(item);
 			else {

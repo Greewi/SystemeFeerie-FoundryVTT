@@ -10,9 +10,9 @@ export class SFItemSheet extends ItemSheet {
 
 	constructor(item={}, options={}) {
 		super(item, options);
-		if(item.data.type == "plot")
+		if(item.type == "plot")
 			this.position.height = 700;
-		if(item.data.type == "status")
+		if(item.type == "status")
 			this.position.height = 170;
 	}
 
@@ -34,7 +34,7 @@ export class SFItemSheet extends ItemSheet {
 	 */
 	getData() {
 		const data = super.getData();
-		if(this.item.data.type == "element") {
+		if(this.item.type == "element") {
 			// Select des catégories
 			data.categories = {};
 			let categories = Category.getCategories();
@@ -44,22 +44,22 @@ export class SFItemSheet extends ItemSheet {
 			}
 			// Select des niveaux
 			data.levels = {};
-			let category = Category.getCategory(this.item.data.data.category);
+			let category = Category.getCategory(this.item.system.category);
 			if(category) {
 				for(let i=0; i<category.levels.length; i++)
 					data.levels[i] = `${i} - ${category.levels[i]}`;
 			} else {
 				data.levels = {"0":"0", "1":"1", "2":"2", "3":"3"};
 			}
-		} else if(this.item.data.type == "status") {
+		} else if(this.item.type == "status") {
 			data.levels = {
 				"0":`0 - ${game.i18n.localize("SYSFEERIE.Status.Level0")}`,
 				"1":`1 - ${game.i18n.localize("SYSFEERIE.Status.Level1")}`,
 				"2":`2 - ${game.i18n.localize("SYSFEERIE.Status.Level2")}`,
 				"3":`3 - ${game.i18n.localize("SYSFEERIE.Status.Level3")}`
 			};
-		} else if(this.item.data.type == "plot") {
-			data.incomplet = this.item.data.data.stepNumber > this.item.data.data.steps.length;
+		} else if(this.item.type == "plot") {
+			data.incomplet = this.item.system.stepNumber > this.item.system.steps.length;
 			// Select des catégories
 			data.categories = {};
 			let categories = Category.getCategories();
@@ -68,7 +68,7 @@ export class SFItemSheet extends ItemSheet {
 					data.categories[categorieId] = categories[categorieId].name;
 			// Select des niveaux
 			data.levels = {};
-			let category = Category.getCategory(this.item.data.data.rewardCategory);
+			let category = Category.getCategory(this.item.system.rewardCategory);
 			if(category) {
 				for(let i=0; i<category.levels.length; i++)
 					data.levels[i] = `${i} - ${category.levels[i]}`;
@@ -83,9 +83,9 @@ export class SFItemSheet extends ItemSheet {
 	 * @override
 	 */
 	get template() {
-		if(this.item.data.type == "plot")
+		if(this.item.type == "plot")
 			return SFUtility.getSystemRessource("templates/plot-sheet.html");
-		if(this.item.data.type == "status")
+		if(this.item.type == "status")
 			return SFUtility.getSystemRessource("templates/status-sheet.html");
 		return SFUtility.getSystemRessource("templates/element-sheet.html");
 	}
@@ -100,22 +100,22 @@ export class SFItemSheet extends ItemSheet {
 		if (!this.options.editable) return;
 
 		// Update Inventory Item
-		if(this.item.data.type == "plot") {
+		if(this.item.type == "plot") {
 			html.find('.plotStep_Finish').click(ev => {
 				ev.stopPropagation();
-				let newSteps = this.item.data.data.steps.concat(this.item.data.data.currentStep);
-				this.item.update({"data.steps":newSteps, "data.currentStep":""});
+				let newSteps = this.item.system.steps.concat(this.item.system.currentStep);
+				this.item.update({"system.steps":newSteps, "system.currentStep":""});
 			});
 			html.find('.plotStep_delete').click(ev => {
 				let stepId = $(ev.currentTarget).data("stepId");
 				ev.stopPropagation();
-				this.item.data.data.steps.splice(stepId, 1);
-				this.item.update({"data.steps":this.item.data.data.steps});
+				this.item.system.steps.splice(stepId, 1);
+				this.item.update({"system.steps":this.item.system.steps});
 			});
 		}
 
 		// Extract element source
-		if(this.item.data.type == "element") {
+		if(this.item.type == "element") {
 			if(this.item.actor) {
 				html.find('.elementSheet_extractButton').click(ev => {
 					SFDialogs.extractElementForItem(this.item.actor, this.item);

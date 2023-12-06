@@ -30,9 +30,9 @@ export class ElementSourceDialog extends Dialog {
 		this._item = item;
 
 		// Searching existing selection boundaries
-		let description = this._actor.data.data.description;
+		let description = this._actor.system.description;
 		if(this._item) {
-			let originalSource = this._item.data.data.source;
+			let originalSource = this._item.system.source;
 			this._originalStart = originalSource ? description.indexOf(originalSource) : -1;
 			this._originalEnd = this._originalStart >= 0 ? this._originalStart+originalSource.length : -1;
 		} else {
@@ -152,13 +152,13 @@ export class ElementSourceDialog extends Dialog {
 	extractOrUpdateElement() {
 		let source = this._source.val();
 		if(this._item) {
-			this._item.update({"data.source" : source});
+			this._item.update({"system.source" : source});
 		} else {
 			let data = {
 				"type" : "element",
 				"img" : `icons/commodities/treasure/bust-carved-stone.webp`,
 				"name" : source[0].toUpperCase()+source.slice(1),
-				"data.source" : source
+				"system.source" : source
 			}
 			return Item.create(data, {parent: this._actor, renderSheet:true});
 		}

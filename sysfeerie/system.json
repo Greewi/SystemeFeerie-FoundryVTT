@@ -1,5 +1,5 @@
 {
-  "name": "sysfeerie",
+  "id": "sysfeerie",
   "title": "Système Féerie",
   "description": "Le Système Féerie est un système de jeu qui privilégie le sens et les descriptions aux mécaniques de simulations habituelles.",
   "author": "Greewi",
@@ -12,9 +12,12 @@
   ],
   "url": "https://github.com/Greewi/SystemeFeerie-FoundryVTT",
   "flags": {},
-  "version": "1.0.0",
-  "minimumCoreVersion": "0.8.0",
-  "compatibleCoreVersion": "9",
+  "version": "1.0.1",
+  "compatibility": {
+    "minimum": "10",
+    "verified": "11",
+    "maximum":"11"
+  },
   "scripts": [],
   "esmodules": [
     "modules/systemeFeerie.js"
@@ -59,7 +62,9 @@
     }
   ],
   "system": [],
-  "dependencies": [],
+  "relationships": {
+    "requires": []
+  },
   "socket": true,
   "manifest": "https://raw.githubusercontent.com/Greewi/SystemeFeerie-FoundryVTT/stable/sysfeerie/system.json",
   "download": "https://github.com/Greewi/SystemeFeerie-FoundryVTT/releases/download/v0.1.0/systemeFeerie.zip",

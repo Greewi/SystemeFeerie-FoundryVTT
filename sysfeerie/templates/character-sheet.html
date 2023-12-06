@@ -13,15 +13,15 @@
 		<div class="tab tab_main charMain" data-group="primary" data-tab="main">
 			<div class="charMain_left">
 				<h1 class="charName"><input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'SYSFEERIE.Char.Name'}}" /></h1>
-				<label for="data.roles">{{localize 'SYSFEERIE.Char.Roles'}}</label><input class="charRoles" type="text" name="data.roles" value="{{data.data.roles}}"/>
-				<label for="data.concept">{{localize 'SYSFEERIE.Char.Concept'}}</label><input class="charConcept" type="text" name="data.concept" value="{{data.data.concept}}"/>
+				<label for="data.roles">{{localize 'SYSFEERIE.Char.Roles'}}</label><input class="charRoles" type="text" name="data.roles" value="{{data.system.roles}}"/>
+				<label for="data.concept">{{localize 'SYSFEERIE.Char.Concept'}}</label><input class="charConcept" type="text" name="data.concept" value="{{data.system.concept}}"/>
 				<h2>
 					<a class="charDesc_editButton" title="{{SYSFEERIE.Char.EditDescription}}"><i class="fas fa-edit"></i></a>
 					<a class="charDesc_extractButton" title="{{SYSFEERIE.Char.ExtractElement}}"><i class="fas fa-puzzle-piece"></i></a>
 					{{localize 'SYSFEERIE.Char.Description'}}
 				</h2>
-				<div class="charDesc">{{{data.data.fullDescription}}}</div>
-				<textarea class="charDescEdit" name="data.description" rows="15">{{data.data.description}}</textarea>
+				<div class="charDesc">{{{data.system.fullDescription}}}</div>
+				<textarea class="charDescEdit" name="data.description" rows="15">{{data.system.description}}</textarea>
 			</div>
 			<div class="charMain_right">
 				<img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
@@ -30,17 +30,17 @@
 						<a class="charMain_CharPoints_infos" title="{{localize 'SYSFEERIE.Char.CharPointsInfos'}}"><i class="fas fa-info-circle"></i></a>
 						{{localize 'SYSFEERIE.Char.CharPoints'}}
 					</h4>
-					<span title='{{localize 'SYSFEERIE.Char.TooltipPoints'}}' class="charMain_charPoints_value">{{data.data.charPoints.value}}</span>
+					<span title='{{localize 'SYSFEERIE.Char.TooltipPoints'}}' class="charMain_charPoints_value">{{data.system.charPoints.value}}</span>
 					<span class="sep"> / </span>
-					<span title='{{localize 'SYSFEERIE.Char.TooltipPoints'}}' class="charMain_charPoints_maxValue">{{data.data.charPoints.max}}</span>
+					<span title='{{localize 'SYSFEERIE.Char.TooltipPoints'}}' class="charMain_charPoints_maxValue">{{data.system.charPoints.max}}</span>
 				</div>
 				<h2>
 					<a class="charStatus_addButton" title="{{localize 'SYSFEERIE.Status.Add'}}"><i class="fas fa-plus"></i></a>
 					{{localize 'SYSFEERIE.Char.Status'}}
 				</h2>
-				{{#each data.data.status as |element id|}}
+				{{#each data.system.status as |element id|}}
 				<li class="item status" data-item-id="{{element.id}}">
-					<span class="element-name item-name" title="{{element.name}}">{{element.name}} ({{element.data.data.value}})</span>
+					<span class="element-name item-name" title="{{element.name}}">{{element.name}} ({{element.system.value}})</span>
 					<div class="item-controls">
 						<a class="item-control item-post" title="{{localize 'SYSFEERIE.Item.PostChat'}}"><i class="fas fa-comment"></i></a>
 						<a class="item-control item-edit" title="{{localize 'SYSFEERIE.Item.Edit'}}"><i class="fas fa-edit"></i></a>
@@ -58,12 +58,12 @@
 				{{localize 'SYSFEERIE.Char.Tab.Elements'}}
 			</h1>
 			<div class="elements-left row-flex">
-			{{#each data.data.sortedElements as |elements id|}}
+			{{#each data.system.sortedElements as |elements id|}}
 				<h2>{{category id}}</h2>
 				{{#each elements as |element idx|}}
 					<li class="item flexrow" data-item-id="{{element.id}}">
 						<img src="{{element.img}}" title="{{element.name}}" width="24" height="24" />
-						<span class="element-name item-name" title="{{element.name}}">{{element.name}} ({{element.data.data.value}})</span>
+						<span class="element-name item-name" title="{{element.name}}">{{element.name}} ({{element.system.value}})</span>
 						<div class="item-controls">
 							<a class="item-control item-post" title="{{localize 'SYSFEERIE.Item.PostChat'}}"><i class="fas fa-comment"></i></a>
 							<a class="item-control item-edit" title="{{localize 'SYSFEERIE.Item.Edit'}}"><i class="fas fa-edit"></i></a>
@@ -82,16 +82,16 @@
 					<a class="charPlot_addButton" title="{{localize 'SYSFEERIE.Plot.Add'}}"><i class="fas fa-plus"></i></a>
 					{{localize 'SYSFEERIE.Char.Tab.Plots'}}
 				</h1>
-				{{#each data.data.plots as |plot id|}}
+				{{#each data.system.plots as |plot id|}}
 				<li class="item flexrow plot item-edit" data-item-id="{{plot.id}}">
 					<img src="{{plot.img}}" title="{{plot.name}}" width="24" height="24" />
-					<span class="plot-name" title="{{plot.name}}">{{plot.name}} : {{plot.data.data.rewardName}} ({{plot.data.data.rewardValue}})</span>
+					<span class="plot-name" title="{{plot.name}}">{{plot.name}} : {{plot.system.rewardName}} ({{plot.system.rewardValue}})</span>
 					<span class="plot-value">
 						
-						{{#if (eq plot.data.data.steps.length plot.data.data.stepNumber)}}
-							{{localize 'SYSFEERIE.Plot.Completed'}}&nbsp;({{plot.data.data.steps.length}}/{{plot.data.data.stepNumber}})
+						{{#if (eq plot.system.steps.length plot.system.stepNumber)}}
+							{{localize 'SYSFEERIE.Plot.Completed'}}&nbsp;({{plot.system.steps.length}}/{{plot.system.stepNumber}})
 						{{else}}
-							{{plot.data.data.steps.length}}/{{plot.data.data.stepNumber}}
+							{{plot.system.steps.length}}/{{plot.system.stepNumber}}
 						{{/if}}
 					</span>
 					<div class="item-controls">

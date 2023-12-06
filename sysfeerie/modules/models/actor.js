@@ -12,8 +12,8 @@ export class PlayerCharacterActor extends Actor {
 	prepareData() {
 		super.prepareData();
 
-		const data = this.data.data;
-		const items = this.data.items;
+		const data = this.system;
+		const items = this.items;
 		
 		// Capping character points
 		if(data.charPoints.value == null)
@@ -29,9 +29,9 @@ export class PlayerCharacterActor extends Actor {
 		// Building description with elements
 		let fullDescription = data.description;
 		for(let element of data.elements) {
-			let source = element.data.data.source ? element.data.data.source.trim() : "";
+			let source = element.system.source ? element.system.source.trim() : "";
 			if(source!="")
-				fullDescription = fullDescription.replace(source, `<span class="sysfeerie_element" data-element-id="${element.id}">${source} (${element.data.data.value})</span>`);
+				fullDescription = fullDescription.replace(source, `<span class="sysfeerie_element" data-element-id="${element.id}">${source} (${element.system.value})</span>`);
 		}
 		data.fullDescription = fullDescription;
 	}

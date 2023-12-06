@@ -143,10 +143,10 @@ export class SystemeFeerieAction {
 			data.Item1 = {
 				img: this.item1.img,
 				name: this.item1.name,
-				value: this.item1.data.data.value,
+				value: this.item1.system.value,
 				actorName: this.item1.actor.name
 			};
-			actionScore += parseInt(this.item1.data.data.value);
+			actionScore += parseInt(this.item1.system.value);
 		}
 
 		if (this.item2) {
@@ -157,10 +157,10 @@ export class SystemeFeerieAction {
 			data.Item2 = {
 				img: this.item2.img,
 				name: this.item2.name,
-				value: this.item2.data.data.value,
+				value: this.item2.system.value,
 				actorName: this.item2.actor.name
 			};
-			actionScore += parseInt(this.item2.data.data.value);
+			actionScore += parseInt(this.item2.system.value);
 		}
 
 		data.ActionScore = actionScore;
