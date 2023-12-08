@@ -1,5 +1,5 @@
 import { SFUtility } from "../utility.js";
-import { Category } from "./category.js";
+import { SystemSetting } from "./systemSetting.js";
 
 /**
  * Classe de gestion des items du Système Féerie
@@ -9,8 +9,14 @@ export class SFItem extends Item
 	// Upon creation, assign a blank image if item is new (not duplicated) instead of mystery-man default
 	static async create(data, options)
 	{
-		if (!data.img)
-			data.img = SFUtility.getSystemRessource("icons/blank.png");
+		if (!data.img) {
+			if(data.type == "status")
+				data.img = "icons/skills/wounds/injury-body-pain-gray.webp";
+			else if(data.type == "plot")
+				data.img = "icons/sundries/documents/document-sealed-signatures-red.webp";
+			else
+				data.img = "icons/commodities/treasure/bust-carved-stone.webp";
+		}
 		super.create(data, options);
 	}
 
@@ -29,7 +35,7 @@ export class SFItem extends Item
 		if (chatData.img.includes("/blank.png"))
 			chatData.img = null;
 
-		let category = Category.getCategory(chatData.data.category);
+		let category = SystemSetting.getCategory(chatData.data.category);
 		if(category)
 			chatData.data.categoryDescription = category.levels[chatData.data.value];
 

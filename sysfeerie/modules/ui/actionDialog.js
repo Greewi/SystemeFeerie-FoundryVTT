@@ -1,4 +1,5 @@
 import { SYSFEERIE_CFG } from "../config.js";
+import { SystemSetting } from "../models/systemSetting.js";
 import { SFUtility } from "../utility.js";
 
 export class ActionDialog extends Dialog {
@@ -6,7 +7,10 @@ export class ActionDialog extends Dialog {
 	static open() {
 		if (!game.user.isGM)
 			return;
-		renderTemplate(SFUtility.getSystemRessource("templates/dialog/action-dialog.html")).then(html => {
+		renderTemplate(SFUtility.getSystemRessource("templates/dialog/action-dialog.html"), {
+			difficulties : SystemSetting.getDifficulties(),
+			significances : SystemSetting.getSignifiances()
+		}).then(html => {
 			let dialog = new ActionDialog({
 				title: game.i18n.localize("SYSFEERIE.Dialog.StartAction"),
 				content: html,
@@ -40,9 +44,9 @@ export class ActionDialog extends Dialog {
 		this.signifianceButtons = {};
 		html.find(".actionDialog_button").each((i, button) => {
 			if(button.parentElement.classList.contains("actionDialog_significance")) {
-				this.signifianceButtons[SYSFEERIE_CFG.SIGNIFICANCE[button.dataset.button]] = button;
+				this.signifianceButtons[button.dataset.button] = button;
 			} else {
-				this.difficultyButtons[SYSFEERIE_CFG.DIFFICULTY[button.dataset.button]] = button;
+				this.difficultyButtons[button.dataset.button] = button;
 			}
 		});
 		this.difficultyValue = html.find('.actionDialog_value_difficulty');
@@ -55,9 +59,9 @@ export class ActionDialog extends Dialog {
 			let id = element.dataset.button;
 			let type = parent.classList.contains("actionDialog_significance") ? "significance" : "difficulty";
 			if (type == "difficulty") {
-				html.find('.actionDialog_value_difficulty').val(SYSFEERIE_CFG.DIFFICULTY[id]);
+				html.find('.actionDialog_value_difficulty').val(parseInt(id));
 			} else {
-				html.find('.actionDialog_value_signifiance').val(SYSFEERIE_CFG.SIGNIFICANCE[id]);
+				html.find('.actionDialog_value_signifiance').val(parseInt(id));
 			}
 			this._updateButtons(html);
 		});

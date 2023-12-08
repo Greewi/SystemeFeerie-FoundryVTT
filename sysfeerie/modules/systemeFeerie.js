@@ -1,7 +1,7 @@
 import { SystemeFeerieAction } from "./action.js";
 import { PlayerCharacterActor } from "./models/actor.js";
-import { Category } from "./models/category.js";
 import { SFItem } from "./models/item.js";
+import { SystemSetting } from "./models/systemSetting.js";
 import { SFActorSheet } from "./sheets/actor-sheet.js";
 import { SFItemSheet } from "./sheets/item-sheet.js";
 import { CategorySettingDialog } from "./ui/categorySettingDialog.js";
@@ -45,6 +45,14 @@ Hooks.once("init", async function () {
 		type: String,
 		default: '',
 	});
+	game.settings.register("sysfeerie", "systemSetting", {
+		name: game.i18n.localize("SYSFEERIE.Settings.SystemSetting"),
+		hint: game.i18n.localize("SYSFEERIE.Settings.SystemSettingHint"),
+		scope: "world",
+		config: false,
+		type: String,
+		default: '',
+	});
 });
 
 Hooks.once("diceSoNiceReady", (dice3d) => {
@@ -67,7 +75,7 @@ Hooks.once("ready", async function () {
 	});
 
 	Handlebars.registerHelper('category', function (categoryId) {
-		let category = Category.getCategory(categoryId);
+		let category = SystemSetting.getCategory(categoryId);
 		if(!category)
 			return "Unknown category";
 		return category.name;

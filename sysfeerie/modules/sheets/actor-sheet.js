@@ -1,4 +1,4 @@
-import { Category } from "../models/category.js";
+import { SystemSetting } from "../models/systemSetting.js";
 import { SFDialogs } from "../ui/dialogs.js";
 import { SFUtility } from "../utility.js";
 
@@ -38,7 +38,7 @@ export class SFActorSheet extends ActorSheet {
 			// Sorting elements by categories
 			actorData.data.system.sortedElements = {};
 			for(let element of actorData.data.system.elements) {
-				let category = Category.getCategory(element.system.category);
+				let category = SystemSetting.getCategory(element.system.category);
 				if(category) {
 					if(!actorData.data.system.sortedElements[category.id])
 						actorData.data.system.sortedElements[category.id] = [];

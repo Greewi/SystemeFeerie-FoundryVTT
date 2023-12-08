@@ -190,6 +190,7 @@
 }
 button.actionDialog_button {
 	line-height: normal;
+	height: 100%;
 }
 button.actionDialog_button_selected {
 	box-shadow: 0 0 8px red;

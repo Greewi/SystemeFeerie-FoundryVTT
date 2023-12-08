@@ -1,4 +1,4 @@
-import { Category } from "../models/category.js";
+import { SystemSetting } from "../models/systemSetting.js";
 import { SFDialogs } from "../ui/dialogs.js";
 import { SFUtility } from "../utility.js";
 
@@ -37,14 +37,15 @@ export class SFItemSheet extends ItemSheet {
 		if(this.item.type == "element") {
 			// Select des catégories
 			data.categories = {};
-			let categories = Category.getCategories();
-			for(let categorieId in categories) {
-				if(categories[categorieId].enabled)
-					data.categories[categorieId] = categories[categorieId].name;
+			let categories = SystemSetting.getCategories();
+			for(let category of categories) {
+					data.categories[category.id] = category.name;
 			}
 			// Select des niveaux
 			data.levels = {};
-			let category = Category.getCategory(this.item.system.category);
+			let category = SystemSetting.getCategory(this.item.system.category);
+			if(!category)
+				category = SystemSetting.getCategories()[0];
 			if(category) {
 				for(let i=0; i<category.levels.length; i++)
 					data.levels[i] = `${i} - ${category.levels[i]}`;
@@ -62,13 +63,14 @@ export class SFItemSheet extends ItemSheet {
 			data.incomplet = this.item.system.stepNumber > this.item.system.steps.length;
 			// Select des catégories
 			data.categories = {};
-			let categories = Category.getCategories();
-			for(let categorieId in categories)
-				if(categories[categorieId].enabled)
-					data.categories[categorieId] = categories[categorieId].name;
+			let categories = SystemSetting.getCategories();
+			for(let category of categories)
+				data.categories[category.id] = category.name;
 			// Select des niveaux
 			data.levels = {};
-			let category = Category.getCategory(this.item.system.rewardCategory);
+			let category = SystemSetting.getCategory(this.item.system.rewardCategory);
+			if(!category)
+				category = SystemSetting.getCategories()[0];
 			if(category) {
 				for(let i=0; i<category.levels.length; i++)
 					data.levels[i] = `${i} - ${category.levels[i]}`;
