@@ -1,4 +1,9 @@
+import { SystemSetting } from "./models/systemSetting.js";
 import { SFUtility } from "./utility.js";
+
+/**
+ * @typedef {{ Difficulty: number, Score: number, Threshold: number, Result: boolean, HasRoll: boolean, Roll: any, Dice: {value: number, class: string}, SuccessBased: boolean, RollResult: number, AutoSuccess: boolean, AutoFailure: boolean, HasRollRange: boolean, SuccessRange: number }} RollResult
+ */
 
 /**
  * This class is in charge of dealing with an action and its messages
@@ -8,10 +13,9 @@ export class SystemeFeerieAction {
 	 * @param {ChatMessage} message 
 	 * @param {Number} difficulty 
 	 */
-	constructor(difficulty = 0, significance = 0, message = null, item1 = null, item2 = null, state = SystemeFeerieAction.STATUS.EMPTY) {
+	constructor(difficulty = 0, significance = 0, message = null, items = [], state = SystemeFeerieAction.STATUS.EMPTY) {
 		this.message = message;
-		this.item1 = item1;
-		this.item2 = item2;
+		this.items = items;
 		this.difficulty = difficulty;
 		this.significance = significance;
 		this.state = state;
@@ -26,27 +30,63 @@ export class SystemeFeerieAction {
 		DONE: 4
 	}
 
-	get total() {
+	get totalDifficulty() {
 		return parseInt(this.difficulty) + parseInt(this.significance);
+	}
+
+	get score() {
+		let score = 0;
+		let items = Array.from(this.items);
+		items.sort((i1,i2)=>i2.system.value - i1.system.value)
+		for(let i=0; i<items.length; i++) {
+			switch(SystemSetting.getRollScoreMethod()) {
+				case SystemSetting.SUM :
+					score += items[i].system.value;
+					break;
+				case SystemSetting.DEGRESSIVE_SUM :
+					score += Math.max(items[i].system.value - i, 0);
+					break;
+				case SystemSetting.MAX_PLUS_COUNT :
+					score += i==0 ? items[i].system.value : 1;
+					break;
+			}
+		}
+		return score<6 ? score : 6;
 	}
 
 	/**
 	 * Returns default ChatMessage datas
 	 */
-	get defaultCardData() {
+	get cardData() {
+		let items = [];
+		for(let i=0; i<SystemSetting.getRollMaxElements(); i++) {
+			if(i>=this.items.length) {
+				items.push({
+					Slot : i,
+					DisplayItem: "none",
+					Placeholder: "grid"
+				});
+			} else {
+				items.push({
+					Slot : i,
+					DisplayItem: "grid",
+					Placeholder: "none",
+					img: this.items[i].img,
+					name: this.items[i].name,
+					value: this.items[i].system.value,
+					actorName: this.items[i].actor.name,
+					Unresolved: this.state != SystemeFeerieAction.STATUS.DONE
+				});
+			}
+		}
+
 		return {
 			Difficulty: this.difficulty,
 			Significance: this.significance,
-			Total: this.total,
-			ActionScore: this.total,
-			Display1: {
-				Item: "none",
-				Placeholder: "grid"
-			},
-			Display2: {
-				Item: "none",
-				Placeholder: "grid"
-			},
+			TotalDifficulty: this.totalDifficulty,
+			CharacterScore: this.score,
+			ActionScore: this.totalDifficulty,
+			Items: items,
 			Unresolved:this.state != SystemeFeerieAction.STATUS.DONE
 		};
 	}
@@ -62,20 +102,17 @@ export class SystemeFeerieAction {
 	}
 
 	/**
-	 * Set an item to item1 or item2 slot and update the message card
+	 * Set an item to a slot and update the message card
 	 * @param {SFItem} item 
 	 */
 	setItem(item) {
 		this.checkActionStatus();
-		if (this.item1 === null && this.item2 != item) {
-			this.item1 = item;
-		}
-		else if (this.item1 != item) {
-			this.item2 = item;
-		}
-		else {
+		if(this.items.length >= SystemSetting.getRollMaxElements())
 			return;
-		}
+		for(let itemUsed of this.items)
+			if(itemUsed == item)
+				return;
+		this.items.push(item);
 		this.updateChatCard();
 		this.saveAction();
 	}
@@ -86,10 +123,9 @@ export class SystemeFeerieAction {
 	 */
 	removeItem(slot) {
 		this.checkActionStatus();
-		if (slot === 1)
-			this.item1 = null;
-		else
-			this.item2 = null;
+		if(slot>=this.items.length)
+			return;
+		this.items.splice(slot, 1);
 		this.updateChatCard();
 		this.saveAction();
 	}
@@ -118,7 +154,7 @@ export class SystemeFeerieAction {
 	 * Create a ChatMessage when an action begins
 	 */
 	createChatCard() {
-		let data = this.defaultCardData;
+		let data = this.cardData;
 		renderTemplate(SFUtility.getSystemRessource("templates/chat/begin-action.html"), data).then(html => {
 			let chatOptions = SFUtility.chatDataSetup(html);
 			ChatMessage.create(chatOptions).then(msg => {
@@ -133,38 +169,7 @@ export class SystemeFeerieAction {
 	 * Update the ChatMessage with the current data on the action
 	 */
 	updateChatCard() {
-		let data = this.defaultCardData;
-		let actionScore = parseInt(data.Total);
-		if (this.item1) {
-			data.Display1 = {
-				Item: "grid",
-				Placeholder: "none"
-			};
-			data.Item1 = {
-				img: this.item1.img,
-				name: this.item1.name,
-				value: this.item1.system.value,
-				actorName: this.item1.actor.name
-			};
-			actionScore += parseInt(this.item1.system.value);
-		}
-
-		if (this.item2) {
-			data.Display2 = {
-				Item: "grid",
-				Placeholder: "none"
-			}
-			data.Item2 = {
-				img: this.item2.img,
-				name: this.item2.name,
-				value: this.item2.system.value,
-				actorName: this.item2.actor.name
-			};
-			actionScore += parseInt(this.item2.system.value);
-		}
-
-		data.ActionScore = actionScore;
-
+		let data = this.cardData;
 		renderTemplate(SFUtility.getSystemRessource("templates/chat/begin-action.html"), data).then(html => {
 			this.message.update({
 				content: html
@@ -202,12 +207,16 @@ export class SystemeFeerieAction {
 	 * Returns raw data that are needed to deserialize a SystemeFeerieAction from a string
 	 */
 	toJSON() {
+		let items = [];
+		for(let item of this.items) {
+			items.push({
+				item : item ? item.id : null,
+				actor : item ? item.actor.id : null
+			});
+		}
 		return JSON.stringify({
 			message: this.message ? this.message.id : null,
-			item1: this.item1 ? this.item1.id : null,
-			actor1: this.item1 ? this.item1.actor.id : null,
-			item2: this.item2 ? this.item2.id : null,
-			actor2: this.item2 ? this.item2.actor.id : null,
+			items : items,
 			difficulty: this.difficulty,
 			significance: this.significance,
 			state: this.state
@@ -220,44 +229,39 @@ export class SystemeFeerieAction {
 	 */
 	static fromJSON(json) {
 		let data = JSON.parse(json);
-		let item1 = null, item2 = null;
+		let items = [];
 
 		let message = game.messages.get(data.message);
 		if (!message) {
 			SystemeFeerieAction.deleteSave();
 			return null;
 		}
+		
+		for(let item of data.items) {
+			if(item && item.actor && item.item)
+				items.push(game.actors.get(item.actor).items.get(item.item));
+		}
 
-		if (data.item1)
-			item1 = game.actors.get(data.actor1).items.get(data.item1);
-		if (data.item2)
-			item2 = game.actors.get(data.actor2).items.get(data.item2);
-
-		return new SystemeFeerieAction(data.difficulty, data.significance, message, item1, item2, data.state);
+		return new SystemeFeerieAction(data.difficulty, data.significance, message, items, data.state);
 	}
 
 	/**
 	 * Create a RollMessage and resolve the action
-	 * @param {Number} actionScore 
+	 * @param {Number} difficulty
+	 * @param {Number} score
 	 */
-	static async resolveAction(actionScore){
-		let data = {
-			HasRoll: actionScore > 0 && actionScore < 6,
-			ActionScore: actionScore
-		};
-
-		let result = actionScore >= 6;
-		let roll = null;
-		if(data.HasRoll){
-			roll = await new Roll(`3d6cs<=${actionScore}`).roll();
-			data.SuccessCount = parseInt(roll.result,10);
-			data.Rolls = roll.dice[0].results.map(obj => {
-				return {value:obj.result,class:obj.success ? "resolve-action-roll-success":"resolve-action-roll-failed"};
-			});
-			result = data.SuccessCount >= 2;
+	static async resolveAction(difficulty, score){
+		let data;
+		if(SystemSetting.getSystemVersion()==5)
+			data = await this._resolveActionV5(difficulty, score);
+		else if(SystemSetting.getSystemVersion()==6)
+			data = await this._resolveActionV6(difficulty, score);
+		else {
+			this._cleanAction();
+			return;
 		}
 
-		if(result){
+		if(data.Result){
 			if(!data.HasRoll)
 				data.autoSuccess = true;
 			data.ClassActionResult = "resolve-action-success";
@@ -272,16 +276,101 @@ export class SystemeFeerieAction {
 
 		renderTemplate(SFUtility.getSystemRessource("templates/chat/resolve-action.html"), data).then(html => {
 			let chatOptions = SFUtility.chatDataSetup(html, null, data.HasRoll);
-			chatOptions.roll = roll;
+			chatOptions.roll = data.Roll;
 			ChatMessage.create(chatOptions).then(msg => {
-				if(game.user.isGM)
-					game.systemeFeerie.pendingAction.cleanAction();
-				else{
-					game.socket.emit("system.sysfeerie", {
-						type: "cleanAction"
-					});
-				}
+				this._cleanAction();
 			});
 		});
 	}
+
+	static _cleanAction() {
+		if(game.user.isGM)
+			game.systemeFeerie.pendingAction.cleanAction();
+		else{
+			game.socket.emit("system.sysfeerie", {
+				type: "cleanAction"
+			});
+		}
+	}
+
+	/**
+	 * @param {number} difficulty 
+	 * @param {number} score 
+	 * @returns {Promise<RollResult>}
+	 */
+	static async _resolveActionV5(difficulty, score) {
+		let threshold = difficulty+score;
+		let needRoll = threshold > 0 && threshold < 6;
+
+		let result = threshold >= 6;
+		let successCount = 0;
+		let dice = null;
+		let roll = null;
+		if(needRoll){
+			roll = await new Roll(`3d6cs<=${threshold}`).roll();
+			successCount = parseInt(roll.result,10);
+			dice = roll.dice[0].results.map(obj => {
+				return {value:obj.result,class:obj.success ? "resolve-action-roll-success":"resolve-action-roll-failed"};
+			});
+			result = successCount >= 2;
+		}
+
+		return {
+			Difficulty: difficulty,
+			Score: score,
+			Threshold : threshold,
+			Result: result,
+
+			HasRoll: needRoll,
+			Roll: roll,
+			Dice: dice,
+			SuccessBased:true,
+			RollResult: successCount,
+			AutoSuccess: !needRoll && result,
+			AutoFailure: !needRoll && !result,
+
+			HasRollRange: false,
+			SuccessRange: 0,
+		};
+	}
+
+	/**
+	 * @param {number} difficulty 
+	 * @param {number} score 
+	 * @returns {Promise<RollResult>}
+	 */
+	static async _resolveActionV6(difficulty, score) {
+		let threshold = difficulty-score;
+
+		let roll = await new Roll(`3d6dhdl`).roll();
+		let rollDice = roll.dice[0].results;
+		let rollResult = parseInt(roll.result,10);
+		let result = rollResult>threshold;
+		let dice = [
+			{value:rollDice[0].result, class: rollDice[0].active ? "resolve-action-roll-success" : "resolve-action-roll-failed"},
+			{value:rollDice[1].result, class: rollDice[1].active ? "resolve-action-roll-success" : "resolve-action-roll-failed"},
+			{value:rollDice[2].result, class: rollDice[2].active ? "resolve-action-roll-success" : "resolve-action-roll-failed"},
+		];
+		let successRange = score - threshold;
+
+
+		return {
+			Difficulty: difficulty,
+			Score: score,
+			Threshold : threshold,
+			Result: result,
+
+			HasRoll: true,
+			Roll: roll,
+			Dice: dice,
+			SuccessBased:false,
+			RollResult: rollResult,
+			AutoSuccess: false,
+			AutoFailure: false,
+
+			HasRollRange: true,
+			SuccessRange: successRange,
+		};
+	}
+
 }

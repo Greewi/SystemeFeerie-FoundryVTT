@@ -34,6 +34,11 @@ const signifiancesIcons = [
  * Model for the system settings
  */
 export class SystemSetting {
+
+	static SUM = "SUM";
+	static DEGRESSIVE_SUM = "DEGRESSIVE_SUM";
+	static MAX_PLUS_COUNT = "MAX_PLUS_COUNT";
+
 	/**
 	 * @type {SystemSettingInfos}
 	 */

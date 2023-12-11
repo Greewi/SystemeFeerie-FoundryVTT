@@ -120,7 +120,7 @@ Hooks.on("renderChatMessage", async (app, html, msg) => {
 Hooks.on('renderChatLog', (log, html, data) => {
 	html.on("click", '.skill-remove', async ev => {
 		ev.stopPropagation();
-		let itemSlot = $(ev.currentTarget).parents(".action-skill").hasClass("action-skill-1") ? 1 : 2;
+		let itemSlot = parseInt($(ev.currentTarget).parents(".action-skill").data("slot"));
 		if (game.user.isGM && game.systemeFeerie.pendingAction)
 			game.systemeFeerie.pendingAction.removeItem(itemSlot);
 		else {
@@ -138,8 +138,9 @@ Hooks.on('renderChatLog', (log, html, data) => {
 	});
 
 	html.on("click", ".startAction", async ev => {
-		let actionScore = parseInt($(ev.currentTarget).data("actionscore"), 10);
-		SystemeFeerieAction.resolveAction(actionScore);
+		let difficulty = parseInt($(ev.currentTarget).data("difficulty"), 10);
+		let score = parseInt($(ev.currentTarget).data("score"), 10);
+		SystemeFeerieAction.resolveAction(difficulty, score);
 	});
 
 	html.on("click", ".action-skill", async ev => {
