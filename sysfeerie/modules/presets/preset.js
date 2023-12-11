@@ -1,6 +1,7 @@
 import default_v5_fr from "./default_v5_fr.js";
 import solaires_v5_fr from "./solaires_v5_fr.js";
 import default_v6_fr from "./default_v6_fr.js";
+import cde_v6_fr from "./cde_v6_fr.js";
 
 export default class Presets {
 	static _init() {
@@ -10,6 +11,7 @@ export default class Presets {
 		this._presets.push(default_v5_fr);
 		this._presets.push(solaires_v5_fr);
 		this._presets.push(default_v6_fr);
+		this._presets.push(cde_v6_fr);
 	}
 
 	static getPreset(id, version, lang) {
