@@ -8,8 +8,10 @@ export class ActionDialog extends Dialog {
 		if (!game.user.isGM)
 			return;
 		renderTemplate(SFUtility.getSystemRessource("templates/dialog/action-dialog.html"), {
-			difficulties : SystemSetting.getDifficulties(),
-			significances : SystemSetting.getSignifiances()
+			Difficulties : SystemSetting.getDifficulties(),
+			Significances : SystemSetting.getSignifiances(),
+			DefaultDifficulty : SystemSetting.getDifficulties()[Math.floor(SystemSetting.getDifficulties().length/2)].score,
+			DefaultSignifiance : SystemSetting.getSignifiances()[Math.floor(SystemSetting.getSignifiances().length/2)].score,
 		}).then(html => {
 			let dialog = new ActionDialog({
 				title: game.i18n.localize("SYSFEERIE.Dialog.StartAction"),

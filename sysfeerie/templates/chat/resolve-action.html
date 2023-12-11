@@ -16,6 +16,7 @@
             <div class="resolve-action-dice-success">{{localize 'SYSFEERIE.Chat.SuccessCount'}} <span class="resolve-action-dice-success-value">{{RollResult}}</span></div>
         {{else}}
             <div class="resolve-action-dice-success">{{localize 'SYSFEERIE.Chat.DiceResultScore'}} <span class="resolve-action-dice-success-value">{{RollResult}}</span></div>
+            <div class="resolve-action-dice-success" title="{{localize 'SYSFEERIE.Chat.DiceResultRange'}} {{SuccessRange}}">{{localize 'SYSFEERIE.Chat.DiceResultQuality'}} <span class="resolve-action-dice-success-value">{{SuccessQuality}}</span></div>
         {{/if}}
     {{/if}}
     {{#if AutoFailure}}

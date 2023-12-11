@@ -1,20 +1,20 @@
 <h2>{{localize 'SYSFEERIE.Dialog.SelectDifficulty'}}</h2>
 <div class="dialog-buttons actionDialog_difficulty">
-	{{#each difficulties as |difficulty index|}}
-		<button class="actionDialog_button" data-button="{{difficulty.score}}" title="{{difficulty.description}}">
-			<i class="{{difficulty.icon}}"></i>
-			{{difficulty.name}}
-			<div class="bonus">{{formatNumber difficulty.score decimals=2 sign=true}}</div>
+	{{#each Difficulties as |Difficulty index|}}
+		<button class="actionDialog_button" data-button="{{Difficulty.score}}" title="{{Difficulty.description}}">
+			<i class="{{Difficulty.icon}}"></i>
+			{{Difficulty.name}}
+			<div class="bonus">{{formatNumber Difficulty.score decimals=2 sign=true}}</div>
 		</button>
 	{{/each}}
 </div>
 <h2>{{localize 'SYSFEERIE.Dialog.SelectSignificance'}}</h2>
 <div class="dialog-buttons actionDialog_significance">
-	{{#each significances as |signifiance index|}}
-		<button class="actionDialog_button" data-button="{{signifiance.score}}" title="{{signifiance.description}}">
-			<i class="{{signifiance.icon}}"></i>
-			{{signifiance.name}}
-			<div class="bonus">{{formatNumber signifiance.score decimals=2 sign=true}}</div>
+	{{#each Significances as |Signifiance index|}}
+		<button class="actionDialog_button" data-button="{{Signifiance.score}}" title="{{Signifiance.description}}">
+			<i class="{{Signifiance.icon}}"></i>
+			{{Signifiance.name}}
+			<div class="bonus">{{formatNumber Signifiance.score decimals=2 sign=true}}</div>
 		</button>
 	{{/each}}
 </div>
@@ -23,12 +23,12 @@
 		<div class="actionDialog_description actionDialog_description_difficulty">
 			{{localize 'SYSFEERIE.Dialog.Difficulty'}}
 		</div>
-		<input type="number" name="actionDialog_difficulty" value="0" class="actionDialog_value_difficulty" />
+		<input type="number" name="actionDialog_difficulty" value="{{DefaultDifficulty}}" class="actionDialog_value_difficulty" />
 	</div>
 	<div class="actionDialog_summary_dignifiance">
 		<div class="actionDialog_description actionDialog_description_dignifiance">
 			{{localize 'SYSFEERIE.Dialog.Significance'}}
 		</div>
-		<input type="number" name="actionDialog_significance" value="0" class="actionDialog_value_signifiance" />
+		<input type="number" name="actionDialog_significance" value="{{DefaultSignifiance}}" class="actionDialog_value_signifiance" />
 	</div>
 </div>

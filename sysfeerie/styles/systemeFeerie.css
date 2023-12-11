@@ -327,6 +327,9 @@ button.actionDialog_button_selected {
 	color: rgb(0, 0, 0);
 	border: solid 1px rgb(0, 0, 0);
 }
+.resolve-action-roll.resolve-action-roll-discarded {
+	opacity:0.4;
+}
 .resolve-action-score, .resolve-action-dice-success, .resolve-action-dice-success, .resolve-action-dice-success {
 	margin-left: 5px;
 }

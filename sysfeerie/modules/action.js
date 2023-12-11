@@ -331,6 +331,7 @@ export class SystemeFeerieAction {
 
 			HasRollRange: false,
 			SuccessRange: 0,
+			SuccessQuality: game.i18n.localize(result?"SYSFEERIE.Chat.DiceResultNormalSuccess":"SYSFEERIE.Chat.DiceResultNormalFailure")
 		};
 	}
 
@@ -343,16 +344,30 @@ export class SystemeFeerieAction {
 		let threshold = difficulty-score;
 
 		let roll = await new Roll(`3d6dhdl`).roll();
-		let rollDice = roll.dice[0].results;
+		let rollDice = Array.from(roll.dice[0].results).sort((a,b)=>a.result-b.result);
 		let rollResult = parseInt(roll.result,10);
 		let result = rollResult>threshold;
-		let dice = [
-			{value:rollDice[0].result, class: rollDice[0].active ? "resolve-action-roll-success" : "resolve-action-roll-failed"},
-			{value:rollDice[1].result, class: rollDice[1].active ? "resolve-action-roll-success" : "resolve-action-roll-failed"},
-			{value:rollDice[2].result, class: rollDice[2].active ? "resolve-action-roll-success" : "resolve-action-roll-failed"},
-		];
-		let successRange = score - threshold;
-
+		let successRange = rollResult - threshold;
+		let dice = [];
+		for(let d=0; d<rollDice.length; d++) {
+			dice.push({
+				value: rollDice[d].result,
+				class: `${parseInt(rollDice[d].result, 10)>threshold?"resolve-action-roll-success":"resolve-action-roll-failed"}${d!=1?" resolve-action-roll-discarded":""}`
+			});
+		}
+		let successQuality = "";
+		if(successRange>=3)
+			successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultGreaterSuccess");
+		else if(successRange>=2)
+			successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultNormalSuccess");
+		else if(successRange>=1)
+			successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultLowerSuccess");
+		else if(successRange>=0)
+			successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultLowerFailure");
+		else if(successRange>=-1)
+			successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultNormalFailure");
+		else
+			successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultGreaterFailure");
 
 		return {
 			Difficulty: difficulty,
@@ -370,6 +385,7 @@ export class SystemeFeerieAction {
 
 			HasRollRange: true,
 			SuccessRange: successRange,
+			SuccessQuality: successQuality
 		};
 	}
 
