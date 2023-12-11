@@ -121,7 +121,8 @@ export class SFActorSheet extends ActorSheet {
 			data = duplicate(header.dataset);
 			
 			data["type"] = `element`;
-			data["img"] = `icons/commodities/treasure/bust-carved-stone.webp`;
+			data["category"] = SystemSetting.getCategories()[0].id;
+			data["img"] = SystemSetting.getCategories()[0].icon;
 			data["name"] = `${game.i18n.localize("SYSFEERIE.Status.New")}`;
 			ev.stopPropagation();
 			return Item.create(data, {parent: this.actor, renderSheet:true});
@@ -130,7 +131,7 @@ export class SFActorSheet extends ActorSheet {
 		// Post item/status
 		html.find('.item-post').click(ev => {
 			let itemId = $(ev.currentTarget).parents(".item").data("itemId");
-			const item = this.actor.items.find(i => i.data._id == itemId);
+			const item = this.actor.items.find(i => i._id == itemId);
 			item.postItem();
 			ev.stopPropagation();
 		});

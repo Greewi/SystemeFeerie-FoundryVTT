@@ -2,7 +2,7 @@ import Presets from "../presets/preset.js";
 
 /**
  * @typedef {{score:number, name:string, description:string}} Difficulty
- * @typedef {{id:string, name:string, short:string, description:string, levels:string[]}} Category
+ * @typedef {{id:string, name:string, icon:string, short:string, description:string, levels:string[]}} Category
  * @typedef {{
  *     id:string,
  *     name:string,
@@ -223,7 +223,7 @@ export class SystemSetting {
 		if(this._systemSettings)
 			return;
 		if(true || game.settings.get("sysfeerie", "systemSetting") == '') {
-			this._systemSettings = Presets.getPreset("default", 6, game.i18n.lang);
+			this._systemSettings = Presets.getPreset("cde", 6, game.i18n.lang);
 			this._save();
 		} else {
 			this._systemSettings = JSON.parse(game.settings.get("sysfeerie", "systemSetting"));

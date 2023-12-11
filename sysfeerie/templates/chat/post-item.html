@@ -4,17 +4,17 @@
 	<div>
 		<h2>{{name}}</h2>
 		<div class="card-data">
-			<strong>{{localize "SYSFEERIE.Item.Value"}}:</strong> {{data.value}}
+			<strong>{{localize "SYSFEERIE.Item.Value"}} :</strong> {{value}} {{#if categoryName}}<em>({{categoryName}})</em>{{/if}}
 		</div>
-		<p>{{data.categoryDescription}}</p>
+		<p><strong>{{categoryLevel}}</strong>{{categoryDescription}}</p>
 	</div>
 </div>
 {{else}}
 <div class="postItem" data-transfer="{{transfer}}">
 	<h2>{{name}}</h2>
 	<div class="card-data">
-		<strong>{{localize "SYSFEERIE.Item.Value"}}:</strong> {{data.value}}
+		<strong>{{localize "SYSFEERIE.Item.Value"}} :</strong> {{value}} {{#if categoryName}}<em>({{categoryName}})</em>{{/if}}
 	</div>
-	<p>{{data.categoryDescription}}</p>
+	<p><strong>{{categoryLevel}}</strong>{{categoryDescription}}</p>
 </div>
 {{/if}}
