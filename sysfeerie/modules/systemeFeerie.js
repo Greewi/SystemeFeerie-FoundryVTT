@@ -101,6 +101,11 @@ Hooks.once("ready", async function () {
 					SystemeFeerieAction.updateGMAck(data.payload.ack);
 				}
 				break;
+			case "updateRelevance":
+				if (!game.user.isGM) {
+					SystemeFeerieAction.setRelevance(data.payload.relevance);
+				}
+				break;
 			case "cleanAction":
 				if (game.user.isGM && game.systemeFeerie.pendingAction) {
 					game.systemeFeerie.pendingAction.cleanAction();
@@ -113,8 +118,10 @@ Hooks.once("ready", async function () {
  * Action resolution system
  */
 Hooks.on("renderChatMessage", async (app, html, msg) => {
-	if (!game.user.isGM)
+	if (!game.user.isGM) {
 		html.find(".approveSkills").remove();
+		html.find(".selectRelevance").prop("disabled",true);
+	}
 });
 
 Hooks.on('renderChatLog', (log, html, data) => {
@@ -141,6 +148,11 @@ Hooks.on('renderChatLog', (log, html, data) => {
 		let difficulty = parseInt($(ev.currentTarget).data("difficulty"), 10);
 		let score = parseInt($(ev.currentTarget).data("score"), 10);
 		SystemeFeerieAction.resolveAction(difficulty, score);
+	});
+
+	html.on("change", ".selectRelevance", async ev => {
+		let relevance = $(ev.currentTarget)[0].value ;
+		SystemeFeerieAction.setRelevance(relevance);
 	});
 
 	html.on("click", ".action-skill", async ev => {

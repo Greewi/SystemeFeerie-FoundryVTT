@@ -4,8 +4,8 @@ export default {
 	"systemVersion": 6,
 	"lang": "fr",
 	"rolls" : {
-		"maxElementNumber": 3,
-		"scoreMethod":"DEGRESSIVE_SUM"
+		"maxElementNumber": 2,
+		"scoreMethod":"SECOND_HALVED_BY_RELEVANCE"
 	},
 	"difficulties": [
 		{"score":2,"name":"Simple", "description":"Même les plus mauvais devraient s'en sortir."},

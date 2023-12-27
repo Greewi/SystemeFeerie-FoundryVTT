@@ -73,6 +73,7 @@
     "SYSFEERIE.Chat.StartRoll": "Lancer les dés",
     "SYSFEERIE.Chat.Difficulty": "Difficulté :",
     "SYSFEERIE.Chat.CharacterScore": "Score :",
+    "SYSFEERIE.Chat.Relevance": "Pertience :",
     "SYSFEERIE.Chat.GMOk": "MJ 👍",
     "SYSFEERIE.Chat.SelectASkill": "Sélectionnez un élément sur votre fiche de personnage",
     "SYSFEERIE.Chat.ResolveAction": "Résultat de l'action",
@@ -103,6 +104,10 @@
     "SYSFEERIE.Significance.Neutral": "Neutre",
     "SYSFEERIE.Significance.InterestingFail": "Echec interessant",
     "SYSFEERIE.Significance.ShouldFail": "Devrait échouer",
+
+    "SYSFEERIE.Relevance.CONNEXE": "Connexe",
+    "SYSFEERIE.Relevance.TYPICAL": "Typique",
+    "SYSFEERIE.Relevance.SPECIFIC": "Spécifique",
 
     "SYSFEERIE.Plot.Add" : "Ajouter une intrigue de progression",
     "SYSFEERIE.Plot.New" : "Nouvelle intrigue",

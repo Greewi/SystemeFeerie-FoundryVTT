@@ -1,3 +1,4 @@
+import Consts from "./consts.js";
 import { SystemSetting } from "./models/systemSetting.js";
 import { SFUtility } from "./utility.js";
 
@@ -16,6 +17,7 @@ export class SystemeFeerieAction {
 	constructor(difficulty = 0, significance = 0, message = null, items = [], state = SystemeFeerieAction.STATUS.EMPTY) {
 		this.message = message;
 		this.items = items;
+		this.firstElementRelevance = Consts.RELEVANCE_CONNEXE;
 		this.difficulty = difficulty;
 		this.significance = significance;
 		this.state = state;
@@ -40,14 +42,20 @@ export class SystemeFeerieAction {
 		items.sort((i1,i2)=>i2.system.value - i1.system.value)
 		for(let i=0; i<items.length; i++) {
 			switch(SystemSetting.getRollScoreMethod()) {
-				case SystemSetting.SUM :
+				case Consts.SCORE_SUM :
 					score += items[i].system.value;
 					break;
-				case SystemSetting.DEGRESSIVE_SUM :
+				case Consts.SCORE_DEGRESSIVE_SUM :
 					score += Math.max(items[i].system.value - i, 0);
 					break;
-				case SystemSetting.MAX_PLUS_COUNT :
+				case Consts.SCORE_MAX_PLUS_COUNT :
 					score += i==0 ? items[i].system.value : 1;
+					break;
+				case Consts.SCORE_SECOND_HALVED_BY_RELEVANCE :
+					if(i==0 || this.firstElementRelevance == Consts.RELEVANCE_SPECIFIC)
+						score += items[i].system.value - 0;
+					else if(this.firstElementRelevance == Consts.RELEVANCE_TYPICAL)
+						score += Math.ceil(items[i].system.value/2);
 					break;
 			}
 		}
@@ -80,12 +88,21 @@ export class SystemeFeerieAction {
 			}
 		}
 
+		let relevances = {};
+		relevances[Consts.RELEVANCE_CONNEXE] = "SYSFEERIE.Relevance.CONNEXE";
+		relevances[Consts.RELEVANCE_TYPICAL] = "SYSFEERIE.Relevance.TYPICAL";
+		relevances[Consts.RELEVANCE_SPECIFIC] = "SYSFEERIE.Relevance.SPECIFIC";
+
 		return {
 			Difficulty: this.difficulty,
 			Significance: this.significance,
 			TotalDifficulty: this.totalDifficulty,
 			CharacterScore: this.score,
 			ActionScore: this.totalDifficulty,
+			NeedRelevance: SystemSetting.doesUseElementRelevance(),
+			FirstItemRelevance: this.firstElementRelevance,
+			FirstItemRelevanceText:  game.i18n.localize(`SYSFEERIE.Relevance.${this.firstElementRelevance}`),
+			Relevances:relevances,
 			Items: items,
 			Unresolved:this.state != SystemeFeerieAction.STATUS.DONE
 		};
@@ -128,6 +145,24 @@ export class SystemeFeerieAction {
 		this.items.splice(slot, 1);
 		this.updateChatCard();
 		this.saveAction();
+	}
+
+	/**
+	 * Change the relevance of the first element chosen for the action
+	 * @param {string} relevance the relevance of the first element chosen for the action
+	 */
+	static async setRelevance(relevance) {
+		if (game.user.isGM) {
+			game.systemeFeerie.pendingAction.firstElementRelevance = relevance;
+			game.systemeFeerie.pendingAction.updateChatCard();
+			game.systemeFeerie.pendingAction.saveAction();
+			game.socket.emit("system.sysfeerie", {
+				type: "updateRelevance",
+				payload: {
+					relevance: relevance
+				}
+			});
+		}
 	}
 
 	/**

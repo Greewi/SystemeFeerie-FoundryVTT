@@ -295,6 +295,42 @@ button.actionDialog_button_selected {
 .sysfeerie .action-buttons button.startAction, .sysfeerie .action-buttons button.approveSkills {
 	margin : 0;
 }
+.sysfeerie .action-relevance {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	column-gap: 10px;
+	margin-bottom: 5px;
+	align-items: center;
+}
+.sysfeerie .action-relevance .label {
+	text-align: right;
+}
+.sysfeerie .action-relevance .selectRelevance, .sysfeerie .action-relevance .value {
+	height: 28px;
+	line-height: 26px;
+	min-width: max-content;
+	white-space: nowrap;
+	background: rgba(255, 255, 240, 0.8);
+	border: 1px solid var(--color-border-light-primary);
+	border-radius: 3px;
+	font-size: var(--font-size-14);
+	font-family: var(--font-primary);
+	text-align: center;
+	color: black;
+	opacity: 1;
+}
+.sysfeerie .action-relevance .selectRelevance {
+	cursor: pointer;
+}
+.sysfeerie .action-relevance .selectRelevance:hover, .sysfeerie .action-relevance .selectRelevance:focus{
+	outline: none;
+	box-shadow: 0 0 5px var(--color-shadow-primary);
+}
+.sysfeerie .action-relevance .selectRelevance:disabled, .sysfeerie .action-relevance .selectRelevance:disabled{
+	outline: none;
+	box-shadow: none;
+	cursor: default;
+}
 
 /**
  * Chat - resolve action

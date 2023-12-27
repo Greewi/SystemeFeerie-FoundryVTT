@@ -1,3 +1,4 @@
+import Consts from "../consts.js";
 import Presets from "../presets/preset.js";
 
 /**
@@ -138,6 +139,14 @@ export class SystemSetting {
 	}
 
 	/**
+	 * @returns {boolean} true if the system need the GM to assess the relevance of an element when resolving a roll
+	 */
+	static doesUseElementRelevance() {
+		this._init();
+		return this.getRollScoreMethod() == Consts.SCORE_SECOND_HALVED_BY_RELEVANCE;
+	}
+
+	/**
 	 * @returns {Difficulty[]} an array with the difficulties
 	 */
 	static getDifficulties() {
@@ -223,7 +232,7 @@ export class SystemSetting {
 		if(this._systemSettings)
 			return;
 		if(true || game.settings.get("sysfeerie", "systemSetting") == '') {
-			this._systemSettings = Presets.getPreset("cde", 6, game.i18n.lang);
+			this._systemSettings = Presets.getPreset("default", 6, game.i18n.lang);
 			this._save();
 		} else {
 			this._systemSettings = JSON.parse(game.settings.get("sysfeerie", "systemSetting"));

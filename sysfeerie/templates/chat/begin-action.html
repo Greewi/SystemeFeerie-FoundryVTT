@@ -23,6 +23,20 @@
         </div>
     {{/each}}
 
+    {{#if NeedRelevance}}
+        <div class="action-relevance">
+        {{#if Unresolved}}
+            <label class="label" for="selectElementRelevance">{{localize 'SYSFEERIE.Chat.Relevance'}}</label>
+            <select class="selectRelevance" name="selectElementRelevance">
+                {{selectOptions Relevances selected=FirstItemRelevance localize=true}}
+            </select>
+        {{else}}
+            <span class="label">{{localize 'SYSFEERIE.Chat.Relevance'}}</span>
+            <span class="value">{{FirstItemRelevanceText}}</span>
+        {{/if}}
+        </div>
+    {{/if}}
+
     {{#if Unresolved}}
     <div class="action-buttons">
         <button name="startAction" class="startAction" data-difficulty="{{TotalDifficulty}}" data-score="{{CharacterScore}}"><i class="fas checkMark fa-question-circle"></i> {{localize 'SYSFEERIE.Chat.StartRoll'}}</button>
