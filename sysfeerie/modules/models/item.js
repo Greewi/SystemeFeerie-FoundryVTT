@@ -49,7 +49,7 @@ export class SFItem extends Item
 	{
 		let chatData = duplicate(this.system);
 		chatData.name = this.name;
-		chatData.img = this.img.includes("/blank.png") ? null : this.img; // Don't post any image for the item (which would leave a large gap) if the default image is used
+		chatData.img = (!chatData.img || this.img.includes("/blank.png")) ? null : this.img; // Don't post any image for the item (which would leave a large gap) if the default image is used
 		if(this.type == "element") {
 			if(SystemSetting.getCategory(this.system.category))
 				chatData.img = SystemSetting.getCategory(this.system.category).icon;

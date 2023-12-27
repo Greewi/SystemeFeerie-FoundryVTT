@@ -25,6 +25,7 @@ export default {
 		{
 			"id":"FEATURE",
 			"name":"Trait",
+			"icon":"icons/magic/control/buff-strength-muscle-damage-orange.webp",
 			"short":"T",
 			"description":"Réprésente les points particuliers du personnage, physiques comme mentaux.",
 			"levels": [
@@ -36,6 +37,7 @@ export default {
 		},{
 			"id":"PERSONALITY",
 			"name":"Trait de personnalité",
+			"icon":"icons/creatures/eyes/human-single-blue.webp",
 			"short":"P",
 			"description":"Réprésente les traits de caractère, les motivations, les opinions et les croyances du personnage.",
 			"levels": [
@@ -47,6 +49,7 @@ export default {
 		},{
 			"id":"CAREER",
 			"name":"Carrière",
+			"icon":"icons/commodities/treasure/medal-ribbon-star-gold-red.webp",
 			"short":"C",
 			"description":"Représente les métiers, formations, loisirs et autres occupations du personnage. En cours de jeu, n’oubliez pas que celles-ci incluent aussi des relations anonymes, par exemple des collègues, des fournisseurs, des employeurs, etc.",
 			"levels": [
@@ -58,6 +61,7 @@ export default {
 		},{
 			"id":"NETWORK",
 			"name":"Relation",
+			"icon":"icons/skills/social/diplomacy-handshake.webp",
 			"short":"R",
 			"description":"Représente les contacts, les alliés et autres liens sociaux du personnage. Il peut s’agit d’individus ou d’organisation. Dans ce dernier cas, nous ne faisons pas de distinction pour le score que l’on considère l’organisation elle-même ou les individus la composant.",
 			"levels": [
@@ -69,6 +73,7 @@ export default {
 		},{
 			"id":"EQUIPMENT",
 			"name":"Équipement",
+			"icon":"icons/commodities/tech/metal-panel.webp",
 			"short":"E",
 			"description":"Représente le matériel usuel du personnage.",
 			"levels": [
@@ -80,6 +85,7 @@ export default {
 		},{
 			"id":"MODIFICATION",
 			"name":"Modification",
+			"icon":"icons/commodities/tech/claw-mechanical.webp",
 			"short":"M",
 			"description":"Représente les implants et autres fonctionnalités particulières de l'enveloppe du personnage.",
 			"levels": [
@@ -91,6 +97,7 @@ export default {
 		},{
 			"id":"SOFTWARE",
 			"name":"Logiciel",
+			"icon":"icons/magic/symbols/triangle-glow-purple.webp",
 			"short":"L",
 			"description":"Représente les logiciels spécialisés du personnage.",
 			"levels": [
