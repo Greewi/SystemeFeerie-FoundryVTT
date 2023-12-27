@@ -39,7 +39,8 @@ export class SystemeFeerieAction {
 	get score() {
 		let score = 0;
 		let items = Array.from(this.items);
-		items.sort((i1,i2)=>i2.system.value - i1.system.value)
+		if(!SystemSetting.doesUseElementRelevance()) // When relevance is used, it is the first item's relevance that is examined.
+			items.sort((i1,i2)=>i2.system.value - i1.system.value)
 		for(let i=0; i<items.length; i++) {
 			switch(SystemSetting.getRollScoreMethod()) {
 				case Consts.SCORE_SUM :
