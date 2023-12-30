@@ -2,8 +2,22 @@
     <h2>
         {{localize 'SYSFEERIE.Chat.NewAction'}}
     </h2>
-    <h3 title="{{localize 'SYSFEERIE.Dialog.Difficulty'}}: {{Difficulty}}, {{localize 'SYSFEERIE.Dialog.Significance'}}: {{Significance}}">{{localize 'SYSFEERIE.Chat.Difficulty'}} {{TotalDifficulty}}</h3>
-    <h3>{{localize 'SYSFEERIE.Chat.CharacterScore'}} {{CharacterScore}}</h3>
+
+    <div class="action-params">
+        {{#if IsOpposition}}
+            <h3>{{localize 'SYSFEERIE.Chat.CharacterScore'}} {{CharacterScore}}</h3>
+            <h3>{{localize 'SYSFEERIE.Chat.OpponentScore'}} {{OpponentScore}}</h3>
+            <h3 title="{{localize 'SYSFEERIE.Dialog.Difficulty'}}: {{Difficulty}}, {{localize 'SYSFEERIE.Dialog.Significance'}}: {{Significance}}">{{localize 'SYSFEERIE.Chat.Difficulty'}} {{TotalDifficulty}}</h3>
+            <h3>{{localize 'SYSFEERIE.Chat.OpponentDifficulty'}} {{OpponentDifficulty}}</h3>
+        {{else}}{{#if IsSimpleOppostion}}
+            <h3>{{localize 'SYSFEERIE.Chat.CharacterScore'}} {{CharacterScore}}</h3>
+            <h3 title="{{localize 'SYSFEERIE.Dialog.OpponentRating'}}: {{OpponentScore}}, {{localize 'SYSFEERIE.Dialog.Significance'}}: {{Significance}}">{{localize 'SYSFEERIE.Chat.Difficulty'}} {{TotalDifficulty}}</h3>
+        {{else}}
+            <h3>{{localize 'SYSFEERIE.Chat.CharacterScore'}} {{CharacterScore}}</h3>
+            <h3 title="{{localize 'SYSFEERIE.Dialog.Difficulty'}}: {{Difficulty}}, {{localize 'SYSFEERIE.Dialog.Significance'}}: {{Significance}}">{{localize 'SYSFEERIE.Chat.Difficulty'}} {{TotalDifficulty}}</h3>
+        {{/if}}{{/if}}
+    </div>
+
     {{#each Items as |Item Slot|}}
         <div class="action-skill" data-slot="{{Slot}}">
             <div class="skill-container" style="display:{{Item.DisplayItem}}">
@@ -39,7 +53,7 @@
 
     {{#if Unresolved}}
     <div class="action-buttons">
-        <button name="startAction" class="startAction" data-difficulty="{{TotalDifficulty}}" data-score="{{CharacterScore}}"><i class="fas checkMark fa-question-circle"></i> {{localize 'SYSFEERIE.Chat.StartRoll'}}</button>
+        <button name="startAction" class="startAction" data-difficulty="{{TotalDifficulty}}" data-score="{{CharacterScore}}" data-is-opposition="{{IsOpposition}}" data-opponent-difficulty="{{OpponentDifficulty}}" data-opponent-score="{{OpponentScore}}" ><i class="fas checkMark fa-question-circle"></i> {{localize 'SYSFEERIE.Chat.StartRoll'}}</button>
         <button name="approveSkills" class="approveSkills">{{localize 'SYSFEERIE.Chat.GMOk'}}</button>
     </div>
     {{/if}}

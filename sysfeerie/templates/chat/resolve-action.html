@@ -1,7 +1,12 @@
 <div class="sysfeerie resolve-action action">
     <h2>
+    {{#if IsOpposition}}
+        {{localize 'SYSFEERIE.Chat.ResolvePlayerAction'}}
+    {{else}}
         {{localize 'SYSFEERIE.Chat.ResolveAction'}}
+    {{/if}}
     </h2>
+
     {{#if HasRoll}}
     <div class="resolve-action-roll-container">
         {{#each Dice as |die i|}}
@@ -9,20 +14,56 @@
         {{/each}}
     </div>
     {{/if}}
-    <div class="resolve-action-result {{ClassActionResult}}">{{{TextActionResult}}}</div>
-    <div class="resolve-action-score">{{localize 'SYSFEERIE.Chat.ScoreToBeat'}} <span class="resolve-action-score-value">{{Threshold}}</span></div>
-    {{#if HasRoll}}
-        {{#if SuccessBased}}
-            <div class="resolve-action-dice-success">{{localize 'SYSFEERIE.Chat.SuccessCount'}} <span class="resolve-action-dice-success-value">{{RollResult}}</span></div>
-        {{else}}
-            <div class="resolve-action-dice-success">{{localize 'SYSFEERIE.Chat.DiceResultScore'}} <span class="resolve-action-dice-success-value">{{RollResult}}</span></div>
-            <div class="resolve-action-dice-success" title="{{localize 'SYSFEERIE.Chat.DiceResultRange'}} {{SuccessRange}}">{{localize 'SYSFEERIE.Chat.DiceResultQuality'}} <span class="resolve-action-dice-success-value">{{SuccessQuality}}</span></div>
-        {{/if}}
-    {{/if}}
     {{#if AutoFailure}}
     <div class="resolve-action-dice-success">{{localize 'SYSFEERIE.Chat.AutoFail'}}</div>
     {{/if}}
     {{#if AutoSuccess}}
     <div class="resolve-action-dice-success">{{localize 'SYSFEERIE.Chat.AutoSuccess'}}</div>
+    {{/if}}
+
+    {{#if IsOpposition}}{{else}}
+    <div class="resolve-action-result {{ClassActionResult}}">{{{TextActionResult}}}</div>
+    {{/if}}
+
+    <div class="resolve-action-score">{{localize 'SYSFEERIE.Chat.ScoreToBeat'}} <span class="resolve-action-score-value">{{Threshold}}</span></div>
+    {{#if HasRoll}}
+        {{#if SuccessBased}}
+            <div class="resolve-action-dice-success">{{localize 'SYSFEERIE.Chat.SuccessCount'}} <span class="resolve-action-dice-success-value">{{RollResult}}</span></div>
+        {{else}}
+            <div class="resolve-action-dice-success">{{localize 'SYSFEERIE.Chat.DiceResultRange'}} {{SuccessRange}} <span class="resolve-action-dice-success-value">({{SuccessQuality}})</span></div>
+        {{/if}}
+    {{/if}}
+
+    {{#if IsOpposition}}
+        <hr>
+        <h2>{{localize 'SYSFEERIE.Chat.ResolveOpponentAction'}}</h2>
+
+        {{#if Opponent.HasRoll}}
+        <div class="resolve-action-roll-container">
+            {{#each Opponent.Dice as |die i|}}
+            <div class="resolve-action-roll {{die.class}}"><span>{{die.value}}</span></div>
+            {{/each}}
+        </div>
+        {{/if}}
+        {{#if Opponent.AutoFailure}}
+        <div class="resolve-action-dice-success">{{localize 'SYSFEERIE.Chat.AutoFail'}}</div>
+        {{/if}}
+        {{#if Opponent.AutoSuccess}}
+        <div class="resolve-action-dice-success">{{localize 'SYSFEERIE.Chat.AutoSuccess'}}</div>
+        {{/if}}
+
+        <div class="resolve-action-score">{{localize 'SYSFEERIE.Chat.ScoreToBeat'}} <span class="resolve-action-score-value">{{Opponent.Threshold}}</span></div>
+        {{#if Opponent.HasRoll}}
+            {{#if Opponent.SuccessBased}}
+                <div class="resolve-action-dice-success">{{localize 'SYSFEERIE.Chat.SuccessCount'}} <span class="resolve-action-dice-success-value">{{Opponent.RollResult}}</span></div>
+            {{else}}
+                <div class="resolve-action-dice-success">{{localize 'SYSFEERIE.Chat.DiceResultRange'}} {{Opponent.SuccessRange}} <span class="resolve-action-dice-success-value">({{Opponent.SuccessQuality}})</span></div>
+            {{/if}}
+        {{/if}}
+
+        <hr>
+        <div class="resolve-action-score">{{localize 'SYSFEERIE.Chat.OppositionDelta'}} <span class="resolve-action-score-value">{{OppositionDelta}}</span></div>
+        <div class="resolve-action-result {{OppositionClass}}">{{{OppositionResult}}}</div>
+
     {{/if}}
 </div>

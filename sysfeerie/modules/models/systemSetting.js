@@ -2,7 +2,7 @@ import Consts from "../consts.js";
 import Presets from "../presets/preset.js";
 
 /**
- * @typedef {{score:number, name:string, description:string}} Difficulty
+ * @typedef {{score:number, name:string, description:string}} Level
  * @typedef {{id:string, name:string, icon:string, short:string, description:string, levels:string[]}} Category
  * @typedef {{
  *     id:string,
@@ -10,8 +10,9 @@ import Presets from "../presets/preset.js";
  *     systemVersion:number,
  *     lang:string,
  *     rolls : {maxElementNumber:number, scoreMethod:string},
- *     difficulties:Difficulty[],
- *     signifiances:Difficulty[],
+ *     difficulties:Level[],
+ *     signifiances:Level[],
+ *     ratings:Level[],
  *     categories:Category[]
  * }} SystemSettingInfos
  */
@@ -146,8 +147,13 @@ export class SystemSetting {
 		return this.getRollScoreMethod() == Consts.SCORE_SECOND_HALVED_BY_RELEVANCE;
 	}
 
+	static doesUseFullOppositions() {
+		this._init();
+		return this._systemSettings.systemVersion != 5;
+	}
+
 	/**
-	 * @returns {Difficulty[]} an array with the difficulties
+	 * @returns {Level[]} an array with the difficulties
 	 */
 	static getDifficulties() {
 		this._init();
@@ -157,7 +163,7 @@ export class SystemSetting {
 	}
 
 	/**
-	 * @returns {Difficulty[]} an array with the signifiances
+	 * @returns {Level[]} an array with the signifiances
 	 */
 	static getSignifiances() {
 		this._init();
@@ -165,7 +171,17 @@ export class SystemSetting {
 			this._systemSettings.signifiances[i].icon = signifiancesIcons[Math.round(i*signifiancesIcons.length/this._systemSettings.signifiances.length)];
 		return this._systemSettings.signifiances;
 	}
-	
+
+	/**
+	 * @returns {Level[]} an array with the npc ratings
+	 */
+	static getRatings() {
+		this._init();
+		for(let i=0; i<this._systemSettings.ratings.length; i++)
+			this._systemSettings.ratings[i].icon = difficultiesIcons[Math.round(i*difficultiesIcons.length/this._systemSettings.ratings.length)];
+		return this._systemSettings.ratings;
+	}
+
 	/**
 	 * @returns {Category[]}  an array containing the catgories of the game
 	 */

@@ -21,6 +21,14 @@ export default {
 		{"score":2,"name":"Échec intéressant", "description":"L’échec de cette action conduira à une situation plus intéressante que sa réussite."},
 		{"score":4,"name":"Devrait échouer", "description":"La réussite de cette action engendrerait une situation indésirable."}
 	],
+	"ratings": [
+		{"score":1,"name":"Incompétent", "description":"N'y connait rien ou presque."},
+		{"score":2,"name":"Débutant", "description":"N'a pas encore vraiment les bases."},
+		{"score":3,"name":"Apprenti", "description":"Possède les bases mais pas plus."},
+		{"score":4,"name":"Professionnel", "description":"Apte à en faire son métier."},
+		{"score":5,"name":"Spécialiste", "description":"Très bon dans le domaine."},
+		{"score":6,"name":"Grand maître", "description":"L'un des meilleurs dans le domaine."}
+	],
 	"categories": [
 		{
 			"id":"FEATURE",

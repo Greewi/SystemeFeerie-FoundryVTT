@@ -181,7 +181,7 @@
 /**
  * Dialog - Start action
  */
-.actionDialog_difficulty, .actionDialog_significance {
+.actionDialog_difficulty, .actionDialog_significance, .actionDialog_opponentDifficulty, .actionDialog_opponentRating {
 	display : grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 	column-gap: 5px;
@@ -294,6 +294,11 @@ button.actionDialog_button_selected {
 }
 .sysfeerie .action-buttons button.startAction, .sysfeerie .action-buttons button.approveSkills {
 	margin : 0;
+}
+.sysfeerie .action-params {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	column-gap: 10px;
 }
 .sysfeerie .action-relevance {
 	display: grid;

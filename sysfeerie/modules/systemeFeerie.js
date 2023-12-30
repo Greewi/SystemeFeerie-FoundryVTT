@@ -62,6 +62,7 @@ Hooks.once("diceSoNiceReady", (dice3d) => {
 		modelFile: SFUtility.getSystemRessource("dices/3e_terre/d6.glb"),
 		system: "3e_terre_dice_set"
 	});
+	game.settings.set("dice-so-nice","enabledSimultaneousRollForMessage",false);
 });
 
 Hooks.once("ready", async function () {
@@ -147,7 +148,10 @@ Hooks.on('renderChatLog', (log, html, data) => {
 	html.on("click", ".startAction", async ev => {
 		let difficulty = parseInt($(ev.currentTarget).data("difficulty"), 10);
 		let score = parseInt($(ev.currentTarget).data("score"), 10);
-		SystemeFeerieAction.resolveAction(difficulty, score);
+		let isOpposition = $(ev.currentTarget).data("isOpposition") == true;
+		let opponentDifficulty = parseInt($(ev.currentTarget).data("opponentDifficulty"), 10);
+		let opponentScore = parseInt($(ev.currentTarget).data("opponentScore"), 10);
+		SystemeFeerieAction.resolveAction(difficulty, score, isOpposition, opponentDifficulty, opponentScore);
 	});
 
 	html.on("change", ".selectRelevance", async ev => {
@@ -179,13 +183,20 @@ class SystemeFeerie {
 	}
 
 	/**
+	 * Open a dialog to begin an opposing action. Let the GM specify the opposition stats
+	 */
+	openOpposingActionDialog() {
+		SFDialogs.openOpposingActionDialog();
+	}
+
+	/**
 	 * Start a new action. Sends a special interactive message in the chat to request the skills to use
 	 */
-	beginAction(difficulty, significance) {
+	beginAction(difficulty, significance, isOpposition=false, opponentDifficulty=0, opponentRating=0) {
 		if (!game.user.isGM)
 			return;
 
-		this.pendingAction = new SystemeFeerieAction(difficulty, significance);
+		this.pendingAction = new SystemeFeerieAction(difficulty, significance, isOpposition, opponentDifficulty, opponentRating);
 		this.pendingAction.createChatCard();
 	}
 }

@@ -1,0 +1,74 @@
+<h1>{{localize 'SYSFEERIE.Dialog.Opponent'}}</h1>
+<h2>{{localize 'SYSFEERIE.Dialog.SelectOpponentRating'}}</h2>
+<div class="dialog-buttons actionDialog_opponentRating">
+	{{#each Ratings as |Rating index|}}
+		<button class="actionDialog_button" data-button="{{Rating.score}}" title="{{Rating.description}}">
+			<i class="{{Rating.icon}}"></i>
+			{{Rating.name}}
+			<div class="bonus">{{formatNumber Rating.score decimals=2 sign=true}}</div>
+		</button>
+	{{/each}}
+</div>
+<h2 {{{NoDisplayV5}}}>{{localize 'SYSFEERIE.Dialog.SelectOpponentDifficulty'}}</h2>
+<div class="dialog-buttons actionDialog_opponentDifficulty" {{{NoDisplayV5}}}>
+	{{#each Difficulties as |Difficulty index|}}
+		<button class="actionDialog_button" data-button="{{Difficulty.score}}" title="{{Difficulty.description}}">
+			<i class="{{Difficulty.icon}}"></i>
+			{{Difficulty.name}}
+			<div class="bonus">{{formatNumber Difficulty.score decimals=2 sign=true}}</div>
+		</button>
+	{{/each}}
+</div>
+
+<div class="actionDialog_summary">
+	<div class="actionDialog_summary_opponentRating">
+		<div class="actionDialog_description actionDialog_description_opponentRating">
+			{{localize 'SYSFEERIE.Dialog.Rating'}}
+		</div>
+		<input type="number" name="actionDialog_opponentRating" value="{{DefaultOpponentRating}}" class="actionDialog_value_opponentRating" />
+	</div>
+	<div class="actionDialog_summary_opponentDifficulty" {{{NoDisplayV5}}}>
+		<div class="actionDialog_description actionDialog_description_opponentDifficulty">
+			{{localize 'SYSFEERIE.Dialog.Difficulty'}}
+		</div>
+		<input type="number" name="actionDialog_opponentDifficulty" value="{{DefaultOpponentDifficulty}}" class="actionDialog_value_opponentDifficulty" />
+	</div>
+</div>
+
+
+<h1>{{localize 'SYSFEERIE.Dialog.Player'}}</h1>
+<h2 {{{NoDisplayV5}}}>{{localize 'SYSFEERIE.Dialog.SelectDifficulty'}}</h2>
+<div class="dialog-buttons actionDialog_difficulty" {{{NoDisplayV5}}}>
+	{{#each Difficulties as |Difficulty index|}}
+		<button class="actionDialog_button" data-button="{{Difficulty.score}}" title="{{Difficulty.description}}">
+			<i class="{{Difficulty.icon}}"></i>
+			{{Difficulty.name}}
+			<div class="bonus">{{formatNumber Difficulty.score decimals=2 sign=true}}</div>
+		</button>
+	{{/each}}
+</div>
+<h2>{{localize 'SYSFEERIE.Dialog.SelectSignificance'}}</h2>
+<div class="dialog-buttons actionDialog_significance">
+	{{#each Significances as |Signifiance index|}}
+		<button class="actionDialog_button" data-button="{{Signifiance.score}}" title="{{Signifiance.description}}">
+			<i class="{{Signifiance.icon}}"></i>
+			{{Signifiance.name}}
+			<div class="bonus">{{formatNumber Signifiance.score decimals=2 sign=true}}</div>
+		</button>
+	{{/each}}
+</div>
+
+<div class="actionDialog_summary">
+	<div class="actionDialog_summary_difficulty" {{{NoDisplayV5}}}>
+		<div class="actionDialog_description actionDialog_description_difficulty">
+			{{localize 'SYSFEERIE.Dialog.Difficulty'}}
+		</div>
+		<input type="number" name="actionDialog_difficulty" value="{{DefaultDifficulty}}" class="actionDialog_value_difficulty" />
+	</div>
+	<div class="actionDialog_summary_dignifiance">
+		<div class="actionDialog_description actionDialog_description_dignifiance">
+			{{localize 'SYSFEERIE.Dialog.Significance'}}
+		</div>
+		<input type="number" name="actionDialog_significance" value="{{DefaultSignifiance}}" class="actionDialog_value_signifiance" />
+	</div>
+</div>

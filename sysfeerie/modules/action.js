@@ -12,15 +12,18 @@ import { SFUtility } from "./utility.js";
 export class SystemeFeerieAction {
 	/**
 	 * @param {ChatMessage} message 
-	 * @param {Number} difficulty 
+	 * @param {number} difficulty 
 	 */
-	constructor(difficulty = 0, significance = 0, message = null, items = [], state = SystemeFeerieAction.STATUS.EMPTY) {
-		this.message = message;
-		this.items = items;
+	constructor(difficulty = 0, significance = 0, isOpposition = false, opponentDifficulty = 0, opponentRating = 0) {
 		this.firstElementRelevance = Consts.RELEVANCE_CONNEXE;
 		this.difficulty = difficulty;
 		this.significance = significance;
-		this.state = state;
+		this.isOpposition = isOpposition;
+		this.opponentDifficulty = opponentDifficulty;
+		this.opponentRating = opponentRating;
+		this.message = null;
+		this.items = [];
+		this.state = SystemeFeerieAction.STATUS.EMPTY;
 	}
 
 	static STATUS = {
@@ -33,6 +36,8 @@ export class SystemeFeerieAction {
 	}
 
 	get totalDifficulty() {
+		if(this.isOpposition && !SystemSetting.doesUseFullOppositions())
+			return 3 + parseInt(this.opponentRating) + parseInt(this.significance);
 		return parseInt(this.difficulty) + parseInt(this.significance);
 	}
 
@@ -95,10 +100,14 @@ export class SystemeFeerieAction {
 		relevances[Consts.RELEVANCE_SPECIFIC] = "SYSFEERIE.Relevance.SPECIFIC";
 
 		return {
+			IsOpposition: this.isOpposition && SystemSetting.doesUseFullOppositions(),
+			IsSimpleOppostion: this.isOpposition && !SystemSetting.doesUseFullOppositions(),
 			Difficulty: this.difficulty,
 			Significance: this.significance,
 			TotalDifficulty: this.totalDifficulty,
 			CharacterScore: this.score,
+			OpponentScore: this.opponentRating,
+			OpponentDifficulty: this.opponentDifficulty,
 			ActionScore: this.totalDifficulty,
 			NeedRelevance: SystemSetting.doesUseElementRelevance(),
 			FirstItemRelevance: this.firstElementRelevance,
@@ -137,7 +146,7 @@ export class SystemeFeerieAction {
 
 	/**
 	 * Remove an item from an ongoing action
-	 * @param {Number} slot 
+	 * @param {number} slot 
 	 */
 	removeItem(slot) {
 		this.checkActionStatus();
@@ -255,6 +264,10 @@ export class SystemeFeerieAction {
 			items : items,
 			difficulty: this.difficulty,
 			significance: this.significance,
+			isOpposition: this.isOpposition,
+			opponentDifficulty: this.opponentDifficulty,
+			opponentRating: this.opponentRating,
+			firstElementRelevance:this.firstElementRelevance,
 			state: this.state
 		});
 	}
@@ -278,41 +291,54 @@ export class SystemeFeerieAction {
 				items.push(game.actors.get(item.actor).items.get(item.item));
 		}
 
-		return new SystemeFeerieAction(data.difficulty, data.significance, message, items, data.state);
+		let action = new SystemeFeerieAction(data.difficulty, data.significance, data.isOpposition, data.opponentDifficulty, data.opponentRating);
+		action.firstElementRelevance = data.firstElementRelevance;
+		action.message = message;
+		action.items = items;
+		action.state = data.state;
+		return action;
 	}
 
 	/**
 	 * Create a RollMessage and resolve the action
-	 * @param {Number} difficulty
-	 * @param {Number} score
+	 * @param {number} difficulty
+	 * @param {number} score
+	 * @param {boolean} isOpposition if true, this is an opposition roll
+	 * @param {number} opponentDifficulty the difficulty for the opponent
+	 * @param {number} opponentScore the rating score of the opponent
 	 */
-	static async resolveAction(difficulty, score){
+	static async resolveAction(difficulty, score, isOpposition, opponentDifficulty, opponentScore){
 		let data;
 		if(SystemSetting.getSystemVersion()==5)
-			data = await this._resolveActionV5(difficulty, score);
+			data = await this._resolveActionV5(difficulty, score, isOpposition, opponentDifficulty, opponentScore);
 		else if(SystemSetting.getSystemVersion()==6)
-			data = await this._resolveActionV6(difficulty, score);
+			data = await this._resolveActionV6(difficulty, score, isOpposition, opponentDifficulty, opponentScore);
 		else {
 			this._cleanAction();
 			return;
 		}
 
-		if(data.Result){
-			if(!data.HasRoll)
-				data.autoSuccess = true;
-			data.ClassActionResult = "resolve-action-success";
-			data.TextActionResult = `<i class="fas fa-check"></i> ${game.i18n.localize("SYSFEERIE.Chat.ResultSuccess")}`;
-		}
-		else {
-			if(!data.HasRoll)
-				data.autoFail = true;
-			data.ClassActionResult = "resolve-action-failed";
-			data.TextActionResult = `<i class="fas fa-times"></i> ${game.i18n.localize("SYSFEERIE.Chat.ResultFailed")}`;
-		}
-
 		renderTemplate(SFUtility.getSystemRessource("templates/chat/resolve-action.html"), data).then(html => {
 			let chatOptions = SFUtility.chatDataSetup(html, null, data.HasRoll);
-			chatOptions.roll = data.Roll;
+			if(data.Opponent && data.Opponent.HasRoll) {
+				data.Roll.dice[0].options.rollOrder = 1;
+				data.Opponent.Roll.dice[0].options.rollOrder = 2;
+				data.Opponent.Roll.dice[0].options.appearance = {
+					"colorset": "custom",
+					"font": "Arial Black",
+					"foreground": "#220000",
+					"background": "#FF3300",
+					"outline": "#FF3300",
+					"edge": "#FF3300",
+					"texture": "stars",
+					"material": "metal",
+					"system": "standard",//"dot" make D6 lose faces
+				};
+				
+				chatOptions.roll = Roll.fromTerms([PoolTerm.fromRolls([data.Roll, data.Opponent.Roll])]);
+			} else {
+				chatOptions.roll = data.Roll;
+			}
 			ChatMessage.create(chatOptions).then(msg => {
 				this._cleanAction();
 			});
@@ -332,9 +358,12 @@ export class SystemeFeerieAction {
 	/**
 	 * @param {number} difficulty 
 	 * @param {number} score 
+	 * @param {boolean} isOpposition 
+	 * @param {number} opponentDifficulty 
+	 * @param {number} opponentScore 
 	 * @returns {Promise<RollResult>}
 	 */
-	static async _resolveActionV5(difficulty, score) {
+	static async _resolveActionV5(difficulty, score, isOpposition, opponentDifficulty, opponentScore) {
 		let threshold = difficulty+score;
 		let needRoll = threshold > 0 && threshold < 6;
 
@@ -367,8 +396,54 @@ export class SystemeFeerieAction {
 
 			HasRollRange: false,
 			SuccessRange: 0,
-			SuccessQuality: game.i18n.localize(result?"SYSFEERIE.Chat.DiceResultNormalSuccess":"SYSFEERIE.Chat.DiceResultNormalFailure")
+			SuccessQuality: game.i18n.localize(result?"SYSFEERIE.Chat.DiceResultNormalSuccess":"SYSFEERIE.Chat.DiceResultNormalFailure"),
+
+			ClassActionResult: result? "resolve-action-success" : "resolve-action-failed",
+			TextActionResult: result? `<i class="fas fa-check"></i> ${game.i18n.localize("SYSFEERIE.Chat.ResultSuccess")}` : `<i class="fas fa-times"></i> ${game.i18n.localize("SYSFEERIE.Chat.ResultFailed")}`,
 		};
+	}
+
+	/**
+	 * @param {number} difficulty 
+	 * @param {number} score 
+	 * @param {boolean} isOpposition 
+	 * @param {number} opponentDifficulty 
+	 * @param {number} opponentScore 
+	 * @returns {Promise<RollResult>}
+	 */
+	static async _resolveActionV6(difficulty, score, isOpposition, opponentDifficulty, opponentScore) {
+		if(isOpposition)
+			return await this._resolveOppositionActionV6(difficulty, score, opponentDifficulty, opponentScore);
+		else
+			return await this._resolveSimpleActionV6(difficulty, score);
+	}
+
+	/**
+	 * @param {number} difficulty 
+	 * @param {number} score 
+	 * @param {number} opponentDifficulty 
+	 * @param {number} opponentScore 
+	 * @returns {Promise<RollResult>}
+	 */
+	static async _resolveOppositionActionV6(difficulty, score, opponentDifficulty, opponentScore) {
+		let playerResult = await this._resolveSimpleActionV6(difficulty, score, false);
+		let opponentResult = await this._resolveSimpleActionV6(opponentDifficulty, opponentScore, false);
+		let delta = playerResult.SuccessRange - opponentResult.SuccessRange;
+		playerResult.IsOpposition = true;
+		playerResult.Opponent = opponentResult;
+		playerResult.OppositionDelta = delta;
+		if(delta>0) {
+			playerResult.OppositionResult = `<i class="fas fa-check"></i> ${game.i18n.localize("SYSFEERIE.Chat.OppositionWon")}`;
+			playerResult.OppositionClass = "resolve-action-success";
+		} else if(delta<0) {
+			playerResult.OppositionResult = `<i class="fas fa-times"></i> ${game.i18n.localize("SYSFEERIE.Chat.OppositionLost")}`;
+			playerResult.OppositionClass = "resolve-action-failed";
+		} else {
+			playerResult.OppositionResult = `<i class="fas fa-cog"></i> ${game.i18n.localize("SYSFEERIE.Chat.OppositionStalled")}`;
+			playerResult.OppositionClass = "resolve-action-stall";
+		}
+
+		return playerResult;
 	}
 
 	/**
@@ -376,7 +451,7 @@ export class SystemeFeerieAction {
 	 * @param {number} score 
 	 * @returns {Promise<RollResult>}
 	 */
-	static async _resolveActionV6(difficulty, score) {
+	static async _resolveSimpleActionV6(difficulty, score) {
 		let threshold = difficulty-score;
 
 		let roll = await new Roll(`3d6dhdl`).roll();
@@ -421,7 +496,10 @@ export class SystemeFeerieAction {
 
 			HasRollRange: true,
 			SuccessRange: successRange,
-			SuccessQuality: successQuality
+			SuccessQuality: successQuality,
+
+			ClassActionResult: result? "resolve-action-success" : "resolve-action-failed",
+			TextActionResult: result? `<i class="fas fa-check"></i> ${game.i18n.localize("SYSFEERIE.Chat.ResultSuccess")}` : `<i class="fas fa-times"></i> ${game.i18n.localize("SYSFEERIE.Chat.ResultFailed")}`,
 		};
 	}
 
