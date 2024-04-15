@@ -390,6 +390,10 @@ button.actionDialog_button_selected {
 /**
  * Settings
  */
+.sysfeerie .settingLoadPreset_content {
+	margin-bottom: 10px;
+}
+
 .sysfeerie .categorySetting_form {
 	display: grid;
 	grid-template-rows: 1fr max-content;

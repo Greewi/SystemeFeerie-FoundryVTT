@@ -3,6 +3,12 @@
     "SYSFEERIE.Settings.CategoriesButton": "Configurer les catégories",
     "SYSFEERIE.Settings.CategoriesHint": "Chaque élément des personnages appartient à une catégorie. Vous pourrez définir les catégories disponibles ici.",
 
+    "SYSFEERIE.Settings.LoadPreset": "Presets",
+    "SYSFEERIE.Settings.LoadPresetButton": "Charger un preset",
+    "SYSFEERIE.Settings.LoadPresetHint": "Les preset contiennent des configuration complètes du système de jeu. Charger un preset écrasera toutes la configuration du système de jeu actuelle.",
+    "SYSFEERIE.Settings.LoadPresetLabelPresetToLoad": "Preset à charger :",
+    "SYSFEERIE.Settings.LoadPresetConfirmation": "Cette opération écrasera toute la configuration acteulle du système de jeu. Voulez-vous vraiment continuer ?",
+
     "SYSFEERIE.Settings.SystemSetting": "Configuration du système",
     "SYSFEERIE.Settings.SystemSettingHint": "Le Système Féerie est très paramétrable.",
 

@@ -6,6 +6,7 @@ import { SFActorSheet } from "./sheets/actor-sheet.js";
 import { SFItemSheet } from "./sheets/item-sheet.js";
 import { CategorySettingDialog } from "./ui/categorySettingDialog.js";
 import { SFDialogs } from "./ui/dialogs.js";
+import { SettingLoadPresetDialog } from "./ui/settingLoadPresetDialog.js";
 import { SFUtility } from "./utility.js";
 
 /* -------------------------------------------- */
@@ -29,6 +30,14 @@ Hooks.once("init", async function () {
 	Items.registerSheet("sysfeerie", SFItemSheet, { makeDefault: true });
 
 	// Register system settings
+	game.settings.registerMenu("sysfeerie", "loadPresetMenu", {
+		name: game.i18n.localize("SYSFEERIE.Settings.LoadPreset"),
+		label: game.i18n.localize("SYSFEERIE.Settings.LoadPresetButton"),
+		hint: game.i18n.localize("SYSFEERIE.Settings.LoadPresetHint"),
+		icon: "fas fa-bars",
+		type: SettingLoadPresetDialog,
+		restricted: true
+	});
 	game.settings.registerMenu("sysfeerie", "categoryMenu", {
 		name: game.i18n.localize("SYSFEERIE.Settings.Categories"),
 		label: game.i18n.localize("SYSFEERIE.Settings.CategoriesButton"),

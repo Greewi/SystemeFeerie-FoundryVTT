@@ -244,10 +244,20 @@ export class SystemSetting {
 		return game.settings.set("sysfeerie", "categories", JSON.stringify(this._categories));
 	}
 
+	/**
+	 * Load a preset and overwrite all settings.
+	 * @param {string} id the id of the preset to load
+	 * @param {number} systemVersion the Système Féerie version number
+	 */
+	static loadPreset(id, systemVersion) {
+		this._systemSettings = Presets.getPreset(id, systemVersion, game.i18n.lang);
+		this._save();
+	}
+
 	static _init() {
 		if(this._systemSettings)
 			return;
-		if(true || game.settings.get("sysfeerie", "systemSetting") == '') {
+		if(game.settings.get("sysfeerie", "systemSetting") == '') {
 			this._systemSettings = Presets.getPreset("default", 6, game.i18n.lang);
 			this._save();
 		} else {

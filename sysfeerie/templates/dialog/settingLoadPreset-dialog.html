@@ -1,0 +1,13 @@
+<form class="settingLoadPreset_form">
+	<div class="settingLoadPreset_content">
+		<h1>{{localize 'SYSFEERIE.Settings.LoadPreset'}}</h1>
+		<p>{{localize 'SYSFEERIE.Settings.LoadPresetHint'}}</p>
+		<label class="settingLoadPreset_presetLabel" for="settingLoadPreset_selectPreset">{{localize 'SYSFEERIE.Settings.LoadPresetLabelPresetToLoad'}}</label>
+		<select id="settingLoadPreset_selectPreset" name="data.preset">
+			{{#each presets as |preset index|}}
+				<option value="{{preset.id}}-{{preset.systemVersion}}">{{preset.name}} (v{{preset.systemVersion}} {{preset.lang}})</option>
+			{{/each}}
+		</select>
+	</div>
+	<button class="settingLoadPreset_saveButton" type="submit">{{localize 'SYSFEERIE.Settings.LoadPresetButton'}}</button>
+</form>
