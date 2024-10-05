@@ -25,6 +25,8 @@ export class PlayerCharacterActor extends Actor {
 		data.elements = items.filter(item => item.type === "element");
 		data.status = items.filter(item => item.type === "status");
 		data.plots = items.filter(item => item.type === "plot");
+		data.ressources = items.filter(item => item.type === "ressource");
+		data.informations = items.filter(item => item.type === "information");
 
 		// Building description with elements
 		let fullDescription = data.description;

@@ -54,6 +54,10 @@
 /**
  * Character sheet - description
  */
+.sheet.actor .charName {
+	display: grid;
+	grid-template-columns: 1fr min-content;
+}
 .sheet.actor .charDesc_editButton, .sheet.actor .charDesc_extractButton {
 	display: none;
 }
@@ -82,6 +86,45 @@
 .sheet.actor .sysfeerie_element:hover {
 	text-shadow: 0 0 8px red;
 }
+/**
+ * Character sheet - infos
+ */
+.sheet.actor .charInformations_addButton {
+	display: none;
+}
+.sheet.actor .editable .charInformations_addButton {
+	display: inline;
+	float: right;
+}
+.sheet.actor .information.item {
+	display:grid;
+	grid-template-columns: 1fr auto;
+}
+.sheet.actor .information input{
+	grid-column-end: 3;
+	grid-column-start: 1;
+}
+
+/**
+ * Character sheet - ressources
+ */
+.sheet.actor .charRessources_addButton {
+	display: none;
+}
+.sheet.actor .editable .charRessources_addButton {
+	display: inline;
+	float: right;
+}
+.sheet.actor .item.ressource {
+	display: grid;
+	grid-template-columns: 1fr max-content;
+	column-gap: 5px;
+	cursor: pointer;
+}
+.sheet.actor .item.ressource span:hover {
+	text-shadow: 0 0 8px red;
+}
+
 /**
  * Character sheet - status
  */

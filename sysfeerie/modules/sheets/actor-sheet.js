@@ -80,25 +80,44 @@ export class SFActorSheet extends ActorSheet {
 			SFDialogs.extactElement(this.actor);
 		});
 
-		// change charpoints amounts
-		html.find('.charMain_charPoints_value').mouseup(ev => {
-			let val = this.actor.system.charPoints.value;
-			let max = this.actor.system.charPoints.max;
+		// Informations
+		html.find('.charInformations_addButton').click(ev => {
+			ev.preventDefault();
+			let header = ev.currentTarget,
+			data = duplicate(header.dataset);
+			data["type"] = `information`;
+			data["img"] = `icons/sundries/documents/document-official-brownl.webp`;
+			data["name"] = `${game.i18n.localize("SYSFEERIE.Information.New")}`;
+			ev.stopPropagation();
+			return Item.create(data, {parent: this.actor, renderSheet:true});
+		});
+		html.find('.charInformations_information_value').change(ev => {
+			let itemId = $(ev.currentTarget).parents(".item").data("itemId");
+			const item = this.actor.items.find(i => i._id == itemId);
+			item.update({"system.value":$(ev.currentTarget).val()});
+		});
+
+		// Ressources
+		html.find('.charRessources_addButton').click(ev => {
+			ev.preventDefault();
+			let header = ev.currentTarget,
+			data = duplicate(header.dataset);
+			data["type"] = `ressource`;
+			data["img"] = `icons/commodities/currency/coins-shield-sword-stack-silver.webp`;
+			data["name"] = `${game.i18n.localize("SYSFEERIE.Ressource.New")}`;
+			ev.stopPropagation();
+			return Item.create(data, {parent: this.actor, renderSheet:true});
+		});
+		html.find('.ressource-name').mouseup(ev => {
+			let itemId = $(ev.currentTarget).parents(".item").data("itemId");
+			const item = this.actor.items.find(i => i._id == itemId);
+			let val = item.system.value;
+			let max = item.system.max;
 			if(ev.button == 0) val++;
 			if(ev.button == 2) val--;
-			if(val>max) val = max;
+			if(val>max && max>0) val = max;
 			if(val<0) val = 0;
-			this.actor.update({"system.charPoints.value" : val});
-		});
-		html.find('.charMain_charPoints_maxValue').mouseup(ev => {
-			let val = this.actor.system.charPoints.value;
-			let max = this.actor.system.charPoints.max;
-			if(ev.button == 0) max++;
-			if(ev.button == 2) max--;
-			if(max<0) max = 0;
-			if(val>max) val = max;
-			if(val<0) val = 0;
-			this.actor.update({"system.charPoints.value" : val, "system.charPoints.max" : max});
+			item.update({"system.value":val});
 		});
 
 		// Add status

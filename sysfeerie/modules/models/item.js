@@ -10,7 +10,11 @@ export class SFItem extends Item
 	static async create(data, options)
 	{
 		if (!data.img) {
-			if(data.type == "status")
+			if(data.type == "information")
+				data.img = "icons/sundries/documents/document-official-brownl.webp";
+			if(data.type == "ressource")
+				data.img = "icons/commodities/currency/coins-shield-sword-stack-silver.webp";
+			else if(data.type == "status")
 				data.img = "icons/skills/wounds/injury-body-pain-gray.webp";
 			else if(data.type == "plot")
 				data.img = "icons/sundries/documents/document-sealed-signatures-red.webp";

@@ -15,10 +15,9 @@
     "SYSFEERIE.Char.Roles": "Rôles",
     "SYSFEERIE.Char.Concept": "Concept",
     "SYSFEERIE.Char.Description": "Description",
+    "SYSFEERIE.Char.Ressources": "Ressources",
     "SYSFEERIE.Char.Elements": "Élements",
     "SYSFEERIE.Char.Status": "États",
-    "SYSFEERIE.Char.CharPoints": "Points de personnage",
-    "SYSFEERIE.Char.CharPointsInfos" : "Informations sur les points de personnage",
     "SYSFEERIE.Char.TooltipPoints": "Clic gauche: +1 | Clic droit: -1",
     "SYSFEERIE.Char.EditDescription": "Editer la description",
     "SYSFEERIE.Char.ExtractElement": "Extraire des éléments",
@@ -28,6 +27,12 @@
     "SYSFEERIE.Char.Tab.Elements": "Élements",
     "SYSFEERIE.Char.Tab.Plots": "Intrigues",
 
+    "SYSFEERIE.Information.New": "Nouvelle information",
+    "SYSFEERIE.Information.Add": "Ajouter une information",
+
+    "SYSFEERIE.Ressource.New": "Nouvelle ressource",
+    "SYSFEERIE.Ressource.Add": "Ajouter une ressource",
+
     "SYSFEERIE.Status.New": "Nouvel état",
     "SYSFEERIE.Status.Add": "Ajouter un état",
     "SYSFEERIE.Status.Level0": "Insignifiant : l’état n’a aucune incidence sur le comportement ou les actions du personnage. Par Exemple : Tache de peinture sur la main.",
@@ -36,6 +41,7 @@
     "SYSFEERIE.Status.Level3": "Critique : l’état est déterminant pour le personnage à court terme. Par exemple : Hémorragie importante, Noyau piraté, Contrôle absolu du système.",
 
     "SYSFEERIE.Item.Value": "Valeur",
+    "SYSFEERIE.Item.Max": "Maximum",
     "SYSFEERIE.Item.Category": "Catégorie",
     "SYSFEERIE.Item.Source": "Source",
     "SYSFEERIE.Item.Description": "Description",
@@ -68,19 +74,6 @@
     "SYSFEERIE.Dialog.NewCategory": "Creer une nouvelle catégorie",
     "SYSFEERIE.Dialog.NewCategoryInstruction": "Entrez l'ID (privilégiez un mot en capitale) de la nouvelle catégorie.",
     "SYSFEERIE.Dialog.CategoryAlreadyExisting": "Cette catégorie existe déjà !",
-
-    "SYSFEERIE.CharPointsHtml.Title" : "Modifications scénaristiques",
-    "SYSFEERIE.CharPointsHtml.Intro" : "Vous pouvez faire des modifications scénaristiques. Pour ce faire vous devez désigner l'un des éléments de votre personnage qui soit en lien avec la modification que vous souhaitez faire. Décrivez ensuite la modification. Si personne ne s'y oppose (MJ comme joueurs), la modification prend effet. Certaines modifications coûtent un point de personnage pour être faites.",
-    "SYSFEERIE.CharPointsHtml.MinorChanges" : "Voici une liste de modifications mineures (gratuites) :",
-    "SYSFEERIE.CharPointsHtml.MinorChangesDescribe" : "Décrire les conséquences d’une action : décrivez les conséquences d’une action de votre personnage. Comme toutes les modifications scénaristiques, elle reste sujette au veto des participants, en particulier du meneur. L’issue ne doit pas être modifiée : si 'laction est un échec celà doit rester un échec. De plus si le meneur avait indiqué qu’il y aurait un effet secondaire (positif ou négatif), vous devez décrire cet effet secondaire. Vous ne pouvez pas décrire d’effet secondaire s’il n’y en avait pas initialement.",
-    "SYSFEERIE.CharPointsHtml.MinorChangesCosmeticChange" : "Modification cosmétique : modifiez un élément lié à votre personnage ou faites-lui faire quelque chose sans que cela ne vous procure un avantage mais serve à typer votre personnage.",
-    "SYSFEERIE.CharPointsHtml.MajorChanges" : "Voici une liste de modifications majeures (coûtent un point de personnage) :",
-    "SYSFEERIE.CharPointsHtml.MajorChangesAddEffect" : "Ajouter un effet secondaire : ajoutez un effet secondaire, positif ou négatif, au choix du joueur, lors de la résolution d’une action après avoir vu le résultat du jet de dés.",
-    "SYSFEERIE.CharPointsHtml.MajorChangesRemoveEffect" : "Supprimer un effet secondaire : supprimez un effet secondaire, positif ou négatif, après avoir vu le résultat du jet de dés.",
-    "SYSFEERIE.CharPointsHtml.MajorChangesLinkElement" : "Lier un élément scénaristique : liez un élément scénaristique à votre personnage.",
-    "SYSFEERIE.CharPointsHtml.MajorChangesAddElement" : "Créer un élément scénaristique : créez un élément scénaristique ayant un lien avec votre personnage.",
-    "SYSFEERIE.CharPointsHtml.MajorChangesFlashback" : "Faire un Flashback : demandez au meneur un bref flashback pour apporter un élément nouveau ou altérer légèrement certains faits qui n’ont pas été joués à l’écran.",
-    "SYSFEERIE.CharPointsHtml.MajorChangesUnforseenEvent" : "Événement inattendu : faites intervenir un événement inattendu pour forcer la (non) résolution d’une situation.",
 
     "SYSFEERIE.Chat.NewAction": "Faire une action",
     "SYSFEERIE.Chat.StartRoll": "Lancer les dés",

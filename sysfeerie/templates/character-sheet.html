@@ -12,9 +12,20 @@
 		{{!-- Main Tab --}}
 		<div class="tab tab_main charMain" data-group="primary" data-tab="main">
 			<div class="charMain_left">
-				<h1 class="charName"><input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'SYSFEERIE.Char.Name'}}" /></h1>
-				<label for="data.roles">{{localize 'SYSFEERIE.Char.Roles'}}</label><input class="charRoles" type="text" name="data.roles" value="{{data.system.roles}}"/>
-				<label for="data.concept">{{localize 'SYSFEERIE.Char.Concept'}}</label><input class="charConcept" type="text" name="data.concept" value="{{data.system.concept}}"/>
+				<h1 class="charName">
+					<input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'SYSFEERIE.Char.Name'}}" />
+					<a class="charInformations_addButton" title="{{localize 'SYSFEERIE.Information.Add'}}"><i class="fas fa-plus"></i></a>
+				</h1>
+				{{#each data.system.informations as |information id|}}
+				<div class="item information" data-item-id="{{information.id}}">
+					<label for="informations.{{information.id}}.value">{{information.name}}</label>
+					<div class="item-controls">
+						<a class="item-control item-edit" title="{{localize 'SYSFEERIE.Item.Edit'}}"><i class="fas fa-edit"></i></a>
+						<a class="item-control item-delete" title="{{localize 'SYSFEERIE.Item.Delete'}}"><i class="fas fa-trash"></i></a>
+					</div>
+					<input class="charInformations_information_value" type="text" name="informations.{{information.id}}.value" value="{{information.system.value}}"/>
+				</div>
+				{{/each}}
 				<h2>
 					<a class="charDesc_editButton" title="{{SYSFEERIE.Char.EditDescription}}"><i class="fas fa-edit"></i></a>
 					<a class="charDesc_extractButton" title="{{SYSFEERIE.Char.ExtractElement}}"><i class="fas fa-puzzle-piece"></i></a>
@@ -25,15 +36,26 @@
 			</div>
 			<div class="charMain_right">
 				<img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
-				<div class="charMain_charPoints">
-					<h4 class="charMain_charPoints_title">
-						<a class="charMain_CharPoints_infos" title="{{localize 'SYSFEERIE.Char.CharPointsInfos'}}"><i class="fas fa-info-circle"></i></a>
-						{{localize 'SYSFEERIE.Char.CharPoints'}}
-					</h4>
-					<span title='{{localize 'SYSFEERIE.Char.TooltipPoints'}}' class="charMain_charPoints_value">{{data.system.charPoints.value}}</span>
-					<span class="sep"> / </span>
-					<span title='{{localize 'SYSFEERIE.Char.TooltipPoints'}}' class="charMain_charPoints_maxValue">{{data.system.charPoints.max}}</span>
-				</div>
+				<h2>
+					<a class="charRessources_addButton" title="{{localize 'SYSFEERIE.Ressource.Add'}}"><i class="fas fa-plus"></i></a>
+					{{localize 'SYSFEERIE.Char.Ressources'}}
+				</h2>
+				{{#each data.system.ressources as |ressource id|}}
+				<li class="item ressource" data-item-id="{{ressource.id}}">
+					<span class="ressource-name item-name" title="{{ressource.name}} ({{localize 'SYSFEERIE.Char.TooltipPoints'}})"><span>{{ressource.name}} </span>
+					{{#if (eq "0" ressource.system.max)}}
+						<span class="charRessources_ressource_value">({{ressource.system.value}})</span>
+					{{else}}
+						<span class="charRessources_ressource_value">({{ressource.system.value}}/{{ressource.system.max}})</span>
+					{{/if}}
+					</span>
+					<div class="item-controls">
+						<a class="item-control item-post" title="{{localize 'SYSFEERIE.Item.PostChat'}}"><i class="fas fa-comment"></i></a>
+						<a class="item-control item-edit" title="{{localize 'SYSFEERIE.Item.Edit'}}"><i class="fas fa-edit"></i></a>
+						<a class="item-control item-delete" title="{{localize 'SYSFEERIE.Item.Delete'}}"><i class="fas fa-trash"></i></a>
+					</div>
+				</li>
+				{{/each}}
 				<h2>
 					<a class="charStatus_addButton" title="{{localize 'SYSFEERIE.Status.Add'}}"><i class="fas fa-plus"></i></a>
 					{{localize 'SYSFEERIE.Char.Status'}}

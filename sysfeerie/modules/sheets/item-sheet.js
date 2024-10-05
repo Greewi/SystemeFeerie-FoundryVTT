@@ -12,8 +12,10 @@ export class SFItemSheet extends ItemSheet {
 		super(item, options);
 		if(item.type == "plot")
 			this.position.height = 700;
-		if(item.type == "status")
+		if(item.type == "status" || item.type == "information")
 			this.position.height = 170;
+		if(item.type == "ressource")
+			this.position.height = 210;
 	}
 
 	/**
@@ -22,7 +24,7 @@ export class SFItemSheet extends ItemSheet {
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
 			classes: ["sysfeerie", "sheet", "item"],
-			template: SFUtility.getSystemRessource("templates/elemnt-sheet.html"),
+			template: SFUtility.getSystemRessource("templates/element-sheet.html"),
 			width: 520,
 			height: 300,
 			tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
@@ -89,6 +91,10 @@ export class SFItemSheet extends ItemSheet {
 			return SFUtility.getSystemRessource("templates/plot-sheet.html");
 		if(this.item.type == "status")
 			return SFUtility.getSystemRessource("templates/status-sheet.html");
+		if(this.item.type == "information")
+			return SFUtility.getSystemRessource("templates/information-sheet.html");
+		if(this.item.type == "ressource")
+			return SFUtility.getSystemRessource("templates/ressource-sheet.html");
 		return SFUtility.getSystemRessource("templates/element-sheet.html");
 	}
 

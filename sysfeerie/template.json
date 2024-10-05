@@ -8,13 +8,6 @@
                 "description" : ""
             },
             "playerCharacter": {
-                "roles" : [],
-                "concept" : "",
-                "charPoints": {
-                    "min": 0,
-                    "value": 3,
-                    "max": 3
-                }
             }
         },
         "playerCharacter": {
@@ -26,6 +19,8 @@
     },
     "Item": {
         "types": [
+            "information",
+            "ressource",
             "element",
             "status",
             "plot"
@@ -34,6 +29,15 @@
             "basic": {
                 "value": 0
             }
+        },
+        "information" : {
+            "value": ""
+        },
+        "ressource" : {
+            "templates": [
+                "basic"
+            ],
+            "max":0
         },
         "element": {
             "templates": [
