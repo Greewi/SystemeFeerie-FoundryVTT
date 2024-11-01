@@ -27,6 +27,16 @@ export class SFItem extends Item
 		}
 		super.create(data, options);
 	}
+
+	/**
+	 * Define the name to display in the sidebar (to display the information value)
+	 */
+	get nameForSidebar() {
+		if(this.type=="information" && this.system.value)
+			return `${this.name} (${this.system.value})`;
+		return this.name;
+	}
+
 	/**
 	 * Augment the basic item data with additional dynamic data.
 	 * 

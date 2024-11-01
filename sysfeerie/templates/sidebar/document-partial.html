@@ -1,0 +1,12 @@
+<li class="directory-item document {{@root.documentCls}} flexrow" data-entry-id="{{this.id}}" data-document-id="{{this.id}}">
+    {{#if this.thumbnail}}
+    <img class="thumbnail" title="{{this.name}}" data-src="{{this.thumbnail}}"/>
+    {{/if}}
+    <h4 class="entry-name document-name"><a>
+        {{#if this.nameForSidebar}}
+            {{this.nameForSidebar}}
+        {{else}}
+            {{this.name}}
+        {{/if}}
+    </a></h4>
+</li>
