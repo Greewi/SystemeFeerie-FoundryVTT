@@ -5,7 +5,8 @@ export default {
 	"lang": "fr",
 	"rolls" : {
 		"maxElementNumber": 2,
-		"scoreMethod":"SUM"
+		"scoreMethod":"SUM",
+		"qualityMethod":"QUALITY_FROM_MARGIN"
 	},
 	"difficulties": [
 		{"score":4,"name":"Simple", "description":"Tout le monde a de grandes chances de réussir."},

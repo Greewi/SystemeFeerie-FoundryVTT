@@ -3,6 +3,7 @@ import solaires_v5_fr from "./solaires_v5_fr.js";
 import default_v6_fr from "./default_v6_fr.js";
 import cde_v6_fr from "./cde_v6_fr.js";
 import tyria_V6 from "./tyria_v6_fr.js";
+import chimere_V6 from "./chimere_v6_fr.js";
 
 export default class Presets {
 	static _init() {
@@ -12,6 +13,7 @@ export default class Presets {
 		this._presets.push(default_v5_fr);
 		this._presets.push(solaires_v5_fr);
 		this._presets.push(default_v6_fr);
+		this._presets.push(chimere_V6);
 		this._presets.push(cde_v6_fr);
 		this._presets.push(tyria_V6);
 	}

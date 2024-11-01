@@ -9,7 +9,7 @@ import Presets from "../presets/preset.js";
  *     name:string,
  *     systemVersion:number,
  *     lang:string,
- *     rolls : {maxElementNumber:number, scoreMethod:string},
+ *     rolls : {maxElementNumber:number, scoreMethod:string, qualityMethod:string},
  *     difficulties:Level[],
  *     signifiances:Level[],
  *     ratings:Level[],
@@ -40,6 +40,9 @@ export class SystemSetting {
 	static SUM = "SUM";
 	static DEGRESSIVE_SUM = "DEGRESSIVE_SUM";
 	static MAX_PLUS_COUNT = "MAX_PLUS_COUNT";
+
+	static QUALITY_FROM_MARGIN = "QUALITY_FROM_MARGIN";
+	static QUALITY_FROM_DOUBLE = "QUALITY_FROM_DOUBLE";
 
 	/**
 	 * @type {SystemSettingInfos}
@@ -138,6 +141,24 @@ export class SystemSetting {
 		this._systemSettings.rolls.scoreMethod = scoreMethod;
 		this._save();
 	}
+
+	/**
+	 * @returns {string} the method used to compute the action result quality (QUALITY_FROM_MARGIN, QUALITY_FROM_DOUBLE)
+	 */
+	static getResultQualityMethod() {
+		this._init();
+		return this._systemSettings.rolls.qualityMethod;
+	}
+
+	/**
+	 * @param {string} qualityMethod the method used to compute the action result quality (QUALITY_FROM_MARGIN, QUALITY_FROM_DOUBLE)
+	 */
+	static setResultQualityMethod(qualityMethod) {
+		this._init();
+		this._systemSettings.rolls.qualityMethod = qualityMethod;
+		this._save();
+	}
+
 
 	/**
 	 * @returns {boolean} true if the system need the GM to assess the relevance of an element when resolving a roll

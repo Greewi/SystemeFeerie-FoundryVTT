@@ -5,7 +5,8 @@ export default {
 	"lang": "fr",
 	"rolls" : {
 		"maxElementNumber": 2,
-		"scoreMethod":"SECOND_HALVED_BY_RELEVANCE"
+		"scoreMethod":"SECOND_HALVED_BY_RELEVANCE",
+		"qualityMethod":"QUALITY_FROM_MARGIN"
 	},
 	"difficulties": [
 		{"score":2,"name":"Simple", "description":"Même les plus mauvais devraient s'en sortir."},

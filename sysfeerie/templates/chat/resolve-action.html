@@ -29,8 +29,12 @@
     {{#if HasRoll}}
         {{#if SuccessBased}}
             <div class="resolve-action-dice-success">{{localize 'SYSFEERIE.Chat.SuccessCount'}} <span class="resolve-action-dice-success-value">{{RollResult}}</span></div>
-        {{else}}
+        {{/if}}
+        {{#if MarginBased}}
             <div class="resolve-action-dice-success">{{localize 'SYSFEERIE.Chat.DiceResultRange'}} {{SuccessRange}} <span class="resolve-action-dice-success-value">({{SuccessQuality}})</span></div>
+        {{/if}}
+        {{#if DoubleBased}}
+            <div class="resolve-action-dice-success">{{localize 'SYSFEERIE.Chat.DiceResultQuality'}} <span class="resolve-action-dice-success-value">{{SuccessQuality}}</span></div>
         {{/if}}
     {{/if}}
 
@@ -56,8 +60,12 @@
         {{#if Opponent.HasRoll}}
             {{#if Opponent.SuccessBased}}
                 <div class="resolve-action-dice-success">{{localize 'SYSFEERIE.Chat.SuccessCount'}} <span class="resolve-action-dice-success-value">{{Opponent.RollResult}}</span></div>
-            {{else}}
+            {{/if}}
+            {{#if Opponent.MarginBased}}
                 <div class="resolve-action-dice-success">{{localize 'SYSFEERIE.Chat.DiceResultRange'}} {{Opponent.SuccessRange}} <span class="resolve-action-dice-success-value">({{Opponent.SuccessQuality}})</span></div>
+            {{/if}}
+            {{#if Opponent.DoubleBased}}
+                <div class="resolve-action-dice-success">{{localize 'SYSFEERIE.Chat.DiceResultQuality'}} <span class="resolve-action-dice-success-value">{{Opponent.SuccessQuality}}</span></div>
             {{/if}}
         {{/if}}
 

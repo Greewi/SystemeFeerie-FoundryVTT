@@ -14,12 +14,6 @@ export class PlayerCharacterActor extends Actor {
 
 		const data = this.system;
 		const items = this.items;
-		
-		// Capping character points
-		if(data.charPoints.value == null)
-			data.charPoints.value = 3;
-		if(data.charPoints.max == null)
-			data.charPoints.max = 3;
 
 		// Filtering items
 		data.elements = items.filter(item => item.type === "element");

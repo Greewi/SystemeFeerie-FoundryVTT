@@ -5,7 +5,8 @@ export default {
 	"lang": "fr",
 	"rolls" : {
 		"maxElementNumber": 3,
-		"scoreMethod":"DEGRESSIVE_SUM"
+		"scoreMethod":"DEGRESSIVE_SUM",
+		"qualityMethod":"QUALITY_FROM_MARGIN"
 	},
 	"difficulties": [
 		{"score":0,"name":"Trivial", "description":"Réussite automatique. Créer un effet imperceptible qui n'altère en rien le monde. Utiliser un art dans son propre domaine ou pour un effet qui n'altère pas l'extérieur de la fée."},

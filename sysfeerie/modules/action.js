@@ -460,25 +460,59 @@ export class SystemeFeerieAction {
 		let result = rollResult>threshold;
 		let successRange = rollResult - threshold;
 		let dice = [];
-		for(let d=0; d<rollDice.length; d++) {
-			dice.push({
-				value: rollDice[d].result,
-				class: `${parseInt(rollDice[d].result, 10)>threshold?"resolve-action-roll-success":"resolve-action-roll-failed"}${d!=1?" resolve-action-roll-discarded":""}`
-			});
-		}
 		let successQuality = "";
-		if(successRange>=3)
-			successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultGreaterSuccess");
-		else if(successRange>=2)
-			successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultNormalSuccess");
-		else if(successRange>=1)
-			successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultLowerSuccess");
-		else if(successRange>=0)
-			successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultLowerFailure");
-		else if(successRange>=-1)
-			successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultNormalFailure");
-		else
-			successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultGreaterFailure");
+		
+		if(SystemSetting.getResultQualityMethod()==SystemSetting.QUALITY_FROM_MARGIN) {
+			for(let d=0; d<rollDice.length; d++) {
+				dice.push({
+					value: rollDice[d].result,
+					class: `${parseInt(rollDice[d].result, 10)>threshold?"resolve-action-roll-success":"resolve-action-roll-failed"}${d!=1?" resolve-action-roll-discarded":""}`
+				});
+			}
+			if(successRange>=3)
+				successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultGreaterSuccess");
+			else if(successRange>=2)
+				successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultNormalSuccess");
+			else if(successRange>=1)
+				successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultLowerSuccess");
+			else if(successRange>=0)
+				successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultLowerFailure");
+			else if(successRange>=-1)
+				successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultNormalFailure");
+			else
+				successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultGreaterFailure");
+		} else if(SystemSetting.getResultQualityMethod()==SystemSetting.QUALITY_FROM_DOUBLE) {
+			let d1 = parseInt(rollDice[0].result, 10);
+			let d2 = parseInt(rollDice[1].result, 10);
+			let d3 = parseInt(rollDice[2].result, 10);
+			dice.push({
+				value: ""+d1,
+				class: `${d1>threshold?"resolve-action-roll-success":"resolve-action-roll-failed"}${d1!=d2?" resolve-action-roll-discarded":""}`
+			});
+			dice.push({
+				value: ""+d2,
+				class: `${d2>threshold?"resolve-action-roll-success":"resolve-action-roll-failed"}`
+			});
+			dice.push({
+				value: ""+d3,
+				class: `${d3>threshold?"resolve-action-roll-success":"resolve-action-roll-failed"}${d3!=d2?" resolve-action-roll-discarded":""}`
+			});
+			if(result) {
+				if(d1==d2 && d2==d3)
+					successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultGreaterSuccess");
+				else if(d1==d2 || d2==d3)
+					successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultLowerSuccess");
+				else
+					successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultNormalSuccess");
+			} else {
+				if(d1==d2 && d2==d3)
+					successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultGreaterFailure");
+				else if(d1==d2 || d2==d3)
+					successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultLowerFailure");
+				else
+					successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultNormalFailure");
+			}
+		}
 
 		return {
 			Difficulty: difficulty,
@@ -490,6 +524,8 @@ export class SystemeFeerieAction {
 			Roll: roll,
 			Dice: dice,
 			SuccessBased:false,
+			MarginBased:SystemSetting.getResultQualityMethod()==SystemSetting.QUALITY_FROM_MARGIN,
+			DoubleBased:SystemSetting.getResultQualityMethod()==SystemSetting.QUALITY_FROM_DOUBLE,
 			RollResult: rollResult,
 			AutoSuccess: false,
 			AutoFailure: false,
