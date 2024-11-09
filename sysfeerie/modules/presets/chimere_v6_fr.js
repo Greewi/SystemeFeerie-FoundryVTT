@@ -75,7 +75,7 @@ export default {
 			"name":"Équipement",
 			"icon":"icons/tools/smithing/hammer-maul-steel-grey.webp",
 			"short":"E",
-			"description":"Représentent les outils, armes et autre matériel à disposition.",
+			"description":"Représentent les outils, armes et autre matériel à disposition. On ne note dans l'inventaire d'une colonie que ceux qu'elles ne peuvent pas produire facilement.",
 			"levels": [
 				"Improvisé : une branche, une pierre ou tout autre truc trouvé dans la nature qui n'a pas été conçu pour réaliser quelque chose.",
 				"Primitif : un objet de facture primitive ou utilisant des technologies primitives.",
@@ -86,7 +86,7 @@ export default {
 		},{
 			"id":"MODIFICATION",
 			"name":"Modification",
-			"icon":"icons/commodities/tech/claw-mechanical.webp",
+			"icon":"icons/commodities/biological/foot-amphibian-green.webp",
 			"short":"M",
 			"description":"Représentent les modifications nanotechnologiques dont la chimère dispose.",
 			"levels": [
@@ -95,6 +95,45 @@ export default {
 				"Gourmande : une modification consommant beaucoup de bioénergie.",
 				"Maximale : une modification consommant pratiquement toute la bioénergie disponible.",
 				"Excessive : une modification qui ne peut pas être installée sur une chimère."
+			]
+		},{
+			"id":"INSTALLATION",
+			"name":"Installation",
+			"icon":"icons/environment/settlement/well.webp",
+			"short":"I",
+			"description":"Représentent les constructions, ateliers et habitations de la Colonie.",
+			"levels": [
+				"Nulle : inexistante.",
+				"Primitif  : une installation conçue avec des technologies primitives.",
+				"Artisanal  : une installation construite selon des méthodes artisanales.",
+				"Moderne  : une installation conçue et construite avec des moyens modernes.",
+				"Futuriste  : une installation issue d'une technologie futuriste."
+			]
+		},{
+			"id":"RESSOURCE",
+			"name":"Ressource",
+			"icon":"icons/skills/trades/woodcutting-logging-axe-stump.webp",
+			"short":"R",
+			"description":"Représentent les sources de matériaux proche de la Colonie (accessible en moins d'une journée).",
+			"levels": [
+				"Nulle : inexistante.",
+				"Rare : la ressource demande jusqu'à un jour de travail pour être extraite ou rapportée au Colonie et se limite à ce que peut transporter une seule chimère.",
+				"Accessible : la ressource est proche de la Colonie et demande un peu de travail pour être récupérée.",
+				"Abondante : la ressource est accessible dans la Colonie et couvre complètement les besoins.",
+				"Illimitée : la ressource est directement accessible là où elle est nécessaire et en plus grande quantité que les besoins."
+			]
+		},{
+			"id":"MATERIAUX",
+			"name":"Matériaux",
+			"icon":"icons/commodities/materials/bowl-powder-teal.webp",
+			"short":"M",
+			"description":"Représentent des matériaux stockés dans les réserves de la Colonie. On ne note que ceux que la colonie ne peut pas produire facilement.",
+			"levels": [
+				"Nul : inexistant.",
+				"Rares : la Colonie ne possède qu'une très petite quantité de ce matériau, juste assez pour quelques outils.",
+				"Limités : la Colonie ne possède le nécessaire que pour tout au plus un seul petit projet.",
+				"Abondants : les chimères disposent d'assez de ce matériau pour réaliser plusieurs petit projets ou un grand projet.",
+				"Illimités : les réserves de ce matériaux seront suffisantes pour plusieurs grands projets."
 			]
 		}
 	]
