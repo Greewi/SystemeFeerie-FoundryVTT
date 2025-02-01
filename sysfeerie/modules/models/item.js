@@ -20,7 +20,7 @@ export class SFItem extends Item
 				data.img = "icons/sundries/documents/document-sealed-signatures-red.webp";
 			else {
 				let categories = game.items.filter(item => item.type === "category");
-				let category = categories.find(cat => cat.id === this.system.category);
+				let category = categories[0];
 				if(category)
 					data.img = category.img;
 				else 
