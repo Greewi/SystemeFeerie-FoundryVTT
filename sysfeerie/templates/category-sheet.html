@@ -1,0 +1,34 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <header class="sheet-header">
+        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+        <div class="header-fields">
+            <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name" /></h1>
+        </div>
+    </header>
+    {{!-- Sheet Body --}}
+    <section class="sheet-body">
+        <div class="tab active" data-group="primary" data-tab="description">
+            <div>
+                <label for="data.short">{{localize "SYSFEERIE.Category.Short"}}</label>
+                <input name="data.short" type="text" value="{{data.system.short}}" placeholder="{{localize "SYSFEERIE.Category.Short"}}" />
+            </div>
+            <div>
+                <label for="data.description">{{localize "SYSFEERIE.Category.Description"}}</label>
+                <input name="data.description" type="text" value="{{data.system.description}}" placeholder="{{localize "SYSFEERIE.Category.Description"}}" />
+            </div>
+            <div>
+                <label>{{localize "SYSFEERIE.Category.Levels"}}</label>
+                {{#each data.system.levels as |level id|}}
+                <li class="categoryLevels flexrow plot item-edit" data-item-id="{{id}}">
+                    <label for="levels.{{id}}">{{id}}</label>
+                    <input class="categoryLevel_value" name="levels.{{id}}" type="text" value="{{level}}" placeholder="{{localize "SYSFEERIE.Category.LevelDescription"}}" data-level-id="{{id}}" />
+                    <div class="item-controls">
+                        <a class="item-control categoryLevel_delete" title="{{localize "SYSFEERIE.Item.Delete"}}" data-level-id="{{id}}"><i class="fas fa-trash"></i></a>
+                    </div>
+                </li>
+                {{/each}}
+                <button class="category_addLevel">{{localize "SYSFEERIE.Category.AddLevel"}}</button>
+            </div>
+        </div>
+    </section>
+</form>

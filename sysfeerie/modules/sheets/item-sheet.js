@@ -16,6 +16,8 @@ export class SFItemSheet extends ItemSheet {
 			this.position.height = 170;
 		if(item.type == "ressource")
 			this.position.height = 210;
+		if(item.type == "category")
+			this.position.height = 430;
 	}
 
 	/**
@@ -39,18 +41,18 @@ export class SFItemSheet extends ItemSheet {
 		if(this.item.type == "element") {
 			// Select des catégories
 			data.categories = {};
-			let categories = SystemSetting.getCategories();
+			let categories = game.items.filter(item => item.type === "category");
 			for(let category of categories) {
-					data.categories[category.id] = category.name;
+				data.categories[category.id] = category.name;
 			}
 			// Select des niveaux
 			data.levels = {};
-			let category = SystemSetting.getCategory(this.item.system.category);
+			let category = categories.find(cat => cat.id === this.item.system.category);
 			if(!category)
-				category = SystemSetting.getCategories()[0];
+				category = categories[0];
 			if(category) {
-				for(let i=0; i<category.levels.length; i++)
-					data.levels[i] = `${i} - ${category.levels[i]}`;
+				for(let i=0; i<category.system.levels.length; i++)
+					data.levels[i] = `${i} - ${category.system.levels[i]}`;
 			} else {
 				data.levels = {"0":"0", "1":"1", "2":"2", "3":"3"};
 			}
@@ -65,17 +67,17 @@ export class SFItemSheet extends ItemSheet {
 			data.incomplet = this.item.system.stepNumber > this.item.system.steps.length;
 			// Select des catégories
 			data.categories = {};
-			let categories = SystemSetting.getCategories();
+			let categories = game.items.filter(item => item.type === "category");
 			for(let category of categories)
 				data.categories[category.id] = category.name;
 			// Select des niveaux
 			data.levels = {};
-			let category = SystemSetting.getCategory(this.item.system.rewardCategory);
+			let category = categories.find(cat => cat.id === this.item.system.category);
 			if(!category)
-				category = SystemSetting.getCategories()[0];
+				category = categories[0];
 			if(category) {
-				for(let i=0; i<category.levels.length; i++)
-					data.levels[i] = `${i} - ${category.levels[i]}`;
+				for(let i=0; i<category.system.levels.length; i++)
+					data.levels[i] = `${i} - ${category.system.levels[i]}`;
 			} else {
 				data.levels = {"0":"0", "1":"1", "2":"2", "3":"3"};
 			}
@@ -95,6 +97,8 @@ export class SFItemSheet extends ItemSheet {
 			return SFUtility.getSystemRessource("templates/information-sheet.html");
 		if(this.item.type == "ressource")
 			return SFUtility.getSystemRessource("templates/ressource-sheet.html");
+		if(this.item.type == "category")
+			return SFUtility.getSystemRessource("templates/category-sheet.html");
 		return SFUtility.getSystemRessource("templates/element-sheet.html");
 	}
 
@@ -129,6 +133,28 @@ export class SFItemSheet extends ItemSheet {
 					SFDialogs.extractElementForItem(this.item.actor, this.item);
 				});	
 			}
+		}
+
+		// Category levels management
+		if(this.item.type == "category") {
+			html.find('.category_addLevel').click(ev => {
+				ev.stopPropagation();
+				if(!Array.isArray(this.item.system.levels))
+					this.item.system.levels = [];
+				let newLevels = this.item.system.levels.concat([""]);
+				this.item.update({"system.levels":newLevels});
+			});
+			html.find('.categoryLevel_delete').click(ev => {
+				let levelId = $(ev.currentTarget).data("levelId");
+				ev.stopPropagation();
+				this.item.system.levels.splice(levelId, 1);
+				this.item.update({"system.levels":this.item.system.levels});
+			});
+			html.find('.categoryLevel_value').change(ev => {
+				let levelId = $(ev.currentTarget).data("levelId");
+				this.item.system.levels[levelId] = $(ev.currentTarget).val();
+				this.item.update({"system.levels":this.item.system.levels});
+			});
 		}
 	}
 

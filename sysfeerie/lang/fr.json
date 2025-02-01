@@ -52,6 +52,14 @@
     "SYSFEERIE.Item.New": "Nouveau",
     "SYSFEERIE.Item.Remove": "Retirer",
 
+    "SYSFEERIE.Category.Short": "Abréviation",
+    "SYSFEERIE.Category.Description": "Description",
+    "SYSFEERIE.Category.Levels": "Niveaux",
+    "SYSFEERIE.Category.AddLevel": "Ajouter un niveau",
+    "SYSFEERIE.Category.RemoveLevel": "Retirer un niveau",
+    "SYSFEERIE.Category.Level": "Niveau",
+    "SYSFEERIE.Category.LevelDescription": "Description",
+
     "SYSFEERIE.Dialog.OK": "OK",
     "SYSFEERIE.Dialog.Cancel": "Annuler",
     "SYSFEERIE.Dialog.Clear": "Réinitialiser",

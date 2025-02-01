@@ -36,9 +36,10 @@ export class SFActorSheet extends ActorSheet {
 		const actorData = super.getData();
 		if(actorData.data.type == "playerCharacter") {
 			// Sorting elements by categories
+			let categories = game.items.filter(item => item.type === "category");
 			actorData.data.system.sortedElements = {};
 			for(let element of actorData.data.system.elements) {
-				let category = SystemSetting.getCategory(element.system.category);
+				let category = categories.find(cat => cat.id === element.system.category);
 				if(category) {
 					if(!actorData.data.system.sortedElements[category.id])
 						actorData.data.system.sortedElements[category.id] = [];
@@ -140,8 +141,9 @@ export class SFActorSheet extends ActorSheet {
 			data = duplicate(header.dataset);
 			
 			data["type"] = `element`;
-			data["category"] = SystemSetting.getCategories()[0].id;
-			data["img"] = SystemSetting.getCategories()[0].icon;
+			let categories = game.items.filter(item => item.type === "category");
+			data["category"] = categories[0].id;
+			data["img"] = categories[0].img;
 			data["name"] = `${game.i18n.localize("SYSFEERIE.Status.New")}`;
 			ev.stopPropagation();
 			return Item.create(data, {parent: this.actor, renderSheet:true});

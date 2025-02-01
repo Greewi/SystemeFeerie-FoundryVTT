@@ -19,8 +19,10 @@ export class SFItem extends Item
 			else if(data.type == "plot")
 				data.img = "icons/sundries/documents/document-sealed-signatures-red.webp";
 			else {
-				if(SystemSetting.getCategory(data.category))
-					data.img = SystemSetting.getCategory(data.category).icon;
+				let categories = game.items.filter(item => item.type === "category");
+				let category = categories.find(cat => cat.id === this.system.category);
+				if(category)
+					data.img = category.img;
 				else 
 					data.img = "icons/sundries/documents/envelope-sealed-red-tan.webp";
 			}
@@ -46,8 +48,10 @@ export class SFItem extends Item
 	prepareData() {
 		super.prepareData();
 		if(this.type == "element") {
-			if(SystemSetting.getCategory(this.system.category))
-				this.img = SystemSetting.getCategory(this.system.category).icon;
+			let categories = game.items.filter(item => item.type === "category");
+			let category = categories.find(cat => cat.id === this.system.category);
+			if(category)
+				this.img = category.img;
 			else 
 				this.img = "icons/sundries/documents/envelope-sealed-red-tan.webp";
 		}
@@ -65,16 +69,19 @@ export class SFItem extends Item
 		chatData.name = this.name;
 		chatData.img = (!chatData.img || this.img.includes("/blank.png")) ? null : this.img; // Don't post any image for the item (which would leave a large gap) if the default image is used
 		if(this.type == "element") {
-			if(SystemSetting.getCategory(this.system.category))
-				chatData.img = SystemSetting.getCategory(this.system.category).icon;
+			let categories = game.items.filter(item => item.type === "category");
+			let category = categories.find(cat => cat.id === this.system.category);
+			if(category)
+				chatData.img = category.img;
 			else 
 				chatData.img = "icons/sundries/documents/envelope-sealed-red-tan.webp";
 		}
 
-		let category = SystemSetting.getCategory(chatData.category);
+		let categories = game.items.filter(item => item.type === "category");
+		let category = categories.find(cat => cat.id === this.system.category);
 		if(category) {
 			chatData.categoryName = category.name;
-			let categorySplit = category.levels[parseInt(chatData.value)].replace(" "," ").split(":");
+			let categorySplit = category.system.levels[parseInt(chatData.value)].replace(" "," ").split(":");
 			chatData.categoryLevel = categorySplit.length>1 ? categorySplit.shift()+":" : "";
 			chatData.categoryDescription = categorySplit.join(":");
 		}

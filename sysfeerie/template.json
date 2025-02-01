@@ -22,6 +22,7 @@
             "information",
             "ressource",
             "element",
+            "category",
             "status",
             "plot"
         ],
@@ -45,6 +46,11 @@
             ],
             "category": "",
             "source": ""
+        },
+        "category": {
+            "short" : "",
+            "description" : "",
+            "levels" : [""]
         },
         "status": {
             "templates": [

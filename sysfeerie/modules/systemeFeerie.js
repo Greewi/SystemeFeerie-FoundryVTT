@@ -86,7 +86,8 @@ Hooks.once("ready", async function () {
 	});
 
 	Handlebars.registerHelper('category', function (categoryId) {
-		let category = SystemSetting.getCategory(categoryId);
+		let categories = game.items.filter(item => item.type === "category");
+		let category = categories.find(cat => cat.id === categoryId);
 		if(!category)
 			return "Unknown category";
 		return category.name;

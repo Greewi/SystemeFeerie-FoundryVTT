@@ -212,6 +212,22 @@
 .sheet.item .plotStep_Finish {
 	margin-top: 5px;
 }
+/**
+ * Item sheet - categories
+ */
+.sheet.item .categoryLevels {
+	display: grid;
+	grid-template-columns: max-content 1fr max-content;
+	column-gap: 5px;
+	margin-top: 5px;
+	margin-left: 15px;
+}
+.sheet.item .categoryLevels .item-controls {
+	align-content: center;
+}
+.sheet.item .category_addLevel {
+	margin-top: 5px;
+}
 
 /**
  * Dialogs
