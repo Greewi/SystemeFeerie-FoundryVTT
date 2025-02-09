@@ -11,7 +11,7 @@ import Presets from "../presets/preset.js";
  *     lang:string,
  *     rolls : {maxElementNumber:number, scoreMethod:string, qualityMethod:string},
  *     difficulties:Level[],
- *     signifiances:Level[],
+ *     significances:Level[],
  *     ratings:Level[],
  *     categories:Category[]
  * }} SystemSettingInfos
@@ -24,7 +24,7 @@ const difficultiesIcons = [
 	"fas fa-fire-alt",
 	"fas fa-pray"
 ];
-const signifiancesIcons = [
+const significancesIcons = [
 	"fas fa-check-double",
 	"fas fa-check",
 	"fas fa-grip-lines",
@@ -184,13 +184,13 @@ export class SystemSetting {
 	}
 
 	/**
-	 * @returns {Level[]} an array with the signifiances
+	 * @returns {Level[]} an array with the significances
 	 */
-	static getSignifiances() {
+	static getSignificances() {
 		this._init();
-		for(let i=0; i<this._systemSettings.signifiances.length; i++)
-			this._systemSettings.signifiances[i].icon = signifiancesIcons[Math.round(i*signifiancesIcons.length/this._systemSettings.signifiances.length)];
-		return this._systemSettings.signifiances;
+		for(let i=0; i<this._systemSettings.significances.length; i++)
+			this._systemSettings.significances[i].icon = significancesIcons[Math.round(i*significancesIcons.length/this._systemSettings.significances.length)];
+		return this._systemSettings.significances;
 	}
 
 	/**

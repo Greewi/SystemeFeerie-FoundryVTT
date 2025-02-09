@@ -2,7 +2,7 @@ import { SFUtility } from "../utility.js";
 import { ActionDialog } from "./actionDialog.js";
 import { ElementSourceDialog } from "./elementSourceDialog.js";
 import { NewCategoryDialog } from "./newCategoryDialog.js";
-import { OpposingActionDialog } from "./opposingActionDialog.js";
+//import { OpposingActionDialog } from "./opposingActionDialog.js";
 
 export class SFDialogs {
 	static openCharPointInfos() {
@@ -27,7 +27,7 @@ export class SFDialogs {
 	}
 
 	static openOpposingActionDialog() {
-		OpposingActionDialog.open();
+		//OpposingActionDialog.open();
 	}
 
 	static extactElement(actor) {

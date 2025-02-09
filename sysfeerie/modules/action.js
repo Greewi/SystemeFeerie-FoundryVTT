@@ -1,5 +1,4 @@
 import Consts from "./consts.js";
-import { SystemSetting } from "./models/systemSetting.js";
 import { SFUtility } from "./utility.js";
 
 /**
@@ -14,7 +13,8 @@ export class SystemeFeerieAction {
 	 * @param {ChatMessage} message 
 	 * @param {number} difficulty 
 	 */
-	constructor(difficulty = 0, significance = 0, isOpposition = false, opponentDifficulty = 0, opponentRating = 0) {
+	constructor(action, difficulty = 0, significance = 0, isOpposition = false, opponentDifficulty = 0, opponentRating = 0) {
+		this.actionId = action;
 		this.firstElementRelevance = Consts.RELEVANCE_CONNEXE;
 		this.difficulty = difficulty;
 		this.significance = significance;
@@ -35,8 +35,20 @@ export class SystemeFeerieAction {
 		DONE: 4
 	}
 
+	get action() {
+		return game.items.find(item => item.id === this.actionId);
+	}
+
+	useFullOppositions() {
+		return this.action.system.version != '5';
+	}
+
+	useRelevance() {
+		return this.action.system.scoreMethod == Consts.SCORE_SECOND_HALVED_BY_RELEVANCE;
+	}
+
 	get totalDifficulty() {
-		if(this.isOpposition && !SystemSetting.doesUseFullOppositions())
+		if(this.isOpposition && !this.useFullOppositions())
 			return 3 + parseInt(this.opponentRating) + parseInt(this.significance);
 		return parseInt(this.difficulty) + parseInt(this.significance);
 	}
@@ -44,10 +56,10 @@ export class SystemeFeerieAction {
 	get score() {
 		let score = 0;
 		let items = Array.from(this.items);
-		if(!SystemSetting.doesUseElementRelevance()) // When relevance is used, it is the first item's relevance that is examined.
-			items.sort((i1,i2)=>i2.system.value - i1.system.value)
+		if(!this.useRelevance()) // When relevance is used, it is the first item's relevance that is examined.
+			items.sort((i1,i2)=>(i2.system.value - i1.system.value));
 		for(let i=0; i<items.length; i++) {
-			switch(SystemSetting.getRollScoreMethod()) {
+			switch(this.action.system.scoreMethod) {
 				case Consts.SCORE_SUM :
 					score += items[i].system.value;
 					break;
@@ -73,7 +85,7 @@ export class SystemeFeerieAction {
 	 */
 	get cardData() {
 		let items = [];
-		for(let i=0; i<SystemSetting.getRollMaxElements(); i++) {
+		for(let i=0; i<this.action.system.maxElementNumber; i++) {
 			if(i>=this.items.length) {
 				items.push({
 					Slot : i,
@@ -100,8 +112,9 @@ export class SystemeFeerieAction {
 		relevances[Consts.RELEVANCE_SPECIFIC] = "SYSFEERIE.Relevance.SPECIFIC";
 
 		return {
-			IsOpposition: this.isOpposition && SystemSetting.doesUseFullOppositions(),
-			IsSimpleOppostion: this.isOpposition && !SystemSetting.doesUseFullOppositions(),
+			Action: this.action,
+			IsOpposition: this.isOpposition && this.useFullOppositions(),
+			IsSimpleOppostion: this.isOpposition && !this.useFullOppositions(),
 			Difficulty: this.difficulty,
 			Significance: this.significance,
 			TotalDifficulty: this.totalDifficulty,
@@ -109,7 +122,7 @@ export class SystemeFeerieAction {
 			OpponentScore: this.opponentRating,
 			OpponentDifficulty: this.opponentDifficulty,
 			ActionScore: this.totalDifficulty,
-			NeedRelevance: SystemSetting.doesUseElementRelevance(),
+			NeedRelevance: this.useRelevance(),
 			FirstItemRelevance: this.firstElementRelevance,
 			FirstItemRelevanceText:  game.i18n.localize(`SYSFEERIE.Relevance.${this.firstElementRelevance}`),
 			Relevances:relevances,
@@ -134,7 +147,7 @@ export class SystemeFeerieAction {
 	 */
 	setItem(item) {
 		this.checkActionStatus();
-		if(this.items.length >= SystemSetting.getRollMaxElements())
+		if(this.items.length >= this.action.system.maxElementNumber)
 			return;
 		for(let itemUsed of this.items)
 			if(itemUsed == item)
@@ -261,6 +274,7 @@ export class SystemeFeerieAction {
 		}
 		return JSON.stringify({
 			message: this.message ? this.message.id : null,
+			action: this.actionId,
 			items : items,
 			difficulty: this.difficulty,
 			significance: this.significance,
@@ -291,7 +305,7 @@ export class SystemeFeerieAction {
 				items.push(game.actors.get(item.actor).items.get(item.item));
 		}
 
-		let action = new SystemeFeerieAction(data.difficulty, data.significance, data.isOpposition, data.opponentDifficulty, data.opponentRating);
+		let action = new SystemeFeerieAction(data.action, data.difficulty, data.significance, data.isOpposition, data.opponentDifficulty, data.opponentRating);
 		action.firstElementRelevance = data.firstElementRelevance;
 		action.message = message;
 		action.items = items;
@@ -301,18 +315,20 @@ export class SystemeFeerieAction {
 
 	/**
 	 * Create a RollMessage and resolve the action
+	 * @param {string} actionId action id
 	 * @param {number} difficulty
 	 * @param {number} score
 	 * @param {boolean} isOpposition if true, this is an opposition roll
 	 * @param {number} opponentDifficulty the difficulty for the opponent
 	 * @param {number} opponentScore the rating score of the opponent
 	 */
-	static async resolveAction(difficulty, score, isOpposition, opponentDifficulty, opponentScore){
+	static async resolveAction(actionId, difficulty, score, isOpposition, opponentDifficulty, opponentScore) {
 		let data;
-		if(SystemSetting.getSystemVersion()==5)
-			data = await this._resolveActionV5(difficulty, score, isOpposition, opponentDifficulty, opponentScore);
-		else if(SystemSetting.getSystemVersion()==6)
-			data = await this._resolveActionV6(difficulty, score, isOpposition, opponentDifficulty, opponentScore);
+		let action = game.items.find(item => item.id === actionId);
+		if(action.system.version==5)
+			data = await this._resolveActionV5(action, difficulty, score, isOpposition, opponentDifficulty, opponentScore);
+		else if(action.system.version==6)
+			data = await this._resolveActionV6(action, difficulty, score, isOpposition, opponentDifficulty, opponentScore);
 		else {
 			this._cleanAction();
 			return;
@@ -356,6 +372,7 @@ export class SystemeFeerieAction {
 	}
 
 	/**
+	 * @param {SFItem} action action
 	 * @param {number} difficulty 
 	 * @param {number} score 
 	 * @param {boolean} isOpposition 
@@ -363,7 +380,7 @@ export class SystemeFeerieAction {
 	 * @param {number} opponentScore 
 	 * @returns {Promise<RollResult>}
 	 */
-	static async _resolveActionV5(difficulty, score, isOpposition, opponentDifficulty, opponentScore) {
+	static async _resolveActionV5(action, difficulty, score, isOpposition, opponentDifficulty, opponentScore) {
 		let threshold = difficulty+score;
 		let needRoll = threshold > 0 && threshold < 6;
 
@@ -381,6 +398,7 @@ export class SystemeFeerieAction {
 		}
 
 		return {
+			Action: action,
 			Difficulty: difficulty,
 			Score: score,
 			Threshold : threshold,
@@ -404,6 +422,7 @@ export class SystemeFeerieAction {
 	}
 
 	/**
+	 * @param {SFItem} action action
 	 * @param {number} difficulty 
 	 * @param {number} score 
 	 * @param {boolean} isOpposition 
@@ -411,23 +430,24 @@ export class SystemeFeerieAction {
 	 * @param {number} opponentScore 
 	 * @returns {Promise<RollResult>}
 	 */
-	static async _resolveActionV6(difficulty, score, isOpposition, opponentDifficulty, opponentScore) {
+	static async _resolveActionV6(action, difficulty, score, isOpposition, opponentDifficulty, opponentScore) {
 		if(isOpposition)
-			return await this._resolveOppositionActionV6(difficulty, score, opponentDifficulty, opponentScore);
+			return await this._resolveOppositionActionV6(action, difficulty, score, opponentDifficulty, opponentScore);
 		else
-			return await this._resolveSimpleActionV6(difficulty, score);
+			return await this._resolveSimpleActionV6(action, difficulty, score);
 	}
 
 	/**
+	 * @param {SFItem} action action
 	 * @param {number} difficulty 
 	 * @param {number} score 
 	 * @param {number} opponentDifficulty 
 	 * @param {number} opponentScore 
 	 * @returns {Promise<RollResult>}
 	 */
-	static async _resolveOppositionActionV6(difficulty, score, opponentDifficulty, opponentScore) {
-		let playerResult = await this._resolveSimpleActionV6(difficulty, score, false);
-		let opponentResult = await this._resolveSimpleActionV6(opponentDifficulty, opponentScore, false);
+	static async _resolveOppositionActionV6(action, difficulty, score, opponentDifficulty, opponentScore) {
+		let playerResult = await this._resolveSimpleActionV6(action, difficulty, score, false);
+		let opponentResult = await this._resolveSimpleActionV6(action, opponentDifficulty, opponentScore, false);
 		let delta = playerResult.SuccessRange - opponentResult.SuccessRange;
 		playerResult.IsOpposition = true;
 		playerResult.Opponent = opponentResult;
@@ -447,11 +467,12 @@ export class SystemeFeerieAction {
 	}
 
 	/**
+	 * @param {SFItem} action action
 	 * @param {number} difficulty 
 	 * @param {number} score 
 	 * @returns {Promise<RollResult>}
 	 */
-	static async _resolveSimpleActionV6(difficulty, score) {
+	static async _resolveSimpleActionV6(action, difficulty, score) {
 		let threshold = difficulty-score;
 
 		let roll = await new Roll(`3d6dhdl`).roll();
@@ -462,7 +483,7 @@ export class SystemeFeerieAction {
 		let dice = [];
 		let successQuality = "";
 		
-		if(SystemSetting.getResultQualityMethod()==SystemSetting.QUALITY_FROM_MARGIN) {
+		if(action.system.qualityMethod==Consts.QUALITY_FROM_MARGIN) {
 			for(let d=0; d<rollDice.length; d++) {
 				dice.push({
 					value: rollDice[d].result,
@@ -481,7 +502,7 @@ export class SystemeFeerieAction {
 				successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultNormalFailure");
 			else
 				successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultGreaterFailure");
-		} else if(SystemSetting.getResultQualityMethod()==SystemSetting.QUALITY_FROM_DOUBLE) {
+		} else if(action.system.qualityMethod==Consts.QUALITY_FROM_DOUBLE) {
 			let d1 = parseInt(rollDice[0].result, 10);
 			let d2 = parseInt(rollDice[1].result, 10);
 			let d3 = parseInt(rollDice[2].result, 10);
@@ -515,6 +536,7 @@ export class SystemeFeerieAction {
 		}
 
 		return {
+			Action: action,
 			Difficulty: difficulty,
 			Score: score,
 			Threshold : threshold,
@@ -524,8 +546,8 @@ export class SystemeFeerieAction {
 			Roll: roll,
 			Dice: dice,
 			SuccessBased:false,
-			MarginBased:SystemSetting.getResultQualityMethod()==SystemSetting.QUALITY_FROM_MARGIN,
-			DoubleBased:SystemSetting.getResultQualityMethod()==SystemSetting.QUALITY_FROM_DOUBLE,
+			MarginBased:action.system.qualityMethod==Consts.QUALITY_FROM_MARGIN,
+			DoubleBased:action.system.qualityMethod==Consts.QUALITY_FROM_DOUBLE,
 			RollResult: rollResult,
 			AutoSuccess: false,
 			AutoFailure: false,

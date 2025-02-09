@@ -228,6 +228,35 @@
 .sheet.item .category_addLevel {
 	margin-top: 5px;
 }
+/**
+ * Item sheet - actions
+ */
+.sheet.item .difficultyLevels {
+	display: grid;
+	grid-template-columns: 40px 1fr 4fr max-content;
+	column-gap: 5px;
+	margin-top: 5px;
+	margin-left: 15px;
+}
+.sheet.item .difficultyLevels .item-controls {
+	align-content: center;
+}
+.sheet.item .difficulty_addLevel {
+	margin-top: 5px;
+}
+.sheet.item .significanceLevels {
+	display: grid;
+	grid-template-columns: 40px 1fr 4fr max-content;
+	column-gap: 5px;
+	margin-top: 5px;
+	margin-left: 15px;
+}
+.sheet.item .significanceLevels .item-controls {
+	align-content: center;
+}
+.sheet.item .significance_addLevel {
+	margin-top: 5px;
+}
 
 /**
  * Dialogs
@@ -240,6 +269,12 @@
 /**
  * Dialog - Start action
  */
+.actionDialog_action {
+	display: none;
+}
+.actionDialog_action.actionDialog_action_selected {
+	display: block;
+}
 .actionDialog_difficulty, .actionDialog_significance, .actionDialog_opponentDifficulty, .actionDialog_opponentRating {
 	display : grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;

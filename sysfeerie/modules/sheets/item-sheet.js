@@ -1,3 +1,4 @@
+import Consts from "../consts.js";
 import { SystemSetting } from "../models/systemSetting.js";
 import { SFDialogs } from "../ui/dialogs.js";
 import { SFUtility } from "../utility.js";
@@ -18,6 +19,8 @@ export class SFItemSheet extends ItemSheet {
 			this.position.height = 210;
 		if(item.type == "category")
 			this.position.height = 430;
+		if(item.type == "action")
+			this.position.height = 800;
 	}
 
 	/**
@@ -81,6 +84,23 @@ export class SFItemSheet extends ItemSheet {
 			} else {
 				data.levels = {"0":"0", "1":"1", "2":"2", "3":"3"};
 			}
+		} else if(this.item.type == "action") {
+			// Select for the version of the système féerie
+			data.versions = {"5":"V5", "6":"V6"};
+			// Select for the maximum number of elements in an action
+			data.maxElements = {"2" : "2", "3" : "3", "4" : "4", "5" : "5", "6" : "6"};
+			// Select for the character score calculation method
+			data.scoreMethods = {
+				[Consts.SCORE_SUM] : game.i18n.localize("SYSFEERIE.Consts.SCORE_SUM"),
+				[Consts.SCORE_DEGRESSIVE_SUM] : game.i18n.localize("SYSFEERIE.Consts.SCORE_DEGRESSIVE_SUM"),
+				[Consts.SCORE_MAX_PLUS_COUNT] : game.i18n.localize("SYSFEERIE.Consts.SCORE_MAX_PLUS_COUNT"),
+				[Consts.SCORE_SECOND_HALVED_BY_RELEVANCE] : game.i18n.localize("SYSFEERIE.Consts.SCORE_SECOND_HALVED_BY_RELEVANCE"),
+			};
+			// Select for the action quality calculation method
+			data.qualityMethods = {
+				[Consts.QUALITY_FROM_MARGIN] : game.i18n.localize("SYSFEERIE.Consts.QUALITY_FROM_MARGIN"),
+				[Consts.QUALITY_FROM_DOUBLE] : game.i18n.localize("SYSFEERIE.Consts.QUALITY_FROM_DOUBLE"),
+			};
 		}
 		return data;
 	}
@@ -99,6 +119,8 @@ export class SFItemSheet extends ItemSheet {
 			return SFUtility.getSystemRessource("templates/ressource-sheet.html");
 		if(this.item.type == "category")
 			return SFUtility.getSystemRessource("templates/category-sheet.html");
+		if(this.item.type == "action")
+			return SFUtility.getSystemRessource("templates/action-sheet.html");
 		return SFUtility.getSystemRessource("templates/element-sheet.html");
 	}
 
@@ -154,6 +176,68 @@ export class SFItemSheet extends ItemSheet {
 				let levelId = $(ev.currentTarget).data("levelId");
 				this.item.system.levels[levelId] = $(ev.currentTarget).val();
 				this.item.update({"system.levels":this.item.system.levels});
+			});
+		}
+
+		// Action settings managments
+		if(this.item.type == "action") {
+			// Difficulty
+			html.find('.difficulty_addLevel').click(ev => {
+				ev.stopPropagation();
+				if(!Array.isArray(this.item.system.difficulties))
+					this.item.system.difficulties = [];
+				let newLevels = this.item.system.difficulties.concat([{level:0, name:"", description:""}]);
+				this.item.update({"system.difficulties":newLevels});
+			});
+			html.find('.difficultyLevel_delete').click(ev => {
+				let levelId = $(ev.currentTarget).data("levelId");
+				ev.stopPropagation();
+				this.item.system.difficulties.splice(levelId, 1);
+				this.item.update({"system.difficulties":this.item.system.difficulties});
+			});
+			html.find('.difficultyLevel_value').change(ev => {
+				let levelId = $(ev.currentTarget).data("levelId");
+				this.item.system.difficulties[levelId].level = parseInt($(ev.currentTarget).val());
+				this.item.update({"system.difficulties":this.item.system.difficulties});
+			});
+			html.find('.difficultyName_value').change(ev => {
+				let levelId = $(ev.currentTarget).data("levelId");
+				this.item.system.difficulties[levelId].name = $(ev.currentTarget).val();
+				this.item.update({"system.difficulties":this.item.system.difficulties});
+			});
+			html.find('.difficultyDescription_value').change(ev => {
+				let levelId = $(ev.currentTarget).data("levelId");
+				this.item.system.difficulties[levelId].description = $(ev.currentTarget).val();
+				this.item.update({"system.difficulties":this.item.system.difficulties});
+			});
+			// Significance
+			html.find('.significance_addLevel').click(ev => {
+				ev.stopPropagation();
+				if(!Array.isArray(this.item.system.significances))
+					this.item.system.significances = [];
+				let newLevels = this.item.system.significances.concat([{level:0, name:"", description:""}]);
+				this.item.update({"system.significances":newLevels});
+			});
+			html.find('.significanceLevel_delete').click(ev => {
+				let levelId = $(ev.currentTarget).data("levelId");
+				ev.stopPropagation();
+				this.item.system.significances.splice(levelId, 1);
+				this.item.update({"system.significances":this.item.system.significances});
+			});
+			html.find('.significanceLevel_value').change(ev => {
+				let levelId = $(ev.currentTarget).data("levelId");
+				this.item.system.significances[levelId].level = parseInt($(ev.currentTarget).val());
+				this.item.update({"system.significances":this.item.system.significances});
+			});
+			html.find('.significanceName_value').change(ev => {
+				let levelId = $(ev.currentTarget).data("levelId");
+				this.item.system.significances[levelId].name = $(ev.currentTarget).val();
+				this.item.update({"system.significances":this.item.system.significances});
+			});
+			html.find('.significanceDescription_value').change(ev => {
+				let levelId = $(ev.currentTarget).data("levelId");
+				this.item.system.significances[levelId].description = $(ev.currentTarget).val();
+				this.item.update({"system.significances":this.item.system.significances});
 			});
 		}
 	}

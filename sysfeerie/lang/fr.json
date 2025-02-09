@@ -60,6 +60,20 @@
     "SYSFEERIE.Category.Level": "Niveau",
     "SYSFEERIE.Category.LevelDescription": "Description",
 
+    "SYSFEERIE.ActionItem.Default" : "Action par défaut",
+    "SYSFEERIE.ActionItem.Version" : "Version du Système Féerie",
+    "SYSFEERIE.ActionItem.NumberOfElements" : "Nombre maximal d'élément utilisable",
+    "SYSFEERIE.ActionItem.ScoreMethod" : "Méthode de calcul du score du personnage",
+    "SYSFEERIE.ActionItem.QualityMethod" : "Méthode de calcul de la qualité des réussites et échecs",
+    "SYSFEERIE.ActionItem.Difficulties" : "Échelle de difficulté",
+    "SYSFEERIE.ActionItem.DifficultyName" : "Nom",
+    "SYSFEERIE.ActionItem.DifficultyDescription" : "Description",
+    "SYSFEERIE.ActionItem.AddDifficultyLevel" : "Ajouter un niveau de difficulté",
+    "SYSFEERIE.ActionItem.Significances" : "Échelle d'intérêt scénaristique",
+    "SYSFEERIE.ActionItem.SignificanceName" : "Nom",
+    "SYSFEERIE.ActionItem.SignificanceDescription" : "Description",
+    "SYSFEERIE.ActionItem.AddSignificanceLevel" : "Ajouter un niveau d'intrêt scénaristique",
+
     "SYSFEERIE.Dialog.OK": "OK",
     "SYSFEERIE.Dialog.Cancel": "Annuler",
     "SYSFEERIE.Dialog.Clear": "Réinitialiser",
@@ -72,6 +86,7 @@
     "SYSFEERIE.Dialog.SelectOpponentRating": "Sélectionnez le niveau de l'adversaire :",
     "SYSFEERIE.Dialog.SelectOpponentDifficulty": "Sélectionnez la difficulté pour l'adversaire :",
 
+    "SYSFEERIE.Dialog.SelectAction": "Action :",
     "SYSFEERIE.Dialog.Difficulty": "Difficulté intrinsèque",
     "SYSFEERIE.Dialog.Significance": "Importance scénaristique",
     "SYSFEERIE.Dialog.Rating": "Niveau de l'adversaire",
@@ -164,6 +179,13 @@
     "SYSFEERIE.Categories.DEFAULTV6.level2": "Un élément de niveau 2 est un élément significatif pour le personnage.",
     "SYSFEERIE.Categories.DEFAULTV6.level3": "Un élément de niveau 3 est un élément important pour le personnage.",
     "SYSFEERIE.Categories.DEFAULTV6.level4": "Un élément de niveau 4 est ultime : c'est un truc qui a le potentiel de définir le personnage. C'est généralement le nec plusultra de l'univers.",
+
+    "SYSFEERIE.Consts.SCORE_SUM" : "Somme des éléments",
+    "SYSFEERIE.Consts.SCORE_DEGRESSIVE_SUM" : "Somme dégressive des éléments",
+    "SYSFEERIE.Consts.SCORE_MAX_PLUS_COUNT" : "Meilleur élément + nombre d'éléments",
+    "SYSFEERIE.Consts.SCORE_SECOND_HALVED_BY_RELEVANCE" : "Second élément modulé par la pertinence du premier",
+    "SYSFEERIE.Consts.QUALITY_FROM_MARGIN" : "Marge de réussite",
+    "SYSFEERIE.Consts.QUALITY_FROM_DOUBLE" : "Doubles et triples",
 
     "eh":"y"
 }

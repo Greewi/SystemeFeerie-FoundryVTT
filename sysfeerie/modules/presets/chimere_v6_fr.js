@@ -15,7 +15,7 @@ export default {
 		{"score":8,"name":"Démentielle", "description":"Peut mettre une spécialiste en difficulté. Quatre ou cinq  chimères compétentes pour avoir une chance raisonnable d’y arriver."},
 		{"score":10,"name":"Insensée", "description":"Même les meilleures n'ont que peu de chance d'y parvenir. Même 5 chimères compétentes ont de bonnes chances de s’y casser les dents."}
 	],
-	"signifiances": [
+	"significances": [
 		{"score":-4,"name":"Devrait réussir", "description":"L’échec de l’action engendrerait une situation indésirable."},
 		{"score":-2,"name":"Réussite intéressante", "description":"La réussite de cette action conduira à une situation plus intéressante que l’échec."},
 		{"score":0,"name":"Neutre", "description":"La réussite et l’échec sont aussi (in)intéressants l’un que l’autre."},

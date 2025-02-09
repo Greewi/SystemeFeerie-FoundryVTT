@@ -15,7 +15,7 @@ export default {
 		{"score":-2,"name":"Démentielle", "description":"Seul un spécialiste très bon s’y frotterait."},
 		{"score":-4,"name":"Insensée", "description":"Seul quelqu’un de désespéré essaierait."}
 	],
-	"signifiances": [
+	"significances": [
 		{"score":4,"name":"Devrait réussir", "description":"L’échec de l’action engendrerait une situation indésirable."},
 		{"score":2,"name":"Réussite intéressante", "description":"La réussite de cette action conduira à une situation plus intéressante que l’échec."},
 		{"score":0,"name":"Neutre", "description":"La réussite et l’échec sont aussi (in)intéressants l’un que l’autre."},

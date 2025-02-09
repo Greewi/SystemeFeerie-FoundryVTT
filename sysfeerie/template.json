@@ -19,10 +19,11 @@
     },
     "Item": {
         "types": [
+            "category",
+            "action",
             "information",
             "ressource",
             "element",
-            "category",
             "status",
             "plot"
         ],
@@ -30,6 +31,20 @@
             "basic": {
                 "value": 0
             }
+        },
+        "category": {
+            "short" : "",
+            "description" : "",
+            "levels" : [""]
+        },
+        "action": {
+            "default" : false,
+            "version" : 6,
+            "maxElementNumber": 2,
+            "scoreMethod":"SCORE_SECOND_HALVED_BY_RELEVANCE",
+            "qualityMethod":"QUALITY_FROM_DOUBLE",
+            "difficulties" : [],
+            "significances" : []
         },
         "information" : {
             "value": ""
@@ -46,11 +61,6 @@
             ],
             "category": "",
             "source": ""
-        },
-        "category": {
-            "short" : "",
-            "description" : "",
-            "levels" : [""]
         },
         "status": {
             "templates": [

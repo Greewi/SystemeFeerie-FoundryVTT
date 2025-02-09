@@ -49,11 +49,11 @@
 </div>
 <h2>{{localize 'SYSFEERIE.Dialog.SelectSignificance'}}</h2>
 <div class="dialog-buttons actionDialog_significance">
-	{{#each Significances as |Signifiance index|}}
-		<button class="actionDialog_button" data-button="{{Signifiance.score}}" title="{{Signifiance.description}}">
-			<i class="{{Signifiance.icon}}"></i>
-			{{Signifiance.name}}
-			<div class="bonus">{{formatNumber Signifiance.score decimals=2 sign=true}}</div>
+	{{#each Significances as |Significance index|}}
+		<button class="actionDialog_button" data-button="{{Significance.score}}" title="{{Significance.description}}">
+			<i class="{{Significance.icon}}"></i>
+			{{Significance.name}}
+			<div class="bonus">{{formatNumber Significance.score decimals=2 sign=true}}</div>
 		</button>
 	{{/each}}
 </div>
@@ -69,6 +69,6 @@
 		<div class="actionDialog_description actionDialog_description_dignifiance">
 			{{localize 'SYSFEERIE.Dialog.Significance'}}
 		</div>
-		<input type="number" name="actionDialog_significance" value="{{DefaultSignifiance}}" class="actionDialog_value_signifiance" />
+		<input type="number" name="actionDialog_significance" value="{{DefaultSignificance}}" class="actionDialog_value_significance" />
 	</div>
 </div>

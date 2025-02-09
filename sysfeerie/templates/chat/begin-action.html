@@ -1,6 +1,6 @@
 <div class="sysfeerie begin-action action">
     <h2>
-        {{localize 'SYSFEERIE.Chat.NewAction'}}
+        {{Action.name}}
     </h2>
 
     <div class="action-params">
@@ -53,7 +53,7 @@
 
     {{#if Unresolved}}
     <div class="action-buttons">
-        <button name="startAction" class="startAction" data-difficulty="{{TotalDifficulty}}" data-score="{{CharacterScore}}" data-is-opposition="{{IsOpposition}}" data-opponent-difficulty="{{OpponentDifficulty}}" data-opponent-score="{{OpponentScore}}" ><i class="fas checkMark fa-question-circle"></i> {{localize 'SYSFEERIE.Chat.StartRoll'}}</button>
+        <button name="startAction" class="startAction" data-action="{{Action.id}}" data-difficulty="{{TotalDifficulty}}" data-score="{{CharacterScore}}" data-is-opposition="{{IsOpposition}}" data-opponent-difficulty="{{OpponentDifficulty}}" data-opponent-score="{{OpponentScore}}" ><i class="fas checkMark fa-question-circle"></i> {{localize 'SYSFEERIE.Chat.StartRoll'}}</button>
         <button name="approveSkills" class="approveSkills">{{localize 'SYSFEERIE.Chat.GMOk'}}</button>
     </div>
     {{/if}}

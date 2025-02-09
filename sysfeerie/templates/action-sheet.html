@@ -1,0 +1,72 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <header class="sheet-header">
+        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+        <div class="header-fields">
+            <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name" /></h1>
+        </div>
+    </header>
+    {{!-- Sheet Body --}}
+    <section class="sheet-body">
+        <div class="tab active" data-group="primary" data-tab="description">
+            <div>
+                <label for="data.default">{{localize "SYSFEERIE.ActionItem.Default"}}</label>
+                <input name="data.default" type="checkbox" {{checked data.system.default}} />
+            </div>
+            <div>
+                <label for="data.version">{{localize "SYSFEERIE.ActionItem.Version"}}</label>
+                <select name="data.version">
+                    {{selectOptions versions selected=data.system.version}}
+                </select>
+            </div>
+            <div>
+                <label for="data.maxElementNumber">{{localize "SYSFEERIE.ActionItem.NumberOfElements"}}</label>
+                <select name="data.maxElementNumber">
+                    {{selectOptions maxElements selected=data.system.maxElementNumber}}
+                </select>
+            </div>
+            <div>
+                <label for="data.scoreMethod">{{localize "SYSFEERIE.ActionItem.ScoreMethod"}}</label>
+                <select name="data.scoreMethod">
+                    {{selectOptions scoreMethods selected=data.system.scoreMethod}}
+                </select>
+            </div>
+            <div>
+                <label for="data.qualityMethod">{{localize "SYSFEERIE.ActionItem.QualityMethod"}}</label>
+                <select name="data.qualityMethod">
+                    {{selectOptions qualityMethods selected=data.system.qualityMethod}}
+                </select>
+            </div>
+
+            <div>
+                <label>{{localize "SYSFEERIE.ActionItem.Difficulties"}}</label>
+                {{#each data.system.difficulties as |difficulty id|}}
+                <li class="difficultyLevels flexrow plot item-edit" data-item-id="{{id}}">
+                    <input class="difficultyLevel_value" name="difficulties.{{id}}.level" type="text" value="{{difficulty.level}}" placeholder="0" data-level-id="{{id}}" />
+                    <input class="difficultyName_value" name="difficulties.{{id}}.name" type="text" value="{{difficulty.name}}" placeholder="{{localize "SYSFEERIE.ActionItem.DifficultyName"}}" data-level-id="{{id}}" />
+                    <input class="difficultyDescription_value" name="difficulties.{{id}}.description" type="text" value="{{difficulty.description}}" placeholder="{{localize "SYSFEERIE.ActionItem.DifficultyDescription"}}" data-level-id="{{id}}" />
+                    <div class="item-controls">
+                        <a class="item-control difficultyLevel_delete" title="{{localize "SYSFEERIE.Item.Delete"}}" data-level-id="{{id}}"><i class="fas fa-trash"></i></a>
+                    </div>
+                </li>
+                {{/each}}
+                <button class="difficulty_addLevel">{{localize "SYSFEERIE.ActionItem.AddDifficultyLevel"}}</button>
+            </div>
+
+            <div>
+                <label>{{localize "SYSFEERIE.ActionItem.Significances"}}</label>
+                {{#each data.system.significances as |significance id|}}
+                <li class="significanceLevels flexrow plot item-edit" data-item-id="{{id}}">
+                    <input class="significanceLevel_value" name="signifances.{{id}}.level" type="text" value="{{significance.level}}" placeholder="0" data-level-id="{{id}}" />
+                    <input class="significanceName_value" name="signifances.{{id}}.name" type="text" value="{{significance.name}}" placeholder="{{localize "SYSFEERIE.ActionItem.SignificanceName"}}" data-level-id="{{id}}" />
+                    <input class="significanceDescription_value" name="signifances.{{id}}.description" type="text" value="{{significance.description}}" placeholder="{{localize "SYSFEERIE.ActionItem.SignificanceDescription"}}" data-level-id="{{id}}" />
+                    <div class="item-controls">
+                        <a class="item-control significanceLevel_delete" title="{{localize "SYSFEERIE.Item.Delete"}}" data-level-id="{{id}}"><i class="fas fa-trash"></i></a>
+                    </div>
+                </li>
+                {{/each}}
+                <button class="significance_addLevel">{{localize "SYSFEERIE.ActionItem.AddSignificanceLevel"}}</button>
+            </div>
+
+        </div>
+    </section>
+</form>

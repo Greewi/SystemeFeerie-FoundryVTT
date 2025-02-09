@@ -17,7 +17,7 @@ export default {
 		{"score":10,"name":"Insensée", "description":"Même les meilleurs n'ont que peu de chance d'y parvenir. Créer un effet difficile à rationnaliser vu par une foule. Utiliser un art pour altérer une autre fée dans son domaine."},
 		{"score":12,"name":"Impossible", "description":"Échec automatique. Créer un effet visible pour des milliers de témoins, ou un effet impossible à rationnaliser. Utiliser un art dans l'Irréel ou pour altérer de façon permanente le domaine d'une autre fée."}
 	],
-	"signifiances": [
+	"significances": [
 		{"score":-4,"name":"Devrait réussir", "description":"L’échec de l’action engendrerait une situation indésirable."},
 		{"score":-2,"name":"Réussite intéressante", "description":"La réussite de cette action conduira à une situation plus intéressante que l’échec."},
 		{"score":0,"name":"Neutre", "description":"La réussite et l’échec sont aussi (in)intéressants l’un que l’autre."},

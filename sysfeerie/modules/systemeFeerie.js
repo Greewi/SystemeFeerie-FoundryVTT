@@ -1,7 +1,6 @@
 import { SystemeFeerieAction } from "./action.js";
 import { PlayerCharacterActor } from "./models/actor.js";
 import { SFItem } from "./models/item.js";
-import { SystemSetting } from "./models/systemSetting.js";
 import { SFActorSheet } from "./sheets/actor-sheet.js";
 import { SFItemSheet } from "./sheets/item-sheet.js";
 import { CategorySettingDialog } from "./ui/categorySettingDialog.js";
@@ -157,12 +156,13 @@ Hooks.on('renderChatLog', (log, html, data) => {
 	});
 
 	html.on("click", ".startAction", async ev => {
+		let action = $(ev.currentTarget).data("action");
 		let difficulty = parseInt($(ev.currentTarget).data("difficulty"), 10);
 		let score = parseInt($(ev.currentTarget).data("score"), 10);
 		let isOpposition = $(ev.currentTarget).data("isOpposition") == true;
 		let opponentDifficulty = parseInt($(ev.currentTarget).data("opponentDifficulty"), 10);
 		let opponentScore = parseInt($(ev.currentTarget).data("opponentScore"), 10);
-		SystemeFeerieAction.resolveAction(difficulty, score, isOpposition, opponentDifficulty, opponentScore);
+		SystemeFeerieAction.resolveAction(action, difficulty, score, isOpposition, opponentDifficulty, opponentScore);
 	});
 
 	html.on("change", ".selectRelevance", async ev => {
@@ -203,11 +203,10 @@ class SystemeFeerie {
 	/**
 	 * Start a new action. Sends a special interactive message in the chat to request the skills to use
 	 */
-	beginAction(difficulty, significance, isOpposition=false, opponentDifficulty=0, opponentRating=0) {
+	beginAction(action, difficulty, significance, isOpposition=false, opponentDifficulty=0, opponentRating=0) {
 		if (!game.user.isGM)
 			return;
-
-		this.pendingAction = new SystemeFeerieAction(difficulty, significance, isOpposition, opponentDifficulty, opponentRating);
+		this.pendingAction = new SystemeFeerieAction(action, difficulty, significance, isOpposition, opponentDifficulty, opponentRating);
 		this.pendingAction.createChatCard();
 	}
 }

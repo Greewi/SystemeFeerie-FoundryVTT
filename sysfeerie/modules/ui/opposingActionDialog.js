@@ -9,10 +9,10 @@ export class OpposingActionDialog extends Dialog {
 			return;
 		renderTemplate(SFUtility.getSystemRessource("templates/dialog/opposingAction-dialog.html"), {
 			Difficulties : SystemSetting.getDifficulties(),
-			Significances : SystemSetting.getSignifiances(),
+			Significances : SystemSetting.getSignificances(),
 			Ratings: SystemSetting.getRatings(),
 			DefaultDifficulty : SystemSetting.getDifficulties()[Math.floor(SystemSetting.getDifficulties().length/2)].score,
-			DefaultSignifiance : SystemSetting.getSignifiances()[Math.floor(SystemSetting.getSignifiances().length/2)].score,
+			DefaultSignificance : SystemSetting.getSignificances()[Math.floor(SystemSetting.getSignificances().length/2)].score,
 			DefaultOpponentRating : SystemSetting.getRatings()[Math.floor(SystemSetting.getRatings().length/2)].score,
 			DefaultOpponentDifficulty : SystemSetting.getDifficulties()[Math.floor(SystemSetting.getDifficulties().length/2)].score,
 			NoDisplayV5 : !SystemSetting.doesUseFullOppositions() ? "style=\"display:none\"" : ""
@@ -26,7 +26,7 @@ export class OpposingActionDialog extends Dialog {
 						label: game.i18n.localize("SYSFEERIE.Dialog.StartActionNow"),
 						callback: () => {
 							let difficulty = dialog._element.find(".actionDialog_value_difficulty").val();
-							let significance = dialog._element.find(".actionDialog_value_signifiance").val();
+							let significance = dialog._element.find(".actionDialog_value_significance").val();
 							let opponentDifficulty = dialog._element.find(".actionDialog_value_opponentDifficulty").val();
 							let opponentRating = dialog._element.find(".actionDialog_value_opponentRating").val();
 							game.systemeFeerie.beginAction(parseInt(difficulty, 10), parseInt(significance, 10), true, parseInt(opponentDifficulty, 10), parseInt(opponentRating, 10));
@@ -49,14 +49,14 @@ export class OpposingActionDialog extends Dialog {
 
 		// Update reference to the ui
 		this.difficultyButtons = {};
-		this.signifianceButtons = {};
+		this.significanceButtons = {};
 		this.opponnentDifficultyButtons = {};
 		this.opponentRatingButtons = {};
 		html.find(".actionDialog_button").each((i, button) => {
 			if(button.parentElement.classList.contains("actionDialog_difficulty")) {
 				this.difficultyButtons[button.dataset.button] = button;
 			} else if(button.parentElement.classList.contains("actionDialog_significance")) {
-				this.signifianceButtons[button.dataset.button] = button;
+				this.significanceButtons[button.dataset.button] = button;
 			} else if(button.parentElement.classList.contains("actionDialog_opponentDifficulty")) {
 				this.opponnentDifficultyButtons[button.dataset.button] = button;
 			} else if(button.parentElement.classList.contains("actionDialog_opponentRating")) {
@@ -64,7 +64,7 @@ export class OpposingActionDialog extends Dialog {
 			}
 		});
 		this.difficultyValue = html.find('.actionDialog_value_difficulty');
-		this.signifianceValue = html.find('.actionDialog_value_signifiance');
+		this.significanceValue = html.find('.actionDialog_value_significance');
 		this.opponentDifficultyValue = html.find('.actionDialog_value_opponentDifficulty');
 		this.opponentRatingValue = html.find('.actionDialog_value_opponentRating');
 
@@ -76,7 +76,7 @@ export class OpposingActionDialog extends Dialog {
 			if(parent.classList.contains("actionDialog_difficulty")) {
 				html.find('.actionDialog_value_difficulty').val(parseInt(id));
 			} else if(parent.classList.contains("actionDialog_significance")) {
-				html.find('.actionDialog_value_signifiance').val(parseInt(id));
+				html.find('.actionDialog_value_significance').val(parseInt(id));
 			} else if(parent.classList.contains("actionDialog_opponentDifficulty")) {
 				html.find('.actionDialog_value_opponentDifficulty').val(parseInt(id));
 			} else if(parent.classList.contains("actionDialog_opponentRating")) {
@@ -87,7 +87,7 @@ export class OpposingActionDialog extends Dialog {
 
 		// Update of the difficulty inputs
 		html.find(".actionDialog_value_difficulty").change(ev => this._updateButtons());
-		html.find(".actionDialog_value_signifiance").change(ev => this._updateButtons());
+		html.find(".actionDialog_value_significance").change(ev => this._updateButtons());
 		html.find(".actionDialog_value_opponentDifficulty").change(ev => this._updateButtons());
 		html.find(".actionDialog_value_opponentRating").change(ev => this._updateButtons());
 
@@ -102,10 +102,10 @@ export class OpposingActionDialog extends Dialog {
 			this.difficultyButtons[i].classList.remove("actionDialog_button_selected");
 		if(this.difficultyButtons[this.difficultyValue.val()])
 			this.difficultyButtons[this.difficultyValue.val()].classList.add("actionDialog_button_selected")
-		for(let i in this.signifianceButtons)
-			this.signifianceButtons[i].classList.remove("actionDialog_button_selected");
-		if(this.signifianceButtons[this.signifianceValue.val()])
-			this.signifianceButtons[this.signifianceValue.val()].classList.add("actionDialog_button_selected")
+		for(let i in this.significanceButtons)
+			this.significanceButtons[i].classList.remove("actionDialog_button_selected");
+		if(this.significanceButtons[this.significanceValue.val()])
+			this.significanceButtons[this.significanceValue.val()].classList.add("actionDialog_button_selected")
 		for(let i in this.opponnentDifficultyButtons)
 			this.opponnentDifficultyButtons[i].classList.remove("actionDialog_button_selected");
 		if(this.opponnentDifficultyButtons[this.opponentDifficultyValue.val()])
