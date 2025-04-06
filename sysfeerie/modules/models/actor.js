@@ -17,7 +17,7 @@ export class PlayerCharacterActor extends Actor {
 
 		// Filtering items
 		data.elements = items.filter(item => item.type === "element");
-		data.status = items.filter(item => item.type === "status");
+		data.status = items.filter(item => item.isStatus());
 		data.plots = items.filter(item => item.type === "plot");
 		data.ressources = items.filter(item => item.type === "ressource");
 		data.informations = items.filter(item => item.type === "information");

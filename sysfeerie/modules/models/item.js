@@ -14,8 +14,6 @@ export class SFItem extends Item
 				data.img = "icons/sundries/documents/document-official-brownl.webp";
 			if(data.type == "ressource")
 				data.img = "icons/commodities/currency/coins-shield-sword-stack-silver.webp";
-			else if(data.type == "status")
-				data.img = "icons/skills/wounds/injury-body-pain-gray.webp";
 			else if(data.type == "plot")
 				data.img = "icons/sundries/documents/document-sealed-signatures-red.webp";
 			else {
@@ -56,6 +54,21 @@ export class SFItem extends Item
 				this.img = "icons/sundries/documents/envelope-sealed-red-tan.webp";
 		}
 	}
+
+	/**
+	 * Is this item a status element
+	 * 
+	 * @returns {boolean} true if and only this item is a status element
+	 */
+	isStatus() {
+		if(this.type != "element")
+			return false;
+
+		let categories = game.items.filter(item => item.type === "category");
+		let category = categories.find(cat => cat.id === this.system.category);
+		return category.system.isStatus;
+	}
+
 	/**
 	* Posts this item to chat.
 	* 

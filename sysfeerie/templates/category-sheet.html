@@ -17,6 +17,10 @@
                 <input name="data.description" type="text" value="{{data.system.description}}" placeholder="{{localize "SYSFEERIE.Category.Description"}}" />
             </div>
             <div>
+                <label for="data.isStatus">{{localize "SYSFEERIE.Category.IsStatus"}}</label>
+                <input name="data.isStatus" type="checkbox" {{checked data.system.isStatus}} />
+            </div>
+            <div>
                 <label>{{localize "SYSFEERIE.Category.Levels"}}</label>
                 {{#each data.system.levels as |level id|}}
                 <li class="categoryLevels flexrow plot item-edit" data-item-id="{{id}}">

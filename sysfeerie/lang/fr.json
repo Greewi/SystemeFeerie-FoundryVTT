@@ -54,6 +54,7 @@
 
     "SYSFEERIE.Category.Short": "Abréviation",
     "SYSFEERIE.Category.Description": "Description",
+    "SYSFEERIE.Category.IsStatus": "État ?",
     "SYSFEERIE.Category.Levels": "Niveaux",
     "SYSFEERIE.Category.AddLevel": "Ajouter un niveau",
     "SYSFEERIE.Category.RemoveLevel": "Retirer un niveau",

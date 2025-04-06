@@ -24,7 +24,6 @@
             "information",
             "ressource",
             "element",
-            "status",
             "plot"
         ],
         "templates": {
@@ -35,6 +34,7 @@
         "category": {
             "short" : "",
             "description" : "",
+            "isStatus" : "",
             "levels" : [""]
         },
         "action": {
@@ -61,11 +61,6 @@
             ],
             "category": "",
             "source": ""
-        },
-        "status": {
-            "templates": [
-                "basic"
-            ]
         },
         "plot": {
             "templates": [],

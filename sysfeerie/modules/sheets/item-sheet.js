@@ -13,7 +13,7 @@ export class SFItemSheet extends ItemSheet {
 		super(item, options);
 		if(item.type == "plot")
 			this.position.height = 700;
-		if(item.type == "status" || item.type == "information")
+		if(item.type == "information")
 			this.position.height = 170;
 		if(item.type == "ressource")
 			this.position.height = 210;
@@ -59,13 +59,6 @@ export class SFItemSheet extends ItemSheet {
 			} else {
 				data.levels = {"0":"0", "1":"1", "2":"2", "3":"3"};
 			}
-		} else if(this.item.type == "status") {
-			data.levels = {
-				"0":`0 - ${game.i18n.localize("SYSFEERIE.Status.Level0")}`,
-				"1":`1 - ${game.i18n.localize("SYSFEERIE.Status.Level1")}`,
-				"2":`2 - ${game.i18n.localize("SYSFEERIE.Status.Level2")}`,
-				"3":`3 - ${game.i18n.localize("SYSFEERIE.Status.Level3")}`
-			};
 		} else if(this.item.type == "plot") {
 			data.incomplet = this.item.system.stepNumber > this.item.system.steps.length;
 			// Select des catégories
@@ -111,8 +104,6 @@ export class SFItemSheet extends ItemSheet {
 	get template() {
 		if(this.item.type == "plot")
 			return SFUtility.getSystemRessource("templates/plot-sheet.html");
-		if(this.item.type == "status")
-			return SFUtility.getSystemRessource("templates/status-sheet.html");
 		if(this.item.type == "information")
 			return SFUtility.getSystemRessource("templates/information-sheet.html");
 		if(this.item.type == "ressource")

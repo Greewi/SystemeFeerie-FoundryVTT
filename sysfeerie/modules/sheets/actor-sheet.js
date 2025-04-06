@@ -127,8 +127,15 @@ export class SFActorSheet extends ActorSheet {
 			let header = ev.currentTarget,
 			data = duplicate(header.dataset);
 			
-			data["type"] = `status`;
-			data["img"] = `icons/skills/wounds/injury-body-pain-gray.webp`;
+			data["type"] = `element`;
+			let categories = game.items.filter(item => item.type === "category");
+			let statusCategory = categories[0]; //Failsafe
+			for(let category of categories) {
+				if(category.system.isStatus)
+					statusCategory = category;
+			}
+			data["category"] = statusCategory.id;
+			data["img"] = statusCategory.img;
 			data["name"] = `${game.i18n.localize("SYSFEERIE.Status.New")}`;
 			ev.stopPropagation();
 			return Item.create(data, {parent: this.actor, renderSheet:true});
