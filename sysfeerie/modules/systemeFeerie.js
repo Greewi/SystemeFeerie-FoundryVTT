@@ -175,6 +175,24 @@ Hooks.on('renderChatLog', (log, html, data) => {
 	});
 });
 
+// Fix : macros created with drag&drop to hotbar had the default icon instead of the icon of the dropped document
+Hooks.on("createMacro", (macro, option, macroId) => {
+	const macroRegexp = /^await Hotbar.toggleDocumentSheet\("([A-Za-z0-9]+)\.([A-Za-z0-9]+)"\);$/;
+	let match = macro.command.match(macroRegexp);
+	if(!match)
+		return;
+	let docType = match[1];
+	let docId = match[2];
+	let doc = null;
+	switch(docType) {
+		case "Actor" : doc = game.actors.get(docId); break;
+		case "Item" : doc = game.items.get(docId); break;
+		case "JournalEntry" : doc = game.journal.get(docId); break;
+	}
+	if(doc && doc.img)
+		macro.update({img:doc.img});
+});
+
 /* -------------------------------------------- */
 /*  Systeme Feerie main class                   */
 /* -------------------------------------------- */

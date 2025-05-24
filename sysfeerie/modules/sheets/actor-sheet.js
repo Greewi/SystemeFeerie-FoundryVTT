@@ -151,7 +151,7 @@ export class SFActorSheet extends ActorSheet {
 			let categories = game.items.filter(item => item.type === "category");
 			data["category"] = categories[0].id;
 			data["img"] = categories[0].img;
-			data["name"] = `${game.i18n.localize("SYSFEERIE.Status.New")}`;
+			data["name"] = `${game.i18n.localize("SYSFEERIE.Item.New")}`;
 			ev.stopPropagation();
 			return Item.create(data, {parent: this.actor, renderSheet:true});
 		});
