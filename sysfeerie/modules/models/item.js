@@ -1,5 +1,4 @@
 import { SFUtility } from "../utility.js";
-import { SystemSetting } from "./systemSetting.js";
 
 /**
  * Classe de gestion des items du Système Féerie

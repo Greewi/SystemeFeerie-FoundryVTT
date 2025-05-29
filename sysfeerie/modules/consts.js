@@ -4,6 +4,7 @@ export default class Consts {
 	static SCORE_DEGRESSIVE_SUM = "DEGRESSIVE_SUM";
 	static SCORE_MAX_PLUS_COUNT = "MAX_PLUS_COUNT";
 	static SCORE_SECOND_HALVED_BY_RELEVANCE = "SECOND_HALVED_BY_RELEVANCE";
+	static SCORE_RELEVANCE_PLUS_COUNT = "SCORE_RELEVANCE_PLUS_COUNT";
 
 	// Relevance of an element regardig to an action
 	static RELEVANCE_CONNEXE = "CONNEXE";

@@ -44,7 +44,7 @@ export class SystemeFeerieAction {
 	}
 
 	useRelevance() {
-		return this.action.system.scoreMethod == Consts.SCORE_SECOND_HALVED_BY_RELEVANCE;
+		return this.action.system.scoreMethod == Consts.SCORE_SECOND_HALVED_BY_RELEVANCE || this.action.system.scoreMethod == Consts.SCORE_RELEVANCE_PLUS_COUNT;
 	}
 
 	get totalDifficulty() {
@@ -68,6 +68,16 @@ export class SystemeFeerieAction {
 					break;
 				case Consts.SCORE_MAX_PLUS_COUNT :
 					score += i==0 ? items[i].system.value : 1;
+					break;
+				case Consts.SCORE_RELEVANCE_PLUS_COUNT :
+					if(i>0)
+						score += 1;
+					else if(this.firstElementRelevance == Consts.RELEVANCE_SPECIFIC)
+						score += 3;
+					else if(this.firstElementRelevance == Consts.RELEVANCE_TYPICAL)
+						score += 2;
+					else
+						score += 1;
 					break;
 				case Consts.SCORE_SECOND_HALVED_BY_RELEVANCE :
 					if(i==0 || this.firstElementRelevance == Consts.RELEVANCE_SPECIFIC)

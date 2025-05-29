@@ -9,9 +9,6 @@
     "SYSFEERIE.Settings.LoadPresetLabelPresetToLoad": "Preset à charger :",
     "SYSFEERIE.Settings.LoadPresetConfirmation": "Cette opération écrasera toute la configuration acteulle du système de jeu. Voulez-vous vraiment continuer ?",
 
-    "SYSFEERIE.Settings.SystemSetting": "Configuration du système",
-    "SYSFEERIE.Settings.SystemSettingHint": "Le Système Féerie est très paramétrable.",
-
     "SYSFEERIE.Char.Roles": "Rôles",
     "SYSFEERIE.Char.Concept": "Concept",
     "SYSFEERIE.Char.Description": "Description",
@@ -185,6 +182,7 @@
     "SYSFEERIE.Consts.SCORE_DEGRESSIVE_SUM" : "Somme dégressive des éléments",
     "SYSFEERIE.Consts.SCORE_MAX_PLUS_COUNT" : "Meilleur élément + nombre d'éléments",
     "SYSFEERIE.Consts.SCORE_SECOND_HALVED_BY_RELEVANCE" : "Second élément modulé par la pertinence du premier",
+    "SYSFEERIE.Consts.SCORE_RELEVANCE_PLUS_COUNT" : "Pertinence du premier élément + nombre d'élément",
     "SYSFEERIE.Consts.QUALITY_FROM_MARGIN" : "Marge de réussite",
     "SYSFEERIE.Consts.QUALITY_FROM_DOUBLE" : "Doubles et triples",
 

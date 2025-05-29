@@ -1,5 +1,4 @@
 import Consts from "../consts.js";
-import { SystemSetting } from "../models/systemSetting.js";
 import { SFDialogs } from "../ui/dialogs.js";
 import { SFUtility } from "../utility.js";
 
@@ -68,7 +67,7 @@ export class SFItemSheet extends ItemSheet {
 				data.categories[category.id] = category.name;
 			// Select des niveaux
 			data.levels = {};
-			let category = categories.find(cat => cat.id === this.item.system.category);
+			let category = categories.find(cat => cat.id === this.item.system.rewardCategory);
 			if(!category)
 				category = categories[0];
 			if(category) {
@@ -88,6 +87,7 @@ export class SFItemSheet extends ItemSheet {
 				[Consts.SCORE_DEGRESSIVE_SUM] : game.i18n.localize("SYSFEERIE.Consts.SCORE_DEGRESSIVE_SUM"),
 				[Consts.SCORE_MAX_PLUS_COUNT] : game.i18n.localize("SYSFEERIE.Consts.SCORE_MAX_PLUS_COUNT"),
 				[Consts.SCORE_SECOND_HALVED_BY_RELEVANCE] : game.i18n.localize("SYSFEERIE.Consts.SCORE_SECOND_HALVED_BY_RELEVANCE"),
+				[Consts.SCORE_RELEVANCE_PLUS_COUNT] : game.i18n.localize("SYSFEERIE.Consts.SCORE_RELEVANCE_PLUS_COUNT"),
 			};
 			// Select for the action quality calculation method
 			data.qualityMethods = {

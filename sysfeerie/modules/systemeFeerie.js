@@ -3,9 +3,7 @@ import { PlayerCharacterActor } from "./models/actor.js";
 import { SFItem } from "./models/item.js";
 import { SFActorSheet } from "./sheets/actor-sheet.js";
 import { SFItemSheet } from "./sheets/item-sheet.js";
-import { CategorySettingDialog } from "./ui/categorySettingDialog.js";
 import { SFDialogs } from "./ui/dialogs.js";
-import { SettingLoadPresetDialog } from "./ui/settingLoadPresetDialog.js";
 import { SFUtility } from "./utility.js";
 
 /* -------------------------------------------- */
@@ -28,40 +26,6 @@ Hooks.once("init", async function () {
 	Actors.registerSheet("sysfeerie", SFActorSheet, { makeDefault: true });
 	Items.unregisterSheet("core", ItemSheet);
 	Items.registerSheet("sysfeerie", SFItemSheet, { makeDefault: true });
-
-	// Register system settings
-	game.settings.registerMenu("sysfeerie", "loadPresetMenu", {
-		name: game.i18n.localize("SYSFEERIE.Settings.LoadPreset"),
-		label: game.i18n.localize("SYSFEERIE.Settings.LoadPresetButton"),
-		hint: game.i18n.localize("SYSFEERIE.Settings.LoadPresetHint"),
-		icon: "fas fa-bars",
-		type: SettingLoadPresetDialog,
-		restricted: true
-	});
-	game.settings.registerMenu("sysfeerie", "categoryMenu", {
-		name: game.i18n.localize("SYSFEERIE.Settings.Categories"),
-		label: game.i18n.localize("SYSFEERIE.Settings.CategoriesButton"),
-		hint: game.i18n.localize("SYSFEERIE.Settings.CategoriesHint"),
-		icon: "fas fa-bars",
-		type: CategorySettingDialog,
-		restricted: true
-	});
-	game.settings.register("sysfeerie", "categories", {
-		name: game.i18n.localize("SYSFEERIE.Settings.Categories"),
-		hint: game.i18n.localize("SYSFEERIE.Settings.CategoriesHint"),
-		scope: "world",
-		config: false,
-		type: String,
-		default: '',
-	});
-	game.settings.register("sysfeerie", "systemSetting", {
-		name: game.i18n.localize("SYSFEERIE.Settings.SystemSetting"),
-		hint: game.i18n.localize("SYSFEERIE.Settings.SystemSettingHint"),
-		scope: "world",
-		config: false,
-		type: String,
-		default: '',
-	});
 });
 
 Hooks.once("diceSoNiceReady", (dice3d) => {
@@ -209,13 +173,6 @@ class SystemeFeerie {
 	 */
 	openActionDialog() {
 		SFDialogs.openActionDialog();
-	}
-
-	/**
-	 * Open a dialog to begin an opposing action. Let the GM specify the opposition stats
-	 */
-	openOpposingActionDialog() {
-		SFDialogs.openOpposingActionDialog();
 	}
 
 	/**

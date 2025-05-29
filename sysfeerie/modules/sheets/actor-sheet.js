@@ -1,4 +1,3 @@
-import { SystemSetting } from "../models/systemSetting.js";
 import { SFDialogs } from "../ui/dialogs.js";
 import { SFUtility } from "../utility.js";
 
@@ -59,11 +58,6 @@ export class SFActorSheet extends ActorSheet {
 	 */
 	activateListeners(html) {
 		super.activateListeners(html);
-
-		// open char points infos
-		html.find('.charMain_CharPoints_infos').click(ev => {
-			SFDialogs.openCharPointInfos();
-		});
 
 		// Everything below here is only needed if the sheet is editable
 		if (!this.options.editable) return;
