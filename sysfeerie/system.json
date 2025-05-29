@@ -16,7 +16,7 @@
   "compatibility": {
     "minimum": "11",
     "verified": "11",
-    "maximum":"13"
+    "maximum":"11"
   },
   "scripts": [],
   "esmodules": [
