@@ -14,9 +14,9 @@
   "flags": {},
   "version": "1.0.1",
   "compatibility": {
-    "minimum": "10",
+    "minimum": "11",
     "verified": "11",
-    "maximum":"11"
+    "maximum":"13"
   },
   "scripts": [],
   "esmodules": [
@@ -43,7 +43,7 @@
       "label": "Macros",
       "system": "sysfeerie",
       "module": "sysfeerie",
-      "path": "packs/macrosgm.db",
+      "path": "packs/macrosgm",
       "entity": "Macro",
       "tag": "macrosgm",
       "type": "Macro",
@@ -54,7 +54,7 @@
       "label": "Règles (FR)",
       "system": "sysfeerie",
       "module": "sysfeerie",
-      "path": "packs/rules_fr.db",
+      "path": "packs/rules_fr",
       "entity": "JournalEntry",
       "tag": "rules",
       "type": "JournalEntry",

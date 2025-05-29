@@ -130,6 +130,10 @@
     "SYSFEERIE.Chat.OppositionLost" : "L'opposition est perdue.",
     "SYSFEERIE.Chat.OppositionStalled" : "L'opposition est une égalité ?",
 
+    "SYSFEERIE.Chat.LuckRoll" : "Jet de chance",
+    "SYSFEERIE.Chat.LuckRollSuccess" : "Jet réussi",
+    "SYSFEERIE.Chat.LuckRollFailure" : "Jet raté",
+
     "SYSFEERIE.Difficulty.Simple": "Simple",
     "SYSFEERIE.Difficulty.Tough": "Ardue",
     "SYSFEERIE.Difficulty.Intricate": "Complexe",

@@ -184,4 +184,24 @@ class SystemeFeerie {
 		this.pendingAction = new SystemeFeerieAction(action, difficulty, significance, isOpposition, opponentDifficulty, opponentRating);
 		this.pendingAction.createChatCard();
 	}
+
+	async beginLuckRoll() {
+		let roll = await new Roll(`1d6`).roll();
+		let rollResult = parseInt(roll.result,10);
+		let success = rollResult > 3;
+		let data = {
+			die : {
+				"class" : success ? "resolve-action-roll-success":"resolve-action-roll-failed",
+				"value" : rollResult
+			},
+			ClassActionResult : success ? "resolve-action-success" : "resolve-action-failed",
+			TextActionResult : success ? `<i class="fas fa-check"></i> ${game.i18n.localize("SYSFEERIE.Chat.LuckRollSuccess")}` : `<i class="fas fa-times"></i> ${game.i18n.localize("SYSFEERIE.Chat.LuckRollFailure")}`
+		};
+
+		renderTemplate(SFUtility.getSystemRessource("templates/chat/resolve-luckroll.html"), data).then(html => {
+			let chatOptions = SFUtility.chatDataSetup(html, null, true);
+			chatOptions.roll = roll;
+			ChatMessage.create(chatOptions);
+		});
+	}
 }
