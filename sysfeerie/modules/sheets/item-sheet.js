@@ -17,7 +17,7 @@ export class SFItemSheet extends ItemSheet {
 		if(item.type == "ressource")
 			this.position.height = 210;
 		if(item.type == "category")
-			this.position.height = 430;
+			this.position.height = 470;
 		if(item.type == "action")
 			this.position.height = 800;
 	}

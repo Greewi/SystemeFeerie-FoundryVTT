@@ -3,15 +3,8 @@
 ![Couverture](media/cover.png)
 
 Ce système est conçu pour jour aux jeux utilisant le [*Système Féerie*](https://systeme.feerie.net) avec [*Foundry Virtual Tabletop*](https://foundryvtt.com/).
+
 Le *Système Féerie* est un système de simulation générique descriptif qui favorise la description aux mécaniques habituelles de la plupart des jeux de rôle, que ce soit au niveau de la création des personnages que du système de résolution des actions.
-
-Première particularité, ce système utilise un processus atypique pour la création des personnages : le personnage est initialement défini avec des termes courants, à partir d’un questionnaire ou en rédigeant une description du personnage ; puis les règles transposent simplement et naturellement les éléments de ce personnage en caractéristiques chiffrées qui seront utilisées lors de la résolution des actions. Il n’y a pas de système de points/classe/niveau/archétype pour “encadrer” ou restreindre cette création et dans l’absolu, cette méthode permet de créer n’importe quel personnage de n’importe quel univers.
-
-Dans cette optique descriptive, les règles ne décrivent que des mécaniques de résolution mais sans imposer des règles pour fixer les conséquences (par exemple, il n’y a pas de gestion précise de la santé). Dans l’optique du *Système Féerie*, ce n’est pas au système de jeu de déterminer précisément comment l’action doit se comporter, mais aux participants. Par ailleurs, les règles de résolution ne font aucune distinction sur la nature des actions à résoudre : pas de spécificité pour, par exemple, le combat.
-
-Le *Système Féerie* met une partie du pouvoir narratif entre les mains des joueurs qui leur permettent d’influencer directement la trame scénaristique. Par exemple, ils peuvent décrire eux même, sous certaines conditions, le résultat des actions de leur personnage, ou encore modifier, lier ou introduire des éléments scénaristiques. Et ceci grâce aux points de personnage.
-
-Ce système a été conçu pour être simple et rapide à prendre en main. Comme il a été principalement développé pour Solaires, il se destine principalement aux jeux d’aventures.
 
 ## Informations techniques
 
@@ -20,104 +13,213 @@ Lien vers le manifeste du système :
 
 Prérequis :
 * [*FoundryVTT*](https://foundryvtt.com/) : le logiciel de table virtuelle pour lequel ce système a été conçu.
-* [Compendium Folder](https://foundryvtt.com/packages/compendium-folders) : ce module permet d'importer les compendium en conservant l'organisation par dossier.
 
 Modules conseillés :
-* [Dice so Nice](https://foundryvtt.com/packages/dice-so-nice/) : des dés en 3D, où comment retrouver la joie de voir les dés rouler en temps réel.
-* [Monk's Enhanced Journal](https://foundryvtt.com/packages/monks-enhanced-journal) : un navigateur de journaux et notes très très pratique.
-* [PopOut!](https://foundryvtt.com/packages/popout) : permet d'ouvrir les fenêtres des personnages et journaux dans de nouvelles fenêtres.
-
-## Installation
-
-Via l’instalateur de *Foundry* :
-1. Dans le menu `Game Systems` de *Foundry*, cliquez sur `Install System`
-2. Entrez `https://github.com/Greewi/SystemeFeerie-FoundryVTT/releases/latest/download/system.json` dans Manifest URL
-3. Cliquez sur `Install`
-
-Créer et initialiser un monde :
-1. Dans le menu `Game Worlds` de *Foundry*, cliquez sur `Create World`
-2. Dans `Game System` sélectionnez `Système Féerie`
-3. Remplissez les autres informations à votre convenance et cliquez sur `Create World`
-4. Connectez-vous en gamemaster et allez dans l’onglet `Game settings`
-5. Allez dans `Manage Modules`
-6. Activez le module `Compendium Folder` (ainsi que les autres modules que vous souhaitez utiliser)
-
-Installer les compendiums :
-1. Allez dans l’onglet `Compendium Packs`
-2. Pour chaque compendium : cliquez sur le compendium puis pour chaque répertoire du compendium, cliquez sur l’icône `Importer la structure des dossiers` (Attendez que l’opération soit finie avant de traiter le dossier suivant)
-3. Donnez les droits d’observateur aux joueurs des éléments qui vous intéressent (attention, donner les droits sur un dossier, ne donne pas les droits sur les éléments des sous-dossiers !)
-4. Pour le compendium `Actions MJ`, nous vous conseillons de glisser la macro `Débuter une action` dans votre barre de raccourcis
-
-Configurer les carégories des éléments :
-1. Allez dans l'onglet `Game Setting`
-2. Cliquez sur `Configure Settings`
-3. Allez dans `System Settings`
-4. Cliquez sur `Configurer les catégories`
-5. Renommez et modifiez les catégories à votre convenance
-6. Pour ajouter une nouvelle catégorie cliquez sur le `plus` tout en haut à droite.
-7. Pour désactiver (sans supprimer) une catégorie : cliquez sur la `croix` à droite du titre de la catégorie.
-8. Pour supprimer une catégorie cliquez sur l'icone `poubelle`. Notez que vous ne pouvez pas supprimer les catégories initiales (mais vous pouvez les désactiver ce qui revient au même)
-9. Une fois satisfait, cliquez sur `Save`.
+* [Dice so Nice](https://foundryvtt.com/packages/dice-so-nice/) : des dés en 3D, ou comment retrouver la joie de voir les dés rouler en temps réel.
 
 ## Screenshots
 
 ![Screenshot](media/screenshot01.png)
 
+## Installation
+
+Via l’installateur de *Foundry* :
+1. Dans le menu `Game Systems` de *Foundry*, cliquez sur `Install System`
+2. Entrez `https://github.com/Greewi/SystemeFeerie-FoundryVTT/releases/latest/download/system.json` dans Manifest URL
+3. Cliquez sur `Install`
+
+Créer et initialiser un monde :
+1. Dans le menu `Game Worlds` de *Foundry*, cliquez sur `Create World` ;
+2. Dans `Game System` sélectionnez `Système Féerie` ;
+3. Remplissez les autres informations à votre convenance et cliquez sur `Create World` ;
+4. Connectez-vous en gamemaster et allez dans l’onglet `Game settings` ;
+5. Allez dans `Manage Modules` ;
+6. Activez les modules que vous souhaitez utiliser
+
+Installer les compendiums :
+1. Allez dans l’onglet `Compendium Packs` ;
+2. Pour chaque compendium que vous voulez utiliser : cliquez droit sur le compendium puis cliquez `Importer tout le contenu` (Attendez que l’opération soit finie avant de traiter le compendium suivant) ;
+3. Donnez les droits d’observateur aux joueurs des éléments qui vous intéressent (attention, donner les droits sur un dossier, ne donne pas les droits sur les éléments des sous-dossiers !) ;
+4. Pour le compendium `__Macros`, nous vous conseillons de glisser les macros dans votre barre de raccourcis. Si vous utilisez la règle des jets de chance, vous voudrez aussi que vos joueurs aient accès à la macro correspondante.
+
+## Configurer le module
+
+Pour utiliser ce module nous vous recommandons de vous familiariser avec les règles du Système Féerie, version 5 ou 6 que vous trouverez sur le [site du Système Féerie](https://systeme.feerie.net) (à l'heure actuelle la version 6 est encore en tests, mais vous pouvez nous contacter si vous souhaitez l'essayer).
+
+Notez que le Système Féerie est un système très malléable et l'implémentation de ce Module vous demandera un peu de configuration bien que vous trouverez des adaptations prête à être utilisées dans les compendiums.
+
+Dans tous les cas, vous devrez récupérer ou configurer les pièces du système suivantes :
+* les **catégories d'éléments**, et notamment les **états** ;
+* les **informations descriptives** ;
+* les **ressources** ;
+* les **actions**.
+
+Vous voudrez probablement aussi créer un template de personnage pour pas avoir à refaire les listes des **informations descriptives**.
+
+## Liste des compendiums
+
+Général :
+* *__Macros* (**Nécessaire**) : contient les macros nécessaires pour démarrer une action et effectuer un jet de chance.
+
+Système Féerie V5 :
+* *V5 Règles* : les règles du Système Féerie V5.
+* *V5 Config* : une configuration "neutre" pour utiliser le Système Féerie V5.
+* *V5 Template* : un template de personnage "neutre" pour utiliser le Système Féerie V5.
+
+Système Féerie V6 :
+* *V6 Règles* : les règles du Système Féerie V6.
+* *V6 Config* : une configuration "neutre" pour utiliser le Système Féerie V6.
+* *V6 Template* : un template de personnage "neutre" pour utiliser le Système Féerie V6.
+
+Solaires (TODO : pas encore inclus) :
+* *V5 Solaires - Règles* : les règles du jeu Solaires en Système Féerie V5.
+* *V5 Solaires - Config* : la configuration pour jouer à Solaires en Système Féerie V5.
+* *V5 Solaires - Template* : un template de personnage pour Solaires, ainsi que deux équipes de pré-tirés.
+
+### Créer une catégorie d'éléments
+
+Les **catégories d'éléments** servent à classifier les éléments et à définir leur échelle de niveau.
+
+Vous pouvez créer une **catégorie d'éléments** en créant un nouvel Item de type *category*.
+
+Dans la fenêtre d'édition d'une catégorie, vous pourrez définir :
+* le **nom** de la catégorie (par exemple Carrière) ;
+* l'**abréviation** de la catégorie (par exemple C) ;
+* la **description** de la catégorie ;
+* les **niveaux** et leur correspondance dans l'univers du jeu.
+
+Notez que l'icône que vous choisirez pour une catégorie sera appliquée à tous les éléments de cette catégorie.
+
+Vous pouvez marquer une catégorie comme étant un **état** : le module traitera alors les **éléments** de cette **catégorie** comme des **états** et les rangera dans la zone appropriée de la fiche.
+
+Par la suite, vous pourrez sélectionner cette **catégorie** lorsque vous créerez ou éditerez un **élément**.
+
+![La fenêtre d'une catégorie d'élément](media/editor_category.png)
+
+### Informations descriptives
+
+Les **informations descriptives** servent à décrire des points du personnage qui ne font pas partie de ses éléments. Par exemple avec le Système Féerie V5, vous aurez généralement au moins le **Concept** et les **Rôles** du personnage. On y retrouve aussi les informations propres à l'identité du personnage. 
+
+Vous pouvez directement créer une **information descriptive** sur la fiche d'un personnage en cliquant sur le symbole **+** de la section, ou vous pouvez la créer sous la forme d'un Item de type *information* que vous pourrez ensuite glisser-déposer sur les fiches des personnages.
+
+Dans la fenêtre d'édition, vous pourrez définir :
+* le **nom** de l'information descriptive (par exemple Nationalité) ;
+* la **valeur** de l'information descriptive (par exemple Française), vous pouvez la laisser vide si vous ne la créez pas directement sur la fiche d'un personnage.
+
+![La fenêtre d'édition d'une information descriptive](media/editor_information.png)
+
+### Ressources
+
+Les **ressources** servent à comptabiliser certaines réserves, par exemple les points de personnage avec le Système Féerie V5, mais vous pourrez aussi avoir des points de chance, d'expérience ou toute autre ressource nécessaire pour le jeu.
+
+Vous pouvez directement créer une **ressource** sur la fiche d'un personnage en cliquant sur le symbole **+** de la section, ou vous pouvez la créer sous la forme d'un Item de type *ressource* que vous pourrez ensuite glisser-déposer sur les fiches des personnages.
+
+Dans la fenêtre d'édition, vous pourrez définir :
+* leur **nom** (par exemple, Points de chance) ;
+* leur **maximum** (par exemple, 3), s'il est fixé à 0, il n'y a pas de maximum ;
+* leur **valeur actuelle** que vous pouvez initialiser à une valeur par défaut.
+
+![La fenêtre d'édition d'une ressource](media/editor_ressource.png)
+
+### Actions
+
+Les **actions** servent à déterminer les règles de résolution des actions. Si le processus de résolution était fixe pour le Système Féerie V5, il est très personnalisable en Système Féerie V6. Il est même possible de définir plusieurs actions, notamment pour les jeux qui proposent des échelles de difficultés alternatives, par exemple pour gérer la magie. Pour en créer une, créez un nouvel Item de type *action*.
+
+Dans la fenêtre d'édition, vous pourrez définir :
+* la **version du Système Féerie** à utiliser (version 5 ou 6) ;
+* le **nombre maximum d'éléments** que les joueurs peuvent utiliser (mettez *2* en V5) ;
+* la **méthode de calcul du niveau des personnages** (mettez *Somme des éléments* en V5) ;
+* la **méthode utilisée pour déterminer la qualité des réussites et échecs** (non pertinent en V5) ;
+* l'**échelle de difficulté intrinsèque de ces actions** ;
+* l'**échelle de pertinence scénaristique**.
+
+Vous pouvez marquer une action comme action par défaut qui sera automatiquement sélectionnée lorsque vous initierez une action.
+
+![La fenêtre d'édition d'une action](media/editor_action.png)
+
+Détails des différentes méthodes de calcul du niveau des personnages :
+* *Somme des éléments* : cette méthode fait la somme du niveau de tous les éléments utilisés ;
+* *Somme dégressive des éléments* : TODO
+* *Meilleur élément + nombre d'éléments* : 
+* *Second élément modulé par la pertinence du premier* : 
+* *Pertinence du premier élément + nombre d'élément* : 
+
+## Créer des éléments
+
+Les **éléments** définissent mécaniquement les personnages, associant un aspect du personnage à un niveau. Vous pouvez créer un élément de plusieurs manières :
+* créer directement l'élément sur la fiche d'un personnage ;
+* créer un item séparé ;
+* extraire un élément depuis la description d'un personnage.
+
+### Créer un nouvel élément
+
+Vous pouvez directement créer un **élément** sur la fiche d'un personnage en cliquant sur le symbole **+** en haut de l'onglet *Éléments* de la fiche, ou vous pouvez le créer sous la forme d'un Item de type *element* que vous pourrez ensuite glisser-déposer sur les fiches des personnages.
+
+Dans la fenêtre d'édition, vous pourrez définir :
+* sa **catégorie** que vous devrez avoir créée en amont ;
+* son **niveau**.
+
+Il n'est pas utile de modifier l'icône d'un élément, car celle-ci sera systématiquement remplacée par l'icône de la catégorie.
+
+![La fenêtre d'édition d'un élément](media/editor_element.png)
+
+Si vous souhaitez lier un élément d'un personnage à une section de sa description, vous pouvez cliquer sur l'icône en forme de pièce de puzzle pour ouvrir une fenêtre qui vous permettra de sélectionner cette source plus facilement.
+
+![La fenêtre de sélection de la source d'un élément](media/editor_element_source.png)
+
+### Extraire un élément
+
+Si la construction du personnage se fait à partir de sa description, vous voudrez créer les éléments directement depuis la description. Pour extraire un élément de la description de votre personnage :
+* cliquez sur l'icône en forme de pièce de puzzle au-dessus de la description de votre personnage ;
+* dans la nouvelle fenêtre, sélectionnez la portion de texte correspondant à l'élément ;
+* puis dans la fenêtre de l'élément, modifiez son nom si nécessaire, sa catégorie et son niveau.
+
+![La fenêtre de sélection de la source d'un élément](media/editor_element_source.png)
+
+Pour modifier la source d'un élément :
+* dans l'onglet *Éléments* de la fiche de personnage, cliquez sur l'icône de modification de l'élément en question ;
+* dans la fenêtre de l'élément, vous pouvez modifier le texte de la source ou cliquer sur la pièce de puzzle pour modifier la sélection.
+
 ## Créer un personnage
 
-Le *Système Féerie* est un système de jeu particulier qui part de la description des personnages pour le construire mécaniquement.
+Pour créer un personnage, vous pouvez dupliquer un personnage modèle ou créer un nouvel **actor**. Un personnage modèle n'est rien d'autre qu'un personnage dont certaines sections, notamment les informations descriptives et les ressources, ont été remplies avec des objets vierges ou qui ont la valeur par défaut.
 
-Concrètement, après avoir créé un nouvel acteur, vous vous retrouverez avec la fiche vièrge prête à remplir.
-
-![La fiche de personnage vide, avec seulement le nom du personnage rempli](media/fiche_vide.jpg)
-
-La première étape pour la remplir consiste à choisir les rôles du personnage (une sorte de contrat qui sert à les répartir entre les différents personnages du groupe). La liste des rôles dépend du jeu joué et des aspects qui seront mis en avant.
-
-La seconde étape consiste à écrire un court concept qui répond à ces rôles pour servir de point de départ à la création du personnage. C'est une phrase courte par exemple : "Un magicien elfe, consultant pour les forces de l'ordre de la ville".
-
-Enfin vient la description, remplissez là en cliquant sur le crayon et définissez plus précisément votre personnage en développant votre concept.
-
-![La fiche de personnage avec les rôles, concept et description de remplies](media/fiche_description.jpg)
-
-Ceci fait, vous allez extraire les éléments. Il s'agit des mots clés définissant votre personnage auquel vous allez associer un score. Ce sont ces éléments qui seront utilisés lors des jets de dés pour les actions.
-
-Pour extraire un élément, cliquez sur la pièce de puzzle au dessus de la description et vous aurez la fenêtre de sélection de la source d'un élément. Cliquez sur les mots de l'expression que vous souhaitez transformer en élément pour les sélectionner.
-
-![La fenêtre d'extration d'un élément avec l'expression «un elfe» sélectionnée.](media/fiche_extraction.jpg)
-
-Une fois satisfait, cliquez sur « Ok » et la fenêtre de l'élément s'ouvrira. Dedans, vous pouvez modifier le nom de l'élément (Par exemple, « Consultant en magie » est plus clair que « travaillant pour les forces de l'ordre sur les affaires de magie »). Choisissez une catégorie pour l'élément et évaluez sa valeur en fonction de ce que l'élément représente. Si vous souhaitez modifier la source (ce texte correspondant à l'élement dans la description), vous pouvez cliquer sur la pièce de puzzle en bas. Si vous le souhaitez, vous pouvez choisir une autre icone en cliquant dessus.
-
-![La fenêtre de configuration de l'élément Elfe.](media/fiche_element.jpg)
-
-Une fois l'élément extrait et configuré, vous verrez son expression mise en gras avec son score directement dans la description. Vous le trouverez aussi dans l'onglet *Éléments* de la fiche.
-
-![La fiche de personnage avec les rôles, concept et description de remplies](media/fiche_description_extrait.jpg)
-
-Recommencez pour extraire tous les éléments. Vous pouvez aussi changer le portrait de votre personnage en cliquant dessus. Si le meneur le souhaite, vous pouvez modifier le montant des points de personnage en cliquant dessus (bouton gauche pour diminuer, bouton droit pour l'augmenter).
-
-Voila, le personnage est prêt !
-
-![La fiche de personnage d'Alvin, remplie](media/fiche_remplie.jpg)
+![La fiche d'un personnage modèle pour Solaires](media/template_solaires.png)
 
 ## Faire une action
 
+La mécanique du Système Féerie se concentre sur la résolution des actions et propose un processus un peu différent de la plupart des autres jeux de rôles.
+
 Lorsqu'un personnage va effectuer une action qui a des chances de rater (ou de réussir), le meneur peut demander un jet de résolution.
 
-Pour commencer une action, le meneur peut utiliser la *Start Action* qui est à sa disposition dans le compendium *Macros*. Ceci lui ouvrira la fenêtre *Débuter une action*.
+Pour commencer une action, le meneur peut utiliser la macro *Start Action* qui est à sa disposition dans le compendium *Macros*. Ceci lui ouvrira la fenêtre *Débuter une action*.
 
-![La fenêtre début d'une action](media/action_debut.jpg)
+![La fenêtre début d'une action](media/action_debut.png)
 
-Sur cette fenêtre, le meneur peut choisir la difficulté intrinsèque (à quel point l'action est difficile dans l'univers du jeu) et l'intérêt scénaristiques (est-ce que la réussite ou l'échec donnerait un résultat plus intéressant que l'autre ?). Une fois son choix validé, il peut cliquer sur *Commencer l'action*. Une boîte va alors apparaître dans le chat.
+Sur cette fenêtre, le meneur doit choisir le type de l'action si plusieurs actions ont été configurées. Ensuite, il peut définir la difficulté intrinsèque (à quel point l'action est difficile dans l'univers du jeu) et l'intérêt scénaristique (est-ce que la réussite ou l'échec donnerait un résultat plus intéressant que l'autre ?). Une fois son choix validé, il peut cliquer sur *Commencer l'action*. Une boîte d'action va alors apparaître dans le chat.
 
-![La fenêtre d'action dans le chat](media/action_chat_vide.jpg)
+![La fenêtre d'action dans le chat](media/action_chat_vide.png)
 
-Le joueur peut alors choisir un élément sur sa fiche, en cliquant sur son nom depuis sa description ou dans la listes des Éléments et des États. L'élément sélectionné apparaîtra dans la boîte du chat. Si cet élément est typique (par exemple une carrière *Secouriste* serait typique pour une action qui consterait à faire les premiers soins), le meneur peut autoriser un second élément. Pour enlever un élément de l'action, il suffit de cliquer sur la petite croix à droite. (Note : les éléments peuvent provenir de personnages différents)
+Le joueur peut alors choisir un élément sur sa fiche, en cliquant sur son nom depuis sa description ou dans la liste des Éléments et des États. L'élément sélectionné apparaîtra alors dans la boîte du chat.
 
-![La fenêtre d'action dans le chat, un joueur a choisi un élément "Magicien"](media/action_chat_element.jpg)
+Si le meneur l'autorise (en fonction des règles), le joueur eut être amené à ajouter d'autres éléments. De la même façon, d'autres joueurs peuvent apporter un élément de leur personnage, notamment si leur personnage aide l'initiateur.
 
-Une fois que le meneur à validé les éléments, il peit cliquer sur le bouton *MJ* et le joueur peut cliquer sur Lancer les dés. Les dés sont alors lancés et le résultat s'affiche !
+Le meneur peut indiquer la pertinence du premier élément de la liste. Ceci aura une importance pour la méthode que le système utilisera pour calculer le score du personnage.
 
-![La fenêtre d'action dans le chat une fois résolue. Et c'est une réussite !](media/action_resolue.jpg)
+Pour retirer un élément de l'action, il est possible de cliquer sur la croix à côté de l'élément en question dans la boîte d'action.
+
+![La fenêtre d'action dans le chat, un joueur a choisi un élément "Magicien"](media/action_chat_element.png)
+
+Une fois que le meneur a validé les éléments, il peut cliquer sur le bouton *MJ* et le joueur peut cliquer sur Lancer les dés. Les dés sont alors lancés et le résultat s'affiche !
+
+![La fenêtre d'action dans le chat une fois résolue. Et c'est une réussite !](media/action_chat_resolue.png)
+
+## Faire un jet de chance
+
+Pour faire un jet de chance, le joueur doit utiliser la macro *Jet de chance*. Le résultat du jet de chance sera affiché dans la fenêtre de chat.
+
+
+![La fenêtre d'un jet de chance dans le chat.](media/chat_jet_de_chance.png)
 
 ## Remerciements et contributions
 

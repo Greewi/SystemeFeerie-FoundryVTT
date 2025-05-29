@@ -39,26 +39,46 @@
   ],
   "packs": [
     {
-      "name": "macrosgm",
-      "label": "Macros",
-      "system": "sysfeerie",
-      "module": "sysfeerie",
-      "path": "packs/macrosgm",
-      "entity": "Macro",
-      "tag": "macrosgm",
-      "type": "Macro",
-      "private": false
+      "name": "macros",
+      "label": "__Macros",
+      "path": "packs/macros",
+      "type": "Macro"
     },
     {
-      "name": "rules_fr",
-      "label": "Règles (FR)",
-      "system": "sysfeerie",
-      "module": "sysfeerie",
-      "path": "packs/rules_fr",
-      "entity": "JournalEntry",
-      "tag": "rules",
-      "type": "JournalEntry",
-      "private": false
+      "name": "v5-config",
+      "label": "V5 Config",
+      "path": "packs/v5-config",
+      "type": "Item"
+    },
+    {
+      "name": "v5-regles",
+      "label": "V5 Règles",
+      "path": "packs/v5-regles",
+      "type": "JournalEntry"
+    },
+    {
+      "name": "v5-template",
+      "label": "V5 Template",
+      "path": "packs/v5-template",
+      "type": "Actor"
+    },
+    {
+      "name": "v6-config",
+      "label": "V6 Config",
+      "path": "packs/v6-config",
+      "type": "Item"
+    },
+    {
+      "name": "v6-regles",
+      "label": "V6 Règles",
+      "path": "packs/v6-regles",
+      "type": "JournalEntry"
+    },
+    {
+      "name": "v6-template",
+      "label": "V6 Template",
+      "path": "packs/v6-template",
+      "type": "Actor"
     }
   ],
   "system": [],
