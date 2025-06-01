@@ -9,21 +9,21 @@
     <section class="sheet-body">
         <div class="tab active" data-group="primary" data-tab="description">
             <div>
-                <label for="data.category">{{localize "SYSFEERIE.Item.Category"}}</label>
-                <select name="data.category">
-                    {{selectOptions categories selected=data.system.category}}
+                <label for="system.category">{{localize "SYSFEERIE.Item.Category"}}</label>
+                <select name="system.category">
+                    {{selectOptions categories selected=system.category}}
                 </select>
             </div>
             <div>
-                <label for="data.value">{{localize "SYSFEERIE.Item.Value"}}</label>
-                <select name="data.value">
-                    {{selectOptions levels selected=data.system.value}}
+                <label for="system.value">{{localize "SYSFEERIE.Item.Value"}}</label>
+                <select name="system.value">
+                    {{selectOptions levels selected=system.value}}
                 </select>
             </div>
             <div>
                 <a class="elementSheet_extractButton" title="{{SYSFEERIE.Char.ExtractElement}}"><i class="fas fa-puzzle-piece"></i></a>
-                <label for="data.source">{{localize "SYSFEERIE.Item.Source"}}</label>
-                <input name="data.source" type="text" value="{{data.system.source}}" placeholder="{{localize "SYSFEERIE.Item.Source"}}" />
+                <label for="system.source">{{localize "SYSFEERIE.Item.Source"}}</label>
+                <input name="system.source" type="text" value="{{system.source}}" placeholder="{{localize "SYSFEERIE.Item.Source"}}" />
             </div>
         </div>
     </section>

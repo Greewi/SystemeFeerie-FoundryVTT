@@ -199,9 +199,12 @@ class SystemeFeerie {
 		};
 
 		renderTemplate(SFUtility.getSystemRessource("templates/chat/resolve-luckroll.html"), data).then(html => {
-			let chatOptions = SFUtility.chatDataSetup(html, null, true);
-			chatOptions.roll = roll;
-			ChatMessage.create(chatOptions);
+			ChatMessage.create({
+				user : game.user.id,
+				content : html,
+				isRoll : true,
+				roll : roll
+			});
 		});
 	}
 }

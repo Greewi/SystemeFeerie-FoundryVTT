@@ -9,7 +9,7 @@ export class SFActorSheet extends ActorSheet {
 
 	/** @override */
 	static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return SFUtility.mergeObject(super.defaultOptions, {
 			classes: ["sysfeerie", "sheet", "actor"],
 			template: SFUtility.getSystemRessource("templates/character-sheet.html"),
 			width: 600,
@@ -79,7 +79,7 @@ export class SFActorSheet extends ActorSheet {
 		html.find('.charInformations_addButton').click(ev => {
 			ev.preventDefault();
 			let header = ev.currentTarget,
-			data = duplicate(header.dataset);
+			data = SFUtility.duplicate(header.dataset);
 			data["type"] = `information`;
 			data["img"] = `icons/sundries/documents/document-official-brownl.webp`;
 			data["name"] = `${game.i18n.localize("SYSFEERIE.Information.New")}`;
@@ -96,7 +96,7 @@ export class SFActorSheet extends ActorSheet {
 		html.find('.charRessources_addButton').click(ev => {
 			ev.preventDefault();
 			let header = ev.currentTarget,
-			data = duplicate(header.dataset);
+			data = SFUtility.duplicate(header.dataset);
 			data["type"] = `ressource`;
 			data["img"] = `icons/commodities/currency/coins-shield-sword-stack-silver.webp`;
 			data["name"] = `${game.i18n.localize("SYSFEERIE.Ressource.New")}`;
@@ -119,7 +119,7 @@ export class SFActorSheet extends ActorSheet {
 		html.find('.charStatus_addButton').click(ev => {
 			ev.preventDefault();
 			let header = ev.currentTarget,
-			data = duplicate(header.dataset);
+			data = SFUtility.duplicate(header.dataset);
 			
 			data["type"] = `element`;
 			let categories = game.items.filter(item => item.type === "category");
@@ -139,7 +139,7 @@ export class SFActorSheet extends ActorSheet {
 		html.find('.charElement_addButton').click(ev => {
 			ev.preventDefault();
 			let header = ev.currentTarget,
-			data = duplicate(header.dataset);
+			data = SFUtility.duplicate(header.dataset);
 			
 			data["type"] = `element`;
 			let categories = game.items.filter(item => item.type === "category");
@@ -178,7 +178,7 @@ export class SFActorSheet extends ActorSheet {
 		html.find('.charPlot_addButton').click(ev => {
 			ev.preventDefault();
 			let header = ev.currentTarget,
-			data = duplicate(header.dataset);
+			data = SFUtility.duplicate(header.dataset);
 			
 			data["type"] = `plot`;
 			data["img"] = `icons/sundries/documents/document-sealed-signatures-red.webp`;

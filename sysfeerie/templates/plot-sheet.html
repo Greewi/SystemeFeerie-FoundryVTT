@@ -1,6 +1,6 @@
-<form class="{{cssClass}}" autocomplete="off">
+<form class="{{cssClass}} {{item.type}}" autocomplete="off">
 	<header class="sheet-header">
-		<img class="profile-img" src="{{data.img}}" data-edit="img" title="{{item.name}}" />
+		<img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
 		<div class="header-fields">
 			<h1 class="charname">{{item.name}}</h1>
 		</div>
@@ -10,19 +10,19 @@
 		<div class="tab active plot-tab" data-group="primary" data-tab="description">
 			<h2>{{localize "SYSFEERIE.Plot.Reward"}}</h2>
 			<div>
-				<label for="data.rewardName">{{localize "SYSFEERIE.Plot.RewardElement"}}</label>
-				<input type="text" data-dtype="String" name="data.rewardName" value="{{data.system.rewardName}}" />
+				<label for="{{item.id}}.rewardName">{{localize "SYSFEERIE.Plot.RewardElement"}}</label>
+				<input type="text" data-dtype="String" id="{{item.id}}.rewardName" name="system.rewardName" value="{{system.rewardName}}" />
 			</div>
 			<div>
-				<label for="data.rewardCategory">{{localize "SYSFEERIE.Item.Category"}}</label>
-				<select name="data.rewardCategory">
-					{{selectOptions categories selected=data.system.rewardCategory}}
+				<label for="system.rewardCategory">{{localize "SYSFEERIE.Item.Category"}}</label>
+				<select name="system.rewardCategory">
+					{{selectOptions categories selected=system.rewardCategory}}
 				</select>
 			</div>
 			<div>
-				<label for="data.rewardValue">{{localize "SYSFEERIE.Item.Value"}}</label>
-				<select name="data.rewardValue">
-					{{selectOptions levels selected=data.system.rewardValue}}
+				<label for="system.rewardValue">{{localize "SYSFEERIE.Item.Value"}}</label>
+				<select name="system.rewardValue">
+					{{selectOptions levels selected=system.rewardValue}}
 				</select>
 			</div>
 			<h2>{{localize "SYSFEERIE.Plot.Goal"}}</h2>
@@ -33,14 +33,14 @@
 
 			<h2>{{localize "SYSFEERIE.Plot.Steps"}}</h2>
 			<div>
-				<label for="data.stepNumber">{{localize "SYSFEERIE.Plot.StepsNumber"}}</label>
-				<input type="text" data-dtype="Number" name="data.stepNumber" value="{{data.system.stepNumber}}" />
+				<label for="system.stepNumber">{{localize "SYSFEERIE.Plot.StepsNumber"}}</label>
+				<input type="text" data-dtype="Number" name="system.stepNumber" value="{{system.stepNumber}}" />
 			</div>
 			<div>
-				{{#if (ne data.system.steps.length 0)}}
+				{{#if (ne system.steps.length 0)}}
 					<label>{{localize "SYSFEERIE.Plot.FinishedSteps"}}</label>
 				{{/if}}
-				{{#each data.system.steps as |step id|}}
+				{{#each system.steps as |step id|}}
 				<li class="plotStep flexrow plot item-edit" data-item-id="{{plot.id}}">
 					<span>{{step}}</span>
 					<div class="item-controls">
@@ -51,8 +51,8 @@
 			</div>
 			{{#if incomplet}}
 			<div>
-				<label for="data.currentStep">{{localize "SYSFEERIE.Plot.CurrentStep"}}</label>
-				<input type="text" data-dtype="String" name="data.currentStep" value="{{data.system.currentStep}}" />
+				<label for="system.currentStep">{{localize "SYSFEERIE.Plot.CurrentStep"}}</label>
+				<input type="text" data-dtype="String" name="system.currentStep" value="{{system.currentStep}}" />
 			</div>
 			<button class="plotStep_Finish">{{localize "SYSFEERIE.Plot.FinishStep"}}</button>
 			{{/if}}

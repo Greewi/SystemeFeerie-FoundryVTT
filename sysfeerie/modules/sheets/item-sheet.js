@@ -26,7 +26,7 @@ export class SFItemSheet extends ItemSheet {
 	 * @override
 	 */
 	static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return SFUtility.mergeObject(super.defaultOptions, {
 			classes: ["sysfeerie", "sheet", "item"],
 			template: SFUtility.getSystemRessource("templates/element-sheet.html"),
 			width: 520,
@@ -40,6 +40,7 @@ export class SFItemSheet extends ItemSheet {
 	 */
 	getData() {
 		const data = super.getData();
+		data.system = data.data.system;
 		if(this.item.type == "element") {
 			// Select des catégories
 			data.categories = {};

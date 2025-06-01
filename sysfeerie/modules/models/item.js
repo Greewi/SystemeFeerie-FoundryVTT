@@ -46,10 +46,12 @@ export class SFItem extends Item
 		super.prepareData();
 		if(this.type == "element") {
 			let categories = game.items.filter(item => item.type === "category");
+			if(!this.system.category)
+				this.system.category = categories[0].id;
 			let category = categories.find(cat => cat.id === this.system.category);
 			if(category)
 				this.img = category.img;
-			else 
+			else
 				this.img = "icons/sundries/documents/envelope-sealed-red-tan.webp";
 		}
 	}
@@ -77,7 +79,7 @@ export class SFItem extends Item
 	*/
 	postItem()
 	{
-		let chatData = duplicate(this.system);
+		let chatData = SFUtility.duplicate(this.system);
 		chatData.name = this.name;
 		chatData.img = (!chatData.img || this.img.includes("/blank.png")) ? null : this.img; // Don't post any image for the item (which would leave a large gap) if the default image is used
 		if(this.type == "element") {
@@ -100,14 +102,14 @@ export class SFItem extends Item
 
 		renderTemplate(SFUtility.getSystemRessource("templates/chat/post-item.html"), chatData).then(html =>
 		{
-			let chatOptions = SFUtility.chatDataSetup(html)
-			// Setup drag and drop data
-			chatOptions["flags.transfer"] = JSON.stringify(
-			{
-				data: chatData,
-				postedItem: true
+			ChatMessage.create({
+				user : game.user.id,
+				content : html,
+				"flags.transfer" : JSON.stringify({
+					data: chatData,
+					postedItem: true
+				})
 			});
-			ChatMessage.create(chatOptions);
 		});
 	}
 }

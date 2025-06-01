@@ -9,20 +9,20 @@
     <section class="sheet-body">
         <div class="tab active" data-group="primary" data-tab="description">
             <div>
-                <label for="data.short">{{localize "SYSFEERIE.Category.Short"}}</label>
-                <input name="data.short" type="text" value="{{data.system.short}}" placeholder="{{localize "SYSFEERIE.Category.Short"}}" />
+                <label for="system.short">{{localize "SYSFEERIE.Category.Short"}}</label>
+                <input name="system.short" type="text" value="{{system.short}}" placeholder="{{localize "SYSFEERIE.Category.Short"}}" />
             </div>
             <div>
-                <label for="data.description">{{localize "SYSFEERIE.Category.Description"}}</label>
-                <input name="data.description" type="text" value="{{data.system.description}}" placeholder="{{localize "SYSFEERIE.Category.Description"}}" />
+                <label for="system.description">{{localize "SYSFEERIE.Category.Description"}}</label>
+                <input name="system.description" type="text" value="{{system.description}}" placeholder="{{localize "SYSFEERIE.Category.Description"}}" />
             </div>
             <div>
-                <label for="data.isStatus">{{localize "SYSFEERIE.Category.IsStatus"}}</label>
-                <input name="data.isStatus" type="checkbox" {{checked data.system.isStatus}} />
+                <label for="system.isStatus">{{localize "SYSFEERIE.Category.IsStatus"}}</label>
+                <input name="system.isStatus" type="checkbox" {{checked system.isStatus}} />
             </div>
             <div>
                 <label>{{localize "SYSFEERIE.Category.Levels"}}</label>
-                {{#each data.system.levels as |level id|}}
+                {{#each system.levels as |level id|}}
                 <li class="categoryLevels flexrow plot item-edit" data-item-id="{{id}}">
                     <label for="levels.{{id}}">{{id}}</label>
                     <input class="categoryLevel_value" name="levels.{{id}}" type="text" value="{{level}}" placeholder="{{localize "SYSFEERIE.Category.LevelDescription"}}" data-level-id="{{id}}" />

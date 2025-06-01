@@ -224,8 +224,10 @@ export class SystemeFeerieAction {
 	createChatCard() {
 		let data = this.cardData;
 		renderTemplate(SFUtility.getSystemRessource("templates/chat/begin-action.html"), data).then(html => {
-			let chatOptions = SFUtility.chatDataSetup(html);
-			ChatMessage.create(chatOptions).then(msg => {
+			ChatMessage.create({
+				user: game.user.id,
+				content:html
+			}).then(msg => {
 				this.message = msg;
 				this.state = SystemeFeerieAction.STATUS.PREPARE;
 				this.saveAction();
@@ -345,7 +347,11 @@ export class SystemeFeerieAction {
 		}
 
 		renderTemplate(SFUtility.getSystemRessource("templates/chat/resolve-action.html"), data).then(html => {
-			let chatOptions = SFUtility.chatDataSetup(html, null, data.HasRoll);
+			let chatOptions = {
+				user: game.user.id,
+				content:html,
+				isRoll:true
+			}
 			if(data.Opponent && data.Opponent.HasRoll) {
 				data.Roll.dice[0].options.rollOrder = 1;
 				data.Opponent.Roll.dice[0].options.rollOrder = 2;
