@@ -480,6 +480,15 @@ button.actionDialog_button_selected {
 .resolve-action-failed {
 	color: rgb(50, 0, 0);
 }
+.message-content .sysfeerie h2 {
+	font-size : 14pt;
+	font-family: "Signika", "Palatino Linotype", sans-serif;
+}
+.message-content .sysfeerie h3 {
+	margin: 0 0 1rem 0;
+	font-size : 12pt;
+	font-family: "Signika", "Palatino Linotype", sans-serif;
+}
 
 /**
  * Settings

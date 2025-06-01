@@ -22,10 +22,10 @@ Hooks.once("init", async function () {
 	CONFIG.ui.items.entryPartial = SFUtility.getSystemRessource("templates/sidebar/document-partial.html");
 
 	// Register sheet application classes
-	Actors.unregisterSheet("core", ActorSheet);
-	Actors.registerSheet("sysfeerie", SFActorSheet, { makeDefault: true });
-	Items.unregisterSheet("core", ItemSheet);
-	Items.registerSheet("sysfeerie", SFItemSheet, { makeDefault: true });
+	foundry.documents.collections.Actors.unregisterSheet("core", foundry.appv1.sheets.ActorSheet);
+	foundry.documents.collections.Actors.registerSheet("sysfeerie", SFActorSheet, { makeDefault: true });
+	foundry.documents.collections.Items.unregisterSheet("core", foundry.appv1.sheets.ItemSheet);
+	foundry.documents.collections.Items.registerSheet("sysfeerie", SFItemSheet, { makeDefault: true });
 });
 
 Hooks.once("diceSoNiceReady", (dice3d) => {
@@ -92,51 +92,61 @@ Hooks.once("ready", async function () {
 /**
  * Action resolution system
  */
-Hooks.on("renderChatMessage", async (app, html, msg) => {
+Hooks.on("renderChatMessageHTML", async (app, html, msg) => {
 	if (!game.user.isGM) {
-		html.find(".approveSkills").remove();
-		html.find(".selectRelevance").prop("disabled",true);
+		for(let elt of html.querySelectorAll(".approveSkills"))
+			elt.remove();
+		for(let elt of html.querySelectorAll(".selectRelevance"))
+			elt.disabled = true;
 	}
-});
 
-Hooks.on('renderChatLog', (log, html, data) => {
-	html.on("click", '.skill-remove', async ev => {
-		ev.stopPropagation();
-		let itemSlot = parseInt($(ev.currentTarget).parents(".action-skill").data("slot"));
-		if (game.user.isGM && game.systemeFeerie.pendingAction)
-			game.systemeFeerie.pendingAction.removeItem(itemSlot);
-		else {
-			game.socket.emit("system.sysfeerie", {
-				type: "removeItem",
-				payload: {
-					slot: itemSlot
-				}
-			});
-		}
-	});
+	for(let elt of html.querySelectorAll('.skill-remove')) {
+		elt.addEventListener("click", async ev => {
+			ev.stopPropagation();
+			let itemSlot = parseInt($(ev.currentTarget).parents(".action-skill").data("slot"));
+			if (game.user.isGM && game.systemeFeerie.pendingAction)
+				game.systemeFeerie.pendingAction.removeItem(itemSlot);
+			else {
+				game.socket.emit("system.sysfeerie", {
+					type: "removeItem",
+					payload: {
+						slot: itemSlot
+					}
+				});
+			}
+		});
+	}
 
-	html.on("click", '.approveSkills', async ev => {
-		SystemeFeerieAction.updateGMAck(true);
-	});
+	for(let elt of html.querySelectorAll('.approveSkills')) {
+		elt.addEventListener("click", async ev => {
+			SystemeFeerieAction.updateGMAck(true);
+		});
+	}
 
-	html.on("click", ".startAction", async ev => {
-		let action = $(ev.currentTarget).data("action");
-		let difficulty = parseInt($(ev.currentTarget).data("difficulty"), 10);
-		let score = parseInt($(ev.currentTarget).data("score"), 10);
-		let isOpposition = $(ev.currentTarget).data("isOpposition") == true;
-		let opponentDifficulty = parseInt($(ev.currentTarget).data("opponentDifficulty"), 10);
-		let opponentScore = parseInt($(ev.currentTarget).data("opponentScore"), 10);
-		SystemeFeerieAction.resolveAction(action, difficulty, score, isOpposition, opponentDifficulty, opponentScore);
-	});
+	for(let elt of html.querySelectorAll('.startAction')) {
+		elt.addEventListener("click", async ev => {
+			let action = $(ev.currentTarget).data("action");
+			let difficulty = parseInt($(ev.currentTarget).data("difficulty"), 10);
+			let score = parseInt($(ev.currentTarget).data("score"), 10);
+			let isOpposition = $(ev.currentTarget).data("isOpposition") == true;
+			let opponentDifficulty = parseInt($(ev.currentTarget).data("opponentDifficulty"), 10);
+			let opponentScore = parseInt($(ev.currentTarget).data("opponentScore"), 10);
+			SystemeFeerieAction.resolveAction(action, difficulty, score, isOpposition, opponentDifficulty, opponentScore);
+		});
+	}
 
-	html.on("change", ".selectRelevance", async ev => {
-		let relevance = $(ev.currentTarget)[0].value ;
-		SystemeFeerieAction.setRelevance(relevance);
-	});
+	for(let elt of html.querySelectorAll('.selectRelevance')) {
+		elt.addEventListener("change", async ev => {
+			let relevance = $(ev.currentTarget)[0].value ;
+			SystemeFeerieAction.setRelevance(relevance);
+		});
+	}
 
-	html.on("click", ".action-skill", async ev => {
-		game.actors.get(game.user.character?.id)?.sheet.render(true);
-	});
+	for(let elt of html.querySelectorAll('.action-skill')) {
+		elt.addEventListener("click", async ev => {
+			game.actors.get(game.user.character?.id)?.sheet.render(true);
+		});
+	}
 });
 
 // Fix : macros created with drag&drop to hotbar had the default icon instead of the icon of the dropped document

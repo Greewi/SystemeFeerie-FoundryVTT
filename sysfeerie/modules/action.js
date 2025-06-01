@@ -223,7 +223,7 @@ export class SystemeFeerieAction {
 	 */
 	createChatCard() {
 		let data = this.cardData;
-		renderTemplate(SFUtility.getSystemRessource("templates/chat/begin-action.html"), data).then(html => {
+		foundry.applications.handlebars.renderTemplate(SFUtility.getSystemRessource("templates/chat/begin-action.html"), data).then(html => {
 			let chatOptions = SFUtility.chatDataSetup(html);
 			ChatMessage.create(chatOptions).then(msg => {
 				this.message = msg;
@@ -238,7 +238,7 @@ export class SystemeFeerieAction {
 	 */
 	updateChatCard() {
 		let data = this.cardData;
-		renderTemplate(SFUtility.getSystemRessource("templates/chat/begin-action.html"), data).then(html => {
+		foundry.applications.handlebars.renderTemplate(SFUtility.getSystemRessource("templates/chat/begin-action.html"), data).then(html => {
 			this.message.update({
 				content: html
 			}).then(newMsg => {
@@ -344,7 +344,7 @@ export class SystemeFeerieAction {
 			return;
 		}
 
-		renderTemplate(SFUtility.getSystemRessource("templates/chat/resolve-action.html"), data).then(html => {
+		foundry.applications.handlebars.renderTemplate(SFUtility.getSystemRessource("templates/chat/resolve-action.html"), data).then(html => {
 			let chatOptions = SFUtility.chatDataSetup(html, null, data.HasRoll);
 			if(data.Opponent && data.Opponent.HasRoll) {
 				data.Roll.dice[0].options.rollOrder = 1;

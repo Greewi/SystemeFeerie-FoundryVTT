@@ -4,9 +4,9 @@ import { SFUtility } from "../utility.js";
 
 /**
  * Extend the basic ItemSheet with some very simple modifications
- * @extends {ItemSheet}
+ * @extends {foundry.appv1.sheets.ItemSheet}
  */
-export class SFItemSheet extends ItemSheet {
+export class SFItemSheet extends foundry.appv1.sheets.ItemSheet {
 
 	constructor(item={}, options={}) {
 		super(item, options);
@@ -26,7 +26,7 @@ export class SFItemSheet extends ItemSheet {
 	 * @override
 	 */
 	static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return foundry.utils.mergeObject(super.defaultOptions, {
 			classes: ["sysfeerie", "sheet", "item"],
 			template: SFUtility.getSystemRessource("templates/element-sheet.html"),
 			width: 520,

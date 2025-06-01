@@ -2,21 +2,21 @@
   "id": "sysfeerie",
   "title": "Système Féerie",
   "description": "Le Système Féerie est un système de jeu qui privilégie le sens et les descriptions aux mécaniques de simulations habituelles.",
-  "author": "Greewi",
   "authors": [
     {
         "name" : "Sylvain « Greewi » Dumazet",
         "discord" : "Greewi#1099",
-        "url" : "https://feerie.net"
+        "url" : "https://feerie.net",
+        "email" : "greewi_feerie.net"
     }
   ],
   "url": "https://github.com/Greewi/SystemeFeerie-FoundryVTT",
   "flags": {},
-  "version": "1.1.0",
+  "version": "2.0.0",
   "compatibility": {
-    "minimum": "11",
-    "verified": "11",
-    "maximum":"11"
+    "minimum": "13",
+    "verified": "13.344",
+    "maximum":"13"
   },
   "scripts": [],
   "esmodules": [
@@ -81,7 +81,6 @@
       "type": "Actor"
     }
   ],
-  "system": [],
   "relationships": {
     "requires": []
   },
@@ -89,8 +88,10 @@
   "manifest": "https://raw.githubusercontent.com/Greewi/SystemeFeerie-FoundryVTT/stable/sysfeerie/system.json",
   "download": "https://github.com/Greewi/SystemeFeerie-FoundryVTT/releases/download/v0.1.0/systemeFeerie.zip",
   "protected": false,
-  "gridDistance": 2,
-  "gridUnits": "m",
+  "grid": {
+    "distance": 2,
+    "units": "m"
+  },
   "primaryTokenAttribute": "charPoints",
 
   "manifestPlusVersion": "1.2.0",
