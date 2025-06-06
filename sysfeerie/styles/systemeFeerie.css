@@ -349,6 +349,21 @@ button.actionDialog_button_selected {
 	column-gap: 10px;
 }
 
+.sysfeerie.action h2, .postItem h2 {
+	font-weight: 400;
+	font-family: "Signika", sans-serif;
+	font-size: 1.5em;
+	border-bottom: 1px solid #782e22;
+}
+
+.sysfeerie.action h3,.postItem h3  {
+	font-weight: 400;
+	margin-top: 0;
+	font-family: "Signika", sans-serif;
+	font-size: 1.25em;
+	border-bottom: 1px solid #782e22;
+}
+
 /**
  * Chat - Begin action
  */

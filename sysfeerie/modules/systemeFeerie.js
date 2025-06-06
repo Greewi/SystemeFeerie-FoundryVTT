@@ -97,9 +97,7 @@ Hooks.on("renderChatMessage", async (app, html, msg) => {
 		html.find(".approveSkills").remove();
 		html.find(".selectRelevance").prop("disabled",true);
 	}
-});
-
-Hooks.on('renderChatLog', (log, html, data) => {
+	
 	html.on("click", '.skill-remove', async ev => {
 		ev.stopPropagation();
 		let itemSlot = parseInt($(ev.currentTarget).parents(".action-skill").data("slot"));
