@@ -12,10 +12,10 @@
   ],
   "url": "https://github.com/Greewi/SystemeFeerie-FoundryVTT",
   "flags": {},
-  "version": "1.2.0",
+  "version": "1.2.1",
   "compatibility": {
     "minimum": "11",
-    "verified": "13.344",
+    "verified": "13.351",
     "maximum":"13"
   },
   "scripts": [],
@@ -79,6 +79,12 @@
       "label": "V6 Template",
       "path": "packs/v6-template",
       "type": "Actor"
+    },
+    {
+      "name": "solaires-config",
+      "label": "Solaires Config",
+      "path": "packs/solaires-config",
+      "type": "Item"
     }
   ],
   "system": [],

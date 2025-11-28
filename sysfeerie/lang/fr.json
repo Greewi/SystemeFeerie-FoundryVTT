@@ -45,6 +45,7 @@
     "SYSFEERIE.Item.PostChat": "Envoyer au Chat",
     "SYSFEERIE.Item.Edit": "Editer",
     "SYSFEERIE.Item.Delete": "Supprimer",
+    "SYSFEERIE.Item.DeleteConfirm": "Voulez-vous vraiment supprimer cet élément ?",   
     "SYSFEERIE.Item.Add": "Ajouter un élément",
     "SYSFEERIE.Item.New": "Nouvel élément",
     "SYSFEERIE.Item.Remove": "Retirer",

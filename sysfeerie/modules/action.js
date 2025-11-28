@@ -350,7 +350,8 @@ export class SystemeFeerieAction {
 			let chatOptions = {
 				user: game.user.id,
 				content:html,
-				isRoll:true
+				isRoll:true,
+				rolls : [data.Roll]
 			}
 			if(data.Opponent && data.Opponent.HasRoll) {
 				data.Roll.dice[0].options.rollOrder = 1;

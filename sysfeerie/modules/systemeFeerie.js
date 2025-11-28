@@ -19,7 +19,10 @@ Hooks.once("init", async function () {
 	// Define custom Entity classes
 	CONFIG.Actor.documentClass = PlayerCharacterActor;
 	CONFIG.Item.documentClass = SFItem;
-	CONFIG.ui.items.entryPartial = SFUtility.getSystemRessource("templates/sidebar/document-partial.html");
+	if(game.version.startsWith("11.")||game.version.startsWith("12."))
+		CONFIG.ui.items.entryPartial = SFUtility.getSystemRessource("templates/sidebar/document-partial.html");
+	else
+		CONFIG.ui.items.entryPartial = SFUtility.getSystemRessource("templates/sidebar/document-partial-v13.html");
 
 	// Register sheet application classes
 	Actors.unregisterSheet("core", ActorSheet);
@@ -201,6 +204,7 @@ class SystemeFeerie {
 				user : game.user.id,
 				content : html,
 				isRoll : true,
+				rolls : [roll],
 				roll : roll
 			});
 		});

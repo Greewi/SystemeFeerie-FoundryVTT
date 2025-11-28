@@ -168,9 +168,11 @@ export class SFActorSheet extends ActorSheet {
 
 		// Delete item/status
 		html.find('.item-delete').click(ev => {
-			const li = $(ev.currentTarget).parents(".item");
-			this.actor.deleteEmbeddedDocuments("Item",[li.data("itemId")]);
-			li.slideUp(200, () => this.render(false));
+			if(window.confirm(game.i18n.localize("SYSFEERIE.Item.DeleteConfirm")))  {
+				const li = $(ev.currentTarget).parents(".item");
+				this.actor.deleteEmbeddedDocuments("Item",[li.data("itemId")]);
+				li.slideUp(200, () => this.render(false));
+			}
 			ev.stopPropagation();
 		});
 
