@@ -184,6 +184,7 @@
     "SYSFEERIE.Categories.DEFAULTV6.level4": "Un élément de niveau 4 est ultime : c'est un truc qui a le potentiel de définir le personnage. C'est généralement le nec plusultra de l'univers.",
 
     "SYSFEERIE.Consts.SCORE_SUM" : "Somme des éléments",
+    "SYSFEERIE.Consts.SCORE_SUM_PLUS_RELEVANCE" : "Somme des éléments + pertinence",
     "SYSFEERIE.Consts.SCORE_DEGRESSIVE_SUM" : "Somme dégressive des éléments",
     "SYSFEERIE.Consts.SCORE_MAX_PLUS_COUNT" : "Meilleur élément + nombre d'éléments",
     "SYSFEERIE.Consts.SCORE_SECOND_HALVED_BY_RELEVANCE" : "Second élément modulé par la pertinence du premier",
@@ -191,5 +192,5 @@
     "SYSFEERIE.Consts.QUALITY_FROM_MARGIN" : "Marge de réussite",
     "SYSFEERIE.Consts.QUALITY_FROM_DOUBLE" : "Doubles et triples",
 
-    "eh":"y"
+    "hey":"listen"
 }

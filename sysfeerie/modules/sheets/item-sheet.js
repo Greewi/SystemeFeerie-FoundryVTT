@@ -75,17 +75,18 @@ export class SFItemSheet extends ItemSheet {
 				for(let i=0; i<category.system.levels.length; i++)
 					data.levels[i] = `${i} - ${category.system.levels[i]}`;
 			} else {
-				data.levels = {"0":"0", "1":"1", "2":"2", "3":"3"};
+				data.levels = {"0":"0", "1":"1", "2":"2", "3":"3", "4":"4"};
 			}
 		} else if(this.item.type == "action") {
 			// Select for the version of the système féerie
 			data.versions = {"5":"V5", "6":"V6"};
 			// Select for the maximum number of elements in an action
-			data.maxElements = {"2" : "2", "3" : "3", "4" : "4", "5" : "5", "6" : "6"};
+			data.maxElements = {"1":"1","2" : "2", "3" : "3", "4" : "4", "5" : "5", "6" : "6"};
 			// Select for the character score calculation method
 			data.scoreMethods = {
 				[Consts.SCORE_SUM] : game.i18n.localize("SYSFEERIE.Consts.SCORE_SUM"),
 				[Consts.SCORE_DEGRESSIVE_SUM] : game.i18n.localize("SYSFEERIE.Consts.SCORE_DEGRESSIVE_SUM"),
+				[Consts.SCORE_SUM_PLUS_RELEVANCE] : game.i18n.localize("SYSFEERIE.Consts.SCORE_SUM_PLUS_RELEVANCE"),
 				[Consts.SCORE_MAX_PLUS_COUNT] : game.i18n.localize("SYSFEERIE.Consts.SCORE_MAX_PLUS_COUNT"),
 				[Consts.SCORE_SECOND_HALVED_BY_RELEVANCE] : game.i18n.localize("SYSFEERIE.Consts.SCORE_SECOND_HALVED_BY_RELEVANCE"),
 				[Consts.SCORE_RELEVANCE_PLUS_COUNT] : game.i18n.localize("SYSFEERIE.Consts.SCORE_RELEVANCE_PLUS_COUNT"),

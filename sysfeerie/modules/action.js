@@ -44,7 +44,11 @@ export class SystemeFeerieAction {
 	}
 
 	useRelevance() {
-		return this.action.system.scoreMethod == Consts.SCORE_SECOND_HALVED_BY_RELEVANCE || this.action.system.scoreMethod == Consts.SCORE_RELEVANCE_PLUS_COUNT;
+		return (
+			this.action.system.scoreMethod ==  Consts.SCORE_SUM_PLUS_RELEVANCE
+			|| this.action.system.scoreMethod ==  Consts.SCORE_SECOND_HALVED_BY_RELEVANCE
+			|| this.action.system.scoreMethod == Consts.SCORE_RELEVANCE_PLUS_COUNT
+		);
 	}
 
 	get totalDifficulty() {
@@ -62,6 +66,13 @@ export class SystemeFeerieAction {
 			switch(this.action.system.scoreMethod) {
 				case Consts.SCORE_SUM :
 					score += items[i].system.value;
+					break;
+				case Consts.SCORE_SUM_PLUS_RELEVANCE :
+					score += items[i].system.value;
+					if(i==0 && this.firstElementRelevance == Consts.RELEVANCE_TYPICAL)
+						score += 1;
+					else if(i==0 && this.firstElementRelevance == Consts.RELEVANCE_SPECIFIC)
+						score += 2;
 					break;
 				case Consts.SCORE_DEGRESSIVE_SUM :
 					score += Math.max(items[i].system.value - i, 0);

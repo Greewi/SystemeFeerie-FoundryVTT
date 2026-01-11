@@ -53,6 +53,7 @@ export class SFItem extends Item
 				this.img = category.img;
 			else
 				this.img = "icons/sundries/documents/envelope-sealed-red-tan.webp";
+			this.system.value = parseInt(this.system.value);
 		}
 	}
 
