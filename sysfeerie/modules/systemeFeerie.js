@@ -142,7 +142,7 @@ Hooks.on("renderChatMessage", async (app, html, msg) => {
 
 // Fix : macros created with drag&drop to hotbar had the default icon instead of the icon of the dropped document
 Hooks.on("createMacro", (macro, option, macroId) => {
-	const macroRegexp = /^await Hotbar.toggleDocumentSheet\("([A-Za-z0-9]+)\.([A-Za-z0-9]+)"\);$/;
+	const macroRegexp = /^await foundry.applications.ui.Hotbar.toggleDocumentSheet\("([A-Za-z0-9]+)\.([A-Za-z0-9]+)"\);$/;
 	let match = macro.command.match(macroRegexp);
 	if(!match)
 		return;
