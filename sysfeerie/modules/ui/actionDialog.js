@@ -18,13 +18,26 @@ export class ActionDialog extends Dialog {
 					icon : Consts.DIFFICULTIES_ICONS[Math.round(i*Consts.DIFFICULTIES_ICONS.length/action.system.difficulties.length)]
 				});
 			}
-			let significances = [];
-			for(let i=0; i<action.system.significances.length; i++) {
-				significances.push({
-					level : action.system.significances[i].level,
-					description : action.system.significances[i].description,
-					name : action.system.significances[i].name,
-					icon : Consts.SIGNIFICANCES_ICONS[Math.round(i*Consts.SIGNIFICANCES_ICONS.length/action.system.significances.length)]
+			let difficultyMods = [];
+			let minMod = 99999;
+			let maxMod = -99999;
+			for(let i=0; i<action.system.difficultyMods.length; i++) {
+				if(action.system.difficultyMods[i].level < minMod)
+					minMod = action.system.difficultyMods[i].level;
+				if(action.system.difficultyMods[i].level > maxMod)
+					maxMod = action.system.difficultyMods[i].level;
+			}
+			for(let i=0; i<action.system.difficultyMods.length; i++) {
+				let iconIndex = 0;
+				if(maxMod!=minMod) {
+					iconIndex = (action.system.difficultyMods[i].level - minMod)/(maxMod-minMod);
+					iconIndex = Math.round(iconIndex*(Consts.DIFFICULTY_MODS_ICONS.length-1));
+				}
+				difficultyMods.push({
+					level : action.system.difficultyMods[i].level,
+					description : action.system.difficultyMods[i].description,
+					name : action.system.difficultyMods[i].name,
+					icon : Consts.DIFFICULTY_MODS_ICONS[iconIndex]
 				});
 			}
 			actionsData.push({
@@ -36,7 +49,7 @@ export class ActionDialog extends Dialog {
 				scoreMethod : action.system.scoreMethod,
 				qualityMethod : action.system.qualityMethod,
 				difficulties : difficulties,
-				significances : significances,
+				difficultyMods : difficultyMods,
 				selected : false
 			});
 		}
@@ -57,7 +70,7 @@ export class ActionDialog extends Dialog {
 			Actions : actionsData,
 			DefaultAction : defaultAction.id,
 			DefaultDifficulty : defaultAction.difficulties[Math.floor(defaultAction.difficulties.length/2)].level,
-			DefaultSignificance : defaultAction.significances[Math.floor(defaultAction.significances.length/2)].level, 
+			DefaultDifficultyMod : 0, 
 		}).then(html => {
 			let dialog = new ActionDialog({
 				title: game.i18n.localize("SYSFEERIE.Dialog.StartAction"),
@@ -68,9 +81,9 @@ export class ActionDialog extends Dialog {
 						label: game.i18n.localize("SYSFEERIE.Dialog.StartActionNow"),
 						callback: () => {
 							let difficulty = dialog._element.find(".actionDialog_value_difficulty").val();
-							let significance = dialog._element.find(".actionDialog_value_significance").val();
+							let difficultyMod = dialog._element.find(".actionDialog_value_difficultyMod").val();
 							let action = dialog._element.find("#actionDialog_action_select").val();
-							game.systemeFeerie.beginAction(action, parseInt(difficulty, 10), parseInt(significance, 10));
+							game.systemeFeerie.beginAction(action, parseInt(difficulty, 10), parseInt(difficultyMod, 10));
 						}
 					}
 				},
@@ -98,34 +111,34 @@ export class ActionDialog extends Dialog {
 
 		// Update reference to the ui
 		this.difficultyButtons = [];
-		this.significanceButtons = [];
+		this.difficultyModButtons = [];
 		html.find(".actionDialog_button").each((i, button) => {
-			if(button.parentElement.classList.contains("actionDialog_significance")) {
-				this.significanceButtons.push(button);
+			if(button.parentElement.classList.contains("actionDialog_difficultyMod")) {
+				this.difficultyModButtons.push(button);
 			} else {
 				this.difficultyButtons.push(button);
 			}
 		});
 		this.difficultyValue = html.find('.actionDialog_value_difficulty');
-		this.significanceValue = html.find('.actionDialog_value_significance');
+		this.difficultyModValue = html.find('.actionDialog_value_difficultyMod');
 
 		// Click on a button
 		html.find(".actionDialog_button").click(ev => {
 			let element = ev.currentTarget;
 			let parent = element.parentElement;
 			let id = element.dataset.button;
-			let type = parent.classList.contains("actionDialog_significance") ? "significance" : "difficulty";
+			let type = parent.classList.contains("actionDialog_difficultyMod") ? "difficultyMod" : "difficulty";
 			if (type == "difficulty") {
 				html.find('.actionDialog_value_difficulty').val(parseInt(id));
 			} else {
-				html.find('.actionDialog_value_significance').val(parseInt(id));
+				html.find('.actionDialog_value_difficultyMod').val(parseInt(id));
 			}
 			this._updateButtons(html);
 		});
 
 		// Update of the difficulty inputs
 		html.find(".actionDialog_value_difficulty").change(ev => this._updateButtons());
-		html.find(".actionDialog_value_significance").change(ev => this._updateButtons());
+		html.find(".actionDialog_value_difficultyMod").change(ev => this._updateButtons());
 
 		this._updateButtons();
 	}
@@ -140,8 +153,8 @@ export class ActionDialog extends Dialog {
 			else
 				button.classList.remove("actionDialog_button_selected");
 		}
-		for(let button of this.significanceButtons) {
-			if(button.dataset.button == this.significanceValue.val())
+		for(let button of this.difficultyModButtons) {
+			if(button.dataset.button == this.difficultyModValue.val())
 				button.classList.add("actionDialog_button_selected");
 			else
 				button.classList.remove("actionDialog_button_selected");

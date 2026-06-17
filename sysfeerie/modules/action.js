@@ -13,14 +13,12 @@ export class SystemeFeerieAction {
 	 * @param {ChatMessage} message 
 	 * @param {number} difficulty 
 	 */
-	constructor(action, difficulty = 0, significance = 0, isOpposition = false, opponentDifficulty = 0, opponentRating = 0) {
+	constructor(action, difficulty = 0, difficultyMod = 0) {
 		this.actionId = action;
-		this.firstElementRelevance = Consts.RELEVANCE_CONNEXE;
 		this.difficulty = difficulty;
-		this.significance = significance;
-		this.isOpposition = isOpposition;
-		this.opponentDifficulty = opponentDifficulty;
-		this.opponentRating = opponentRating;
+		this.difficultyMod = difficultyMod;
+		this.bonusId = 0;
+		this.scoreBonuses = this.action.system.scoreBonuses;
 		this.message = null;
 		this.items = [];
 		this.state = SystemeFeerieAction.STATUS.EMPTY;
@@ -39,40 +37,23 @@ export class SystemeFeerieAction {
 		return game.items.find(item => item.id === this.actionId);
 	}
 
-	useFullOppositions() {
-		return this.action.system.version != '5';
-	}
-
-	useRelevance() {
-		return (
-			this.action.system.scoreMethod ==  Consts.SCORE_SUM_PLUS_RELEVANCE
-			|| this.action.system.scoreMethod ==  Consts.SCORE_SECOND_HALVED_BY_RELEVANCE
-			|| this.action.system.scoreMethod == Consts.SCORE_RELEVANCE_PLUS_COUNT
-		);
+	useScoreBonus() {
+		return this.action.system.version==6;
 	}
 
 	get totalDifficulty() {
-		if(this.isOpposition && !this.useFullOppositions())
-			return 3 + parseInt(this.opponentRating) + parseInt(this.significance);
-		return parseInt(this.difficulty) + parseInt(this.significance);
+		return parseInt(this.difficulty) + parseInt(this.difficultyMod);
 	}
 
 	get score() {
 		let score = 0;
 		let items = Array.from(this.items);
-		if(!this.useRelevance()) // When relevance is used, it is the first item's relevance that is examined.
-			items.sort((i1,i2)=>(i2.system.value - i1.system.value));
+		items.sort((i1,i2)=>(i2.system.value - i1.system.value));
 		for(let i=0; i<items.length; i++) {
 			switch(this.action.system.scoreMethod) {
 				case Consts.SCORE_SUM :
+				case Consts.SCORE_SUM_PLUS_BONUS :
 					score += items[i].system.value;
-					break;
-				case Consts.SCORE_SUM_PLUS_RELEVANCE :
-					score += items[i].system.value;
-					if(i==0 && this.firstElementRelevance == Consts.RELEVANCE_TYPICAL)
-						score += 1;
-					else if(i==0 && this.firstElementRelevance == Consts.RELEVANCE_SPECIFIC)
-						score += 2;
 					break;
 				case Consts.SCORE_DEGRESSIVE_SUM :
 					score += Math.max(items[i].system.value - i, 0);
@@ -80,25 +61,13 @@ export class SystemeFeerieAction {
 				case Consts.SCORE_MAX_PLUS_COUNT :
 					score += i==0 ? items[i].system.value : 1;
 					break;
-				case Consts.SCORE_RELEVANCE_PLUS_COUNT :
-					if(i>0)
-						score += 1;
-					else if(this.firstElementRelevance == Consts.RELEVANCE_SPECIFIC)
-						score += 3;
-					else if(this.firstElementRelevance == Consts.RELEVANCE_TYPICAL)
-						score += 2;
-					else
-						score += 1;
-					break;
-				case Consts.SCORE_SECOND_HALVED_BY_RELEVANCE :
-					if(i==0 || this.firstElementRelevance == Consts.RELEVANCE_SPECIFIC)
-						score += items[i].system.value - 0;
-					else if(this.firstElementRelevance == Consts.RELEVANCE_TYPICAL)
-						score += Math.ceil(items[i].system.value/2);
-					break;
 			}
 		}
-		return score<6 ? score : 6;
+		if(this.action.system.scoreMethod == Consts.SCORE_SUM_PLUS_BONUS && this.scoreBonuses && this.scoreBonuses[this.bonusId] && this.scoreBonuses[this.bonusId].level)
+			score += this.scoreBonuses[this.bonusId].level;
+		if(this.action.system.scoreMethod == Consts.SCORE_DEGRESSIVE_SUM || this.action.system.scoreMethod == Consts.SCORE_MAX_PLUS_COUNT)
+			score = score<6 ? score : 6;
+		return score;
 	}
 
 	/**
@@ -127,26 +96,22 @@ export class SystemeFeerieAction {
 			}
 		}
 
-		let relevances = {};
-		relevances[Consts.RELEVANCE_CONNEXE] = "SYSFEERIE.Relevance.CONNEXE";
-		relevances[Consts.RELEVANCE_TYPICAL] = "SYSFEERIE.Relevance.TYPICAL";
-		relevances[Consts.RELEVANCE_SPECIFIC] = "SYSFEERIE.Relevance.SPECIFIC";
+		let bonuses = {};
+		if(this.useScoreBonus()) {
+			for(let bonusId = 0 ; bonusId<this.scoreBonuses.length ; bonusId++)
+				bonuses[bonusId] = this.scoreBonuses[bonusId].name;
+		}
 
 		return {
 			Action: this.action,
-			IsOpposition: this.isOpposition && this.useFullOppositions(),
-			IsSimpleOppostion: this.isOpposition && !this.useFullOppositions(),
 			Difficulty: this.difficulty,
-			Significance: this.significance,
+			DifficultyMod: this.difficultyMod,
 			TotalDifficulty: this.totalDifficulty,
 			CharacterScore: this.score,
-			OpponentScore: this.opponentRating,
-			OpponentDifficulty: this.opponentDifficulty,
-			ActionScore: this.totalDifficulty,
-			NeedRelevance: this.useRelevance(),
-			FirstItemRelevance: this.firstElementRelevance,
-			FirstItemRelevanceText:  game.i18n.localize(`SYSFEERIE.Relevance.${this.firstElementRelevance}`),
-			Relevances:relevances,
+			NeedBonus: this.useScoreBonus(),
+			Bonuses: bonuses,
+			BonusId: this.bonusId,
+			BonusText: (this.scoreBonuses && this.scoreBonuses[this.bonusId]) ? this.scoreBonuses[this.bonusId].name : "",
 			Items: items,
 			Unresolved:this.state != SystemeFeerieAction.STATUS.DONE
 		};
@@ -192,18 +157,18 @@ export class SystemeFeerieAction {
 	}
 
 	/**
-	 * Change the relevance of the first element chosen for the action
-	 * @param {string} relevance the relevance of the first element chosen for the action
+	 * Change the bonus of the score
+	 * @param {string} bonusId the bonus index to set
 	 */
-	static async setRelevance(relevance) {
+	static async setBonus(bonusId) {
 		if (game.user.isGM) {
-			game.systemeFeerie.pendingAction.firstElementRelevance = relevance;
+			game.systemeFeerie.pendingAction.bonusId = bonusId;
 			game.systemeFeerie.pendingAction.updateChatCard();
 			game.systemeFeerie.pendingAction.saveAction();
 			game.socket.emit("system.sysfeerie", {
-				type: "updateRelevance",
+				type: "updateBonus",
 				payload: {
-					relevance: relevance
+					bonusId: bonusId
 				}
 			});
 		}
@@ -300,11 +265,8 @@ export class SystemeFeerieAction {
 			action: this.actionId,
 			items : items,
 			difficulty: this.difficulty,
-			significance: this.significance,
-			isOpposition: this.isOpposition,
-			opponentDifficulty: this.opponentDifficulty,
-			opponentRating: this.opponentRating,
-			firstElementRelevance:this.firstElementRelevance,
+			difficultyMod: this.difficultyMod,
+			bonusId: this.bonusId,
 			state: this.state
 		});
 	}
@@ -328,8 +290,8 @@ export class SystemeFeerieAction {
 				items.push(game.actors.get(item.actor).items.get(item.item));
 		}
 
-		let action = new SystemeFeerieAction(data.action, data.difficulty, data.significance, data.isOpposition, data.opponentDifficulty, data.opponentRating);
-		action.firstElementRelevance = data.firstElementRelevance;
+		let action = new SystemeFeerieAction(data.action, data.difficulty, data.difficultyMod);
+		action.bonusId = data.bonusId;
 		action.message = message;
 		action.items = items;
 		action.state = data.state;
@@ -403,12 +365,9 @@ export class SystemeFeerieAction {
 	 * @param {SFItem} action action
 	 * @param {number} difficulty 
 	 * @param {number} score 
-	 * @param {boolean} isOpposition 
-	 * @param {number} opponentDifficulty 
-	 * @param {number} opponentScore 
 	 * @returns {Promise<RollResult>}
 	 */
-	static async _resolveActionV5(action, difficulty, score, isOpposition, opponentDifficulty, opponentScore) {
+	static async _resolveActionV5(action, difficulty, score) {
 		let threshold = difficulty+score;
 		let needRoll = threshold > 0 && threshold < 6;
 
@@ -453,54 +412,9 @@ export class SystemeFeerieAction {
 	 * @param {SFItem} action action
 	 * @param {number} difficulty 
 	 * @param {number} score 
-	 * @param {boolean} isOpposition 
-	 * @param {number} opponentDifficulty 
-	 * @param {number} opponentScore 
 	 * @returns {Promise<RollResult>}
 	 */
-	static async _resolveActionV6(action, difficulty, score, isOpposition, opponentDifficulty, opponentScore) {
-		if(isOpposition)
-			return await this._resolveOppositionActionV6(action, difficulty, score, opponentDifficulty, opponentScore);
-		else
-			return await this._resolveSimpleActionV6(action, difficulty, score);
-	}
-
-	/**
-	 * @param {SFItem} action action
-	 * @param {number} difficulty 
-	 * @param {number} score 
-	 * @param {number} opponentDifficulty 
-	 * @param {number} opponentScore 
-	 * @returns {Promise<RollResult>}
-	 */
-	static async _resolveOppositionActionV6(action, difficulty, score, opponentDifficulty, opponentScore) {
-		let playerResult = await this._resolveSimpleActionV6(action, difficulty, score, false);
-		let opponentResult = await this._resolveSimpleActionV6(action, opponentDifficulty, opponentScore, false);
-		let delta = playerResult.SuccessRange - opponentResult.SuccessRange;
-		playerResult.IsOpposition = true;
-		playerResult.Opponent = opponentResult;
-		playerResult.OppositionDelta = delta;
-		if(delta>0) {
-			playerResult.OppositionResult = `<i class="fas fa-check"></i> ${game.i18n.localize("SYSFEERIE.Chat.OppositionWon")}`;
-			playerResult.OppositionClass = "resolve-action-success";
-		} else if(delta<0) {
-			playerResult.OppositionResult = `<i class="fas fa-times"></i> ${game.i18n.localize("SYSFEERIE.Chat.OppositionLost")}`;
-			playerResult.OppositionClass = "resolve-action-failed";
-		} else {
-			playerResult.OppositionResult = `<i class="fas fa-cog"></i> ${game.i18n.localize("SYSFEERIE.Chat.OppositionStalled")}`;
-			playerResult.OppositionClass = "resolve-action-stall";
-		}
-
-		return playerResult;
-	}
-
-	/**
-	 * @param {SFItem} action action
-	 * @param {number} difficulty 
-	 * @param {number} score 
-	 * @returns {Promise<RollResult>}
-	 */
-	static async _resolveSimpleActionV6(action, difficulty, score) {
+	static async _resolveActionV6(action, difficulty, score) {
 		let threshold = difficulty-score;
 
 		let roll = await new Roll(`3d6dhdl`).roll();
@@ -511,56 +425,35 @@ export class SystemeFeerieAction {
 		let dice = [];
 		let successQuality = "";
 		
-		if(action.system.qualityMethod==Consts.QUALITY_FROM_MARGIN) {
-			for(let d=0; d<rollDice.length; d++) {
-				dice.push({
-					value: rollDice[d].result,
-					class: `${parseInt(rollDice[d].result, 10)>threshold?"resolve-action-roll-success":"resolve-action-roll-failed"}${d!=1?" resolve-action-roll-discarded":""}`
-				});
-			}
-			if(successRange>=3)
+		let d1 = parseInt(rollDice[0].result, 10);
+		let d2 = parseInt(rollDice[1].result, 10);
+		let d3 = parseInt(rollDice[2].result, 10);
+		dice.push({
+			value: ""+d1,
+			class: `${d1>threshold?"resolve-action-roll-success":"resolve-action-roll-failed"}${d1!=d2?" resolve-action-roll-discarded":""}`
+		});
+		dice.push({
+			value: ""+d2,
+			class: `${d2>threshold?"resolve-action-roll-success":"resolve-action-roll-failed"}`
+		});
+		dice.push({
+			value: ""+d3,
+			class: `${d3>threshold?"resolve-action-roll-success":"resolve-action-roll-failed"}${d3!=d2?" resolve-action-roll-discarded":""}`
+		});
+		if(result) {
+			if(d1==d2 && d2==d3)
 				successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultGreaterSuccess");
-			else if(successRange>=2)
-				successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultNormalSuccess");
-			else if(successRange>=1)
+			else if(d1==d2 || d2==d3)
 				successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultLowerSuccess");
-			else if(successRange>=0)
-				successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultLowerFailure");
-			else if(successRange>=-1)
-				successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultNormalFailure");
 			else
+				successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultNormalSuccess");
+		} else {
+			if(d1==d2 && d2==d3)
 				successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultGreaterFailure");
-		} else if(action.system.qualityMethod==Consts.QUALITY_FROM_DOUBLE) {
-			let d1 = parseInt(rollDice[0].result, 10);
-			let d2 = parseInt(rollDice[1].result, 10);
-			let d3 = parseInt(rollDice[2].result, 10);
-			dice.push({
-				value: ""+d1,
-				class: `${d1>threshold?"resolve-action-roll-success":"resolve-action-roll-failed"}${d1!=d2?" resolve-action-roll-discarded":""}`
-			});
-			dice.push({
-				value: ""+d2,
-				class: `${d2>threshold?"resolve-action-roll-success":"resolve-action-roll-failed"}`
-			});
-			dice.push({
-				value: ""+d3,
-				class: `${d3>threshold?"resolve-action-roll-success":"resolve-action-roll-failed"}${d3!=d2?" resolve-action-roll-discarded":""}`
-			});
-			if(result) {
-				if(d1==d2 && d2==d3)
-					successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultGreaterSuccess");
-				else if(d1==d2 || d2==d3)
-					successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultLowerSuccess");
-				else
-					successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultNormalSuccess");
-			} else {
-				if(d1==d2 && d2==d3)
-					successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultGreaterFailure");
-				else if(d1==d2 || d2==d3)
-					successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultLowerFailure");
-				else
-					successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultNormalFailure");
-			}
+			else if(d1==d2 || d2==d3)
+				successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultLowerFailure");
+			else
+				successQuality = game.i18n.localize("SYSFEERIE.Chat.DiceResultNormalFailure");
 		}
 
 		return {
@@ -574,8 +467,7 @@ export class SystemeFeerieAction {
 			Roll: roll,
 			Dice: dice,
 			SuccessBased:false,
-			MarginBased:action.system.qualityMethod==Consts.QUALITY_FROM_MARGIN,
-			DoubleBased:action.system.qualityMethod==Consts.QUALITY_FROM_DOUBLE,
+			DoubleBased:true,
 			RollResult: rollResult,
 			AutoSuccess: false,
 			AutoFailure: false,

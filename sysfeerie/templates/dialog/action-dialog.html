@@ -17,13 +17,13 @@
 			</button>
 		{{/each}}
 	</div>
-	<h2>{{localize 'SYSFEERIE.Dialog.SelectSignificance'}}</h2>
-	<div class="dialog-buttons actionDialog_significance">
-		{{#each Action.significances as |Significance index|}}
-			<button class="actionDialog_button" data-button="{{Significance.level}}" title="{{Significance.description}}">
-				<i class="{{Significance.icon}}"></i>
-				{{Significance.name}}
-				<div class="bonus">{{formatNumber Significance.level decimals=2 sign=true}}</div>
+	<h2>{{localize 'SYSFEERIE.Dialog.SelectDifficultyMod'}}</h2>
+	<div class="dialog-buttons actionDialog_difficultyMod">
+		{{#each Action.difficultyMods as |difficultyMod index|}}
+			<button class="actionDialog_button" data-button="{{difficultyMod.level}}" title="{{difficultyMod.description}}">
+				<i class="{{difficultyMod.icon}}"></i>
+				{{difficultyMod.name}}
+				<div class="bonus">{{formatNumber difficultyMod.level decimals=2 sign=true}}</div>
 			</button>
 		{{/each}}
 	</div>
@@ -37,10 +37,10 @@
 		</div>
 		<input type="number" name="actionDialog_difficulty" value="{{DefaultDifficulty}}" class="actionDialog_value_difficulty" />
 	</div>
-	<div class="actionDialog_summary_dignifiance">
-		<div class="actionDialog_description actionDialog_description_dignifiance">
-			{{localize 'SYSFEERIE.Dialog.Significance'}}
+	<div class="actionDialog_summary_difficultyMod">
+		<div class="actionDialog_description actionDialog_description_difficultyMod">
+			{{localize 'SYSFEERIE.Dialog.DifficultyMod'}}
 		</div>
-		<input type="number" name="actionDialog_significance" value="{{DefaultSignificance}}" class="actionDialog_value_significance" />
+		<input type="number" name="actionDialog_difficultyMod" value="{{DefaultDifficultyMod}}" class="actionDialog_value_difficultyMod" />
 	</div>
 </div>

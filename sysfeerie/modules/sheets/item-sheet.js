@@ -85,17 +85,16 @@ export class SFItemSheet extends ItemSheet {
 			// Select for the character score calculation method
 			data.scoreMethods = {
 				[Consts.SCORE_SUM] : game.i18n.localize("SYSFEERIE.Consts.SCORE_SUM"),
+				[Consts.SCORE_SUM_PLUS_BONUS] : game.i18n.localize("SYSFEERIE.Consts.SCORE_SUM_PLUS_BONUS"),
 				[Consts.SCORE_DEGRESSIVE_SUM] : game.i18n.localize("SYSFEERIE.Consts.SCORE_DEGRESSIVE_SUM"),
-				[Consts.SCORE_SUM_PLUS_RELEVANCE] : game.i18n.localize("SYSFEERIE.Consts.SCORE_SUM_PLUS_RELEVANCE"),
 				[Consts.SCORE_MAX_PLUS_COUNT] : game.i18n.localize("SYSFEERIE.Consts.SCORE_MAX_PLUS_COUNT"),
-				[Consts.SCORE_SECOND_HALVED_BY_RELEVANCE] : game.i18n.localize("SYSFEERIE.Consts.SCORE_SECOND_HALVED_BY_RELEVANCE"),
-				[Consts.SCORE_RELEVANCE_PLUS_COUNT] : game.i18n.localize("SYSFEERIE.Consts.SCORE_RELEVANCE_PLUS_COUNT"),
 			};
 			// Select for the action quality calculation method
 			data.qualityMethods = {
-				[Consts.QUALITY_FROM_MARGIN] : game.i18n.localize("SYSFEERIE.Consts.QUALITY_FROM_MARGIN"),
 				[Consts.QUALITY_FROM_DOUBLE] : game.i18n.localize("SYSFEERIE.Consts.QUALITY_FROM_DOUBLE"),
 			};
+			// Bonus are a V6 feature
+			data.showBonus = (this.item.system.version == 6);
 		}
 		return data;
 	}
@@ -203,34 +202,63 @@ export class SFItemSheet extends ItemSheet {
 				this.item.system.difficulties[levelId].description = $(ev.currentTarget).val();
 				this.item.update({"system.difficulties":this.item.system.difficulties});
 			});
-			// Significance
-			html.find('.significance_addLevel').click(ev => {
+			// Difficulty Modifiers
+			html.find('.difficultyMod_addLevel').click(ev => {
 				ev.stopPropagation();
-				if(!Array.isArray(this.item.system.significances))
-					this.item.system.significances = [];
-				let newLevels = this.item.system.significances.concat([{level:0, name:"", description:""}]);
-				this.item.update({"system.significances":newLevels});
+				if(!Array.isArray(this.item.system.difficultyMods))
+					this.item.system.difficultyMods = [];
+				let newLevels = this.item.system.difficultyMods.concat([{level:0, name:"", description:""}]);
+				this.item.update({"system.difficultyMods":newLevels});
 			});
-			html.find('.significanceLevel_delete').click(ev => {
+			html.find('.difficultyModLevel_delete').click(ev => {
 				let levelId = $(ev.currentTarget).data("levelId");
 				ev.stopPropagation();
-				this.item.system.significances.splice(levelId, 1);
-				this.item.update({"system.significances":this.item.system.significances});
+				this.item.system.difficultyMods.splice(levelId, 1);
+				this.item.update({"system.difficultyMods":this.item.system.difficultyMods});
 			});
-			html.find('.significanceLevel_value').change(ev => {
+			html.find('.difficultyModLevel_value').change(ev => {
 				let levelId = $(ev.currentTarget).data("levelId");
-				this.item.system.significances[levelId].level = parseInt($(ev.currentTarget).val());
-				this.item.update({"system.significances":this.item.system.significances});
+				this.item.system.difficultyMods[levelId].level = parseInt($(ev.currentTarget).val());
+				this.item.update({"system.difficultyMods":this.item.system.difficultyMods});
 			});
-			html.find('.significanceName_value').change(ev => {
+			html.find('.difficultyModName_value').change(ev => {
 				let levelId = $(ev.currentTarget).data("levelId");
-				this.item.system.significances[levelId].name = $(ev.currentTarget).val();
-				this.item.update({"system.significances":this.item.system.significances});
+				this.item.system.difficultyMods[levelId].name = $(ev.currentTarget).val();
+				this.item.update({"system.difficultyMods":this.item.system.difficultyMods});
 			});
-			html.find('.significanceDescription_value').change(ev => {
+			html.find('.difficultyModDescription_value').change(ev => {
 				let levelId = $(ev.currentTarget).data("levelId");
-				this.item.system.significances[levelId].description = $(ev.currentTarget).val();
-				this.item.update({"system.significances":this.item.system.significances});
+				this.item.system.difficultyMods[levelId].description = $(ev.currentTarget).val();
+				this.item.update({"system.difficultyMods":this.item.system.difficultyMods});
+			});
+			// Score bonuses
+			html.find('.scoreBonus_addLevel').click(ev => {
+				ev.stopPropagation();
+				if(!Array.isArray(this.item.system.scoreBonuses))
+					this.item.system.scoreBonuses = [];
+				let newLevels = this.item.system.scoreBonuses.concat([{level:0, name:"", description:""}]);
+				this.item.update({"system.scoreBonuses":newLevels});
+			});
+			html.find('.scoreBonusLevel_delete').click(ev => {
+				let levelId = $(ev.currentTarget).data("levelId");
+				ev.stopPropagation();
+				this.item.system.scoreBonuses.splice(levelId, 1);
+				this.item.update({"system.scoreBonuses":this.item.system.scoreBonuses});
+			});
+			html.find('.scoreBonusLevel_value').change(ev => {
+				let levelId = $(ev.currentTarget).data("levelId");
+				this.item.system.scoreBonuses[levelId].level = parseInt($(ev.currentTarget).val());
+				this.item.update({"system.scoreBonuses":this.item.system.scoreBonuses});
+			});
+			html.find('.scoreBonusName_value').change(ev => {
+				let levelId = $(ev.currentTarget).data("levelId");
+				this.item.system.scoreBonuses[levelId].name = $(ev.currentTarget).val();
+				this.item.update({"system.scoreBonuses":this.item.system.scoreBonuses});
+			});
+			html.find('.scoreBonusDescription_value').change(ev => {
+				let levelId = $(ev.currentTarget).data("levelId");
+				this.item.system.scoreBonuses[levelId].description = $(ev.currentTarget).val();
+				this.item.update({"system.scoreBonuses":this.item.system.scoreBonuses});
 			});
 		}
 	}

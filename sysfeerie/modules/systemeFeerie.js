@@ -79,9 +79,9 @@ Hooks.once("ready", async function () {
 					SystemeFeerieAction.updateGMAck(data.payload.ack);
 				}
 				break;
-			case "updateRelevance":
+			case "updateBonus":
 				if (!game.user.isGM) {
-					SystemeFeerieAction.setRelevance(data.payload.relevance);
+					SystemeFeerieAction.setBonus(data.payload.bonusId);
 				}
 				break;
 			case "cleanAction":
@@ -98,7 +98,7 @@ Hooks.once("ready", async function () {
 Hooks.on("renderChatMessage", async (app, html, msg) => {
 	if (!game.user.isGM) {
 		html.find(".approveSkills").remove();
-		html.find(".selectRelevance").prop("disabled",true);
+		html.find(".selectBonus").prop("disabled",true);
 	}
 	
 	html.on("click", '.skill-remove', async ev => {
@@ -130,9 +130,9 @@ Hooks.on("renderChatMessage", async (app, html, msg) => {
 		SystemeFeerieAction.resolveAction(action, difficulty, score, isOpposition, opponentDifficulty, opponentScore);
 	});
 
-	html.on("change", ".selectRelevance", async ev => {
-		let relevance = $(ev.currentTarget)[0].value ;
-		SystemeFeerieAction.setRelevance(relevance);
+	html.on("change", ".selectBonus", async ev => {
+		let bonusId = parseInt($(ev.currentTarget)[0].value);
+		SystemeFeerieAction.setBonus(bonusId);
 	});
 
 	html.on("click", ".action-skill", async ev => {
@@ -179,10 +179,10 @@ class SystemeFeerie {
 	/**
 	 * Start a new action. Sends a special interactive message in the chat to request the skills to use
 	 */
-	beginAction(action, difficulty, significance, isOpposition=false, opponentDifficulty=0, opponentRating=0) {
+	beginAction(action, difficulty, modifier) {
 		if (!game.user.isGM)
 			return;
-		this.pendingAction = new SystemeFeerieAction(action, difficulty, significance, isOpposition, opponentDifficulty, opponentRating);
+		this.pendingAction = new SystemeFeerieAction(action, difficulty, modifier);
 		this.pendingAction.createChatCard();
 	}
 

@@ -41,10 +41,11 @@
             "default" : false,
             "version" : 6,
             "maxElementNumber": 2,
-            "scoreMethod":"SCORE_SECOND_HALVED_BY_RELEVANCE",
+            "scoreMethod":"SUM_PLUS_BONUS",
             "qualityMethod":"QUALITY_FROM_DOUBLE",
             "difficulties" : [],
-            "significances" : []
+            "difficultyMods" : [],
+            "scoreBonuses" : []
         },
         "information" : {
             "value": ""

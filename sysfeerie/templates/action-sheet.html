@@ -30,7 +30,7 @@
                     {{selectOptions scoreMethods selected=system.scoreMethod}}
                 </select>
             </div>
-            <div>
+            <div style="display: none;">
                 <label for="system.qualityMethod">{{localize "SYSFEERIE.ActionItem.QualityMethod"}}</label>
                 <select name="system.qualityMethod">
                     {{selectOptions qualityMethods selected=system.qualityMethod}}
@@ -53,20 +53,35 @@
             </div>
 
             <div>
-                <label>{{localize "SYSFEERIE.ActionItem.Significances"}}</label>
-                {{#each system.significances as |significance id|}}
-                <li class="significanceLevels flexrow plot item-edit" data-item-id="{{id}}">
-                    <input class="significanceLevel_value" name="signifances.{{id}}.level" type="text" value="{{significance.level}}" placeholder="0" data-level-id="{{id}}" />
-                    <input class="significanceName_value" name="signifances.{{id}}.name" type="text" value="{{significance.name}}" placeholder="{{localize "SYSFEERIE.ActionItem.SignificanceName"}}" data-level-id="{{id}}" />
-                    <input class="significanceDescription_value" name="signifances.{{id}}.description" type="text" value="{{significance.description}}" placeholder="{{localize "SYSFEERIE.ActionItem.SignificanceDescription"}}" data-level-id="{{id}}" />
+                <label>{{localize "SYSFEERIE.ActionItem.DifficultyMods"}}</label>
+                {{#each system.difficultyMods as |difficultyMod id|}}
+                <li class="difficultyModLevels flexrow plot item-edit" data-item-id="{{id}}">
+                    <input class="difficultyModLevel_value" name="difficultyMods.{{id}}.level" type="text" value="{{difficultyMod.level}}" placeholder="0" data-level-id="{{id}}" />
+                    <input class="difficultyModName_value" name="difficultyMods.{{id}}.name" type="text" value="{{difficultyMod.name}}" placeholder="{{localize "SYSFEERIE.ActionItem.DifficultyModName"}}" data-level-id="{{id}}" />
+                    <input class="difficultyModDescription_value" name="difficultyMods.{{id}}.description" type="text" value="{{difficultyMod.description}}" placeholder="{{localize "SYSFEERIE.ActionItem.DifficultyModDescription"}}" data-level-id="{{id}}" />
                     <div class="item-controls">
-                        <a class="item-control significanceLevel_delete" title="{{localize "SYSFEERIE.Item.Delete"}}" data-level-id="{{id}}"><i class="fas fa-trash"></i></a>
+                        <a class="item-control difficultyModLevel_delete" title="{{localize "SYSFEERIE.Item.Delete"}}" data-level-id="{{id}}"><i class="fas fa-trash"></i></a>
                     </div>
                 </li>
                 {{/each}}
-                <button class="significance_addLevel">{{localize "SYSFEERIE.ActionItem.AddSignificanceLevel"}}</button>
+                <button class="difficultyMod_addLevel">{{localize "SYSFEERIE.ActionItem.AddDifficultyModLevel"}}</button>
             </div>
-
+            {{#if showBonus}}
+            <div>
+                <label>{{localize "SYSFEERIE.ActionItem.ScoreBonuses"}}</label>
+                {{#each system.scoreBonuses as |scoreBonus id|}}
+                <li class="scoreBonusLevels flexrow plot item-edit" data-item-id="{{id}}">
+                    <input class="scoreBonusLevel_value" name="scoreBonuses.{{id}}.level" type="text" value="{{scoreBonus.level}}" placeholder="0" data-level-id="{{id}}" />
+                    <input class="scoreBonusName_value" name="scoreBonuses.{{id}}.name" type="text" value="{{scoreBonus.name}}" placeholder="{{localize "SYSFEERIE.ActionItem.ScoreBonusName"}}" data-level-id="{{id}}" />
+                    <input class="scoreBonusDescription_value" name="scoreBonuses.{{id}}.description" type="text" value="{{scoreBonus.description}}" placeholder="{{localize "SYSFEERIE.ActionItem.ScoreBonusDescription"}}" data-level-id="{{id}}" />
+                    <div class="item-controls">
+                        <a class="item-control scoreBonusLevel_delete" title="{{localize "SYSFEERIE.Item.Delete"}}" data-level-id="{{id}}"><i class="fas fa-trash"></i></a>
+                    </div>
+                </li>
+                {{/each}}
+                <button class="scoreBonus_addLevel">{{localize "SYSFEERIE.ActionItem.AddScoreBonusLevel"}}</button>
+            </div>
+            {{/if}}
         </div>
     </section>
 </form>

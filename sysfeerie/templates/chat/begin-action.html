@@ -4,18 +4,8 @@
     </h2>
 
     <div class="action-params">
-        {{#if IsOpposition}}
-            <h3>{{localize 'SYSFEERIE.Chat.CharacterScore'}} {{CharacterScore}}</h3>
-            <h3>{{localize 'SYSFEERIE.Chat.OpponentScore'}} {{OpponentScore}}</h3>
-            <h3 title="{{localize 'SYSFEERIE.Dialog.Difficulty'}}: {{Difficulty}}, {{localize 'SYSFEERIE.Dialog.Significance'}}: {{Significance}}">{{localize 'SYSFEERIE.Chat.Difficulty'}} {{TotalDifficulty}}</h3>
-            <h3>{{localize 'SYSFEERIE.Chat.OpponentDifficulty'}} {{OpponentDifficulty}}</h3>
-        {{else}}{{#if IsSimpleOppostion}}
-            <h3>{{localize 'SYSFEERIE.Chat.CharacterScore'}} {{CharacterScore}}</h3>
-            <h3 title="{{localize 'SYSFEERIE.Dialog.OpponentRating'}}: {{OpponentScore}}, {{localize 'SYSFEERIE.Dialog.Significance'}}: {{Significance}}">{{localize 'SYSFEERIE.Chat.Difficulty'}} {{TotalDifficulty}}</h3>
-        {{else}}
-            <h3>{{localize 'SYSFEERIE.Chat.CharacterScore'}} {{CharacterScore}}</h3>
-            <h3 title="{{localize 'SYSFEERIE.Dialog.Difficulty'}}: {{Difficulty}}, {{localize 'SYSFEERIE.Dialog.Significance'}}: {{Significance}}">{{localize 'SYSFEERIE.Chat.Difficulty'}} {{TotalDifficulty}}</h3>
-        {{/if}}{{/if}}
+        <h3>{{localize 'SYSFEERIE.Chat.CharacterScore'}} {{CharacterScore}}</h3>
+        <h3 title="{{localize 'SYSFEERIE.Dialog.Difficulty'}}: {{Difficulty}}, {{localize 'SYSFEERIE.Dialog.DifficultyMod'}}: {{DifficultyMod}}">{{localize 'SYSFEERIE.Chat.Difficulty'}} {{TotalDifficulty}}</h3>
     </div>
 
     {{#each Items as |Item Slot|}}
@@ -37,16 +27,16 @@
         </div>
     {{/each}}
 
-    {{#if NeedRelevance}}
-        <div class="action-relevance">
+    {{#if NeedBonus}}
+        <div class="action-bonus">
         {{#if Unresolved}}
-            <label class="label" for="selectElementRelevance">{{localize 'SYSFEERIE.Chat.Relevance'}}</label>
-            <select class="selectRelevance" name="selectElementRelevance">
-                {{selectOptions Relevances selected=FirstItemRelevance localize=true}}
+            <label class="label" for="selectElementBonus">{{localize 'SYSFEERIE.Chat.Bonus'}}</label>
+            <select class="selectBonus" name="selectElementBonus">
+                {{selectOptions Bonuses selected=BonusId localize=true}}
             </select>
         {{else}}
-            <span class="label">{{localize 'SYSFEERIE.Chat.Relevance'}}</span>
-            <span class="value">{{FirstItemRelevanceText}}</span>
+            <span class="label">{{localize 'SYSFEERIE.Chat.Bonus'}}</span>
+            <span class="value">{{BonusText}}</span>
         {{/if}}
         </div>
     {{/if}}
