@@ -50,16 +50,19 @@ export class SFItemSheet extends ItemSheet {
 			}
 			// Select des niveaux
 			data.levels = {};
+			data.hasLevels = false;
 			let category = categories.find(cat => cat.id === this.item.system.category);
 			if(!category)
 				category = categories[0];
 			if(category) {
-				for(let i=0; i<category.system.levels.length; i++)
-					data.levels[i] = `${i} - ${category.system.levels[i]}`;
-				data.hasLevels = category.system.levels.length>0;
+				for(let i=0; i<category.system.levels.length; i++) {
+					if(category.system.levels[i]) {
+						data.levels[i] = `${i} - ${category.system.levels[i]}`;
+						data.hasLevels = true;
+					}
+				}
 			} else {
 				data.levels = {};
-				data.hasLevels = false;
 			}
 		} else if(this.item.type == "plot") {
 			data.incomplet = this.item.system.stepNumber > this.item.system.steps.length;
