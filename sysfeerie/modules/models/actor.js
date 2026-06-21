@@ -26,8 +26,12 @@ export class PlayerCharacterActor extends Actor {
 		let fullDescription = data.description;
 		for(let element of data.elements) {
 			let source = element.system.source ? element.system.source.trim() : "";
-			if(source!="")
-				fullDescription = fullDescription.replace(source, `<span class="sysfeerie_element" data-element-id="${element.id}">${source} (${element.system.value})</span>`);
+			if(source!=""){
+				if(element.system.value)
+					fullDescription = fullDescription.replace(source, `<span class="sysfeerie_element" data-element-id="${element.id}">${source} (${element.system.value})</span>`);
+				else
+					fullDescription = fullDescription.replace(source, `<span class="sysfeerie_element" data-element-id="${element.id}">${source}</span>`);
+			}
 		}
 		data.fullDescription = fullDescription;
 	}

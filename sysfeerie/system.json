@@ -12,7 +12,7 @@
   ],
   "url": "https://github.com/Greewi/SystemeFeerie-FoundryVTT",
   "flags": {},
-  "version": "1.3.0",
+  "version": "1.3.1",
   "compatibility": {
     "minimum": "13",
     "verified": "14.364",
@@ -95,9 +95,10 @@
   "manifest": "https://raw.githubusercontent.com/Greewi/SystemeFeerie-FoundryVTT/stable/sysfeerie/system.json",
   "download": "https://github.com/Greewi/SystemeFeerie-FoundryVTT/releases/download/v0.1.0/systemeFeerie.zip",
   "protected": false,
-  "gridDistance": 2,
-  "gridUnits": "m",
-  "primaryTokenAttribute": "charPoints",
+  "grid": {
+    "distance": 1,
+    "units":"m"
+  },
 
   "manifestPlusVersion": "1.2.0",
   "media" : [

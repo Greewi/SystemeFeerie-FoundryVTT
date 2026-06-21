@@ -56,8 +56,10 @@ export class SFItemSheet extends ItemSheet {
 			if(category) {
 				for(let i=0; i<category.system.levels.length; i++)
 					data.levels[i] = `${i} - ${category.system.levels[i]}`;
+				data.hasLevels = category.system.levels.length>0;
 			} else {
-				data.levels = {"0":"0", "1":"1", "2":"2", "3":"3"};
+				data.levels = {};
+				data.hasLevels = false;
 			}
 		} else if(this.item.type == "plot") {
 			data.incomplet = this.item.system.stepNumber > this.item.system.steps.length;

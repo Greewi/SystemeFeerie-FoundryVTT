@@ -192,6 +192,8 @@ export class SFActorSheet extends ActorSheet {
 		// Use an element for the action resolution system
 		const addItemToAction = (itemId)=>{
 			let item = this.actor.items.find(i => i._id == itemId);
+			if(!item.system.value)
+				return;
 			if (game.user.isGM && game.systemeFeerie.pendingAction)
 				game.systemeFeerie.pendingAction.setItem(item);
 			else {

@@ -14,12 +14,14 @@
                     {{selectOptions categories selected=system.category}}
                 </select>
             </div>
+            {{#if hasLevels}}
             <div>
                 <label for="system.value">{{localize "SYSFEERIE.Item.Value"}}</label>
                 <select name="system.value">
                     {{selectOptions levels selected=system.value}}
                 </select>
             </div>
+            {{/if}}
             <div>
                 <a class="elementSheet_extractButton" title="{{SYSFEERIE.Char.ExtractElement}}"><i class="fas fa-puzzle-piece"></i></a>
                 <label for="system.source">{{localize "SYSFEERIE.Item.Source"}}</label>

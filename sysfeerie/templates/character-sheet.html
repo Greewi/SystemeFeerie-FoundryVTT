@@ -85,7 +85,7 @@
 				{{#each elements as |element idx|}}
 					<li class="item flexrow" data-item-id="{{element.id}}">
 						<img src="{{element.img}}" title="{{element.name}}" width="24" height="24" />
-						<span class="element-name item-name" title="{{element.name}}">{{element.name}} ({{element.system.value}})</span>
+						<span class="element-name item-name" title="{{element.name}}">{{element.name}} {{#if element.system.value}}({{element.system.value}}){{/if}}</span>
 						<div class="item-controls">
 							<a class="item-control item-post" title="{{localize 'SYSFEERIE.Item.PostChat'}}"><i class="fas fa-comment"></i></a>
 							<a class="item-control item-edit" title="{{localize 'SYSFEERIE.Item.Edit'}}"><i class="fas fa-edit"></i></a>
