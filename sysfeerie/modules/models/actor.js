@@ -33,6 +33,7 @@ export class PlayerCharacterActor extends Actor {
 					fullDescription = fullDescription.replace(source, `<span class="sysfeerie_element" data-element-id="${element.id}">${source}</span>`);
 			}
 		}
+		fullDescription = fullDescription.replaceAll("\n", "<br>");
 		data.fullDescription = fullDescription;
 	}
 }
