@@ -12,10 +12,10 @@
   ],
   "url": "https://github.com/Greewi/SystemeFeerie-FoundryVTT",
   "flags": {},
-  "version": "1.3.2",
+  "version": "1.4.0",
   "compatibility": {
-    "minimum": "13",
-    "verified": "14.364",
+    "minimum": "14",
+    "verified": "14.370",
     "maximum":"14"
   },
   "scripts": [],
