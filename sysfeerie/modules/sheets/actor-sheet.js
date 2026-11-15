@@ -5,7 +5,7 @@ import { SFUtility } from "../utility.js";
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-export class SFActorSheet extends ActorSheet {
+export class SFActorSheet extends foundry.appv1.sheets.ActorSheet {
 
 	/** @override */
 	static get defaultOptions() {

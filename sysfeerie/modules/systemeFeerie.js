@@ -4,6 +4,7 @@ import { SFItem } from "./models/item.js";
 import { SFActorSheet } from "./sheets/actor-sheet.js";
 import { SFItemSheet } from "./sheets/item-sheet.js";
 import { SFDialogs } from "./ui/dialogs.js";
+import { SFSystemItemDirectory } from "./ui/itemDirectory.js";
 import { SFUtility } from "./utility.js";
 
 /* -------------------------------------------- */
@@ -19,16 +20,13 @@ Hooks.once("init", async function () {
 	// Define custom Entity classes
 	CONFIG.Actor.documentClass = PlayerCharacterActor;
 	CONFIG.Item.documentClass = SFItem;
-	if(game.version.startsWith("11.")||game.version.startsWith("12."))
-		CONFIG.ui.items.entryPartial = SFUtility.getSystemRessource("templates/sidebar/document-partial.html");
-	else
-		CONFIG.ui.items.entryPartial = SFUtility.getSystemRessource("templates/sidebar/document-partial-v13.html");
+	CONFIG.ui.items = SFSystemItemDirectory;
 
 	// Register sheet application classes
-	Actors.unregisterSheet("core", ActorSheet);
-	Actors.registerSheet("sysfeerie", SFActorSheet, { makeDefault: true });
-	Items.unregisterSheet("core", ItemSheet);
-	Items.registerSheet("sysfeerie", SFItemSheet, { makeDefault: true });
+	foundry.documents.collections.Actors.unregisterSheet("core", foundry.appv1.sheets.ActorSheet);
+	foundry.documents.collections.Actors.registerSheet("sysfeerie", SFActorSheet, { makeDefault: true });
+	foundry.documents.collections.Items.unregisterSheet("core", foundry.appv1.sheets.ItemSheet);
+	foundry.documents.collections.Items.registerSheet("sysfeerie", SFItemSheet, { makeDefault: true });
 });
 
 Hooks.once("diceSoNiceReady", (dice3d) => {
